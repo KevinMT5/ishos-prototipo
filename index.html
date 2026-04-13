@@ -1,0 +1,4025 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isho's Factory — Sorbetería Artesanal desde 1967</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --turquoise: #2BBFAA;
+            --turq-deep: #1A8F7D;
+            --turq-light: #E8F8F5;
+            --turq-glow: rgba(43, 191, 170, 0.15);
+            --mango: #FF8C42;
+            --mango-deep: #E67332;
+            --mango-light: #FFF4EC;
+            --mango-glow: rgba(255, 140, 66, 0.12);
+            --pitaya: #E91E8C;
+            --berry: #8B1E65;
+            --taro: #9B7BB8;
+            --guava: #F5A3B7;
+            --cream: #FFFBF5;
+            --cream-dark: #FFF3E4;
+            --sand: #F5EDE4;
+            --charcoal: #1C1917;
+            --ink: #292524;
+            --stone: #78716C;
+            --pebble: #A8A29E;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+            --space-2xl: 6rem;
+            --space-3xl: 10rem;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        @media (pointer: fine) {
+            .cursor-dot {
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: var(--turquoise);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 99999;
+                transition: transform 0.15s var(--ease-out-expo), opacity 0.2s;
+                mix-blend-mode: difference;
+            }
+
+            .cursor-ring {
+                position: fixed;
+                width: 40px;
+                height: 40px;
+                border: 1.5px solid var(--turquoise);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 99998;
+                transition: transform 0.3s var(--ease-out-expo), width 0.3s, height 0.3s, opacity 0.2s;
+                opacity: 0.5;
+            }
+
+            .cursor-ring.hovering {
+                width: 60px;
+                height: 60px;
+                opacity: 0.8;
+            }
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(255, 251, 245, 0.98), rgba(255, 251, 245, 0.85));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(43, 191, 170, 0.08);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .nav.scrolled {
+            padding: 0.875rem 3rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: baseline;
+            gap: 0.125rem;
+            text-decoration: none;
+        }
+
+        .nav-logo-text {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--mango);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            position: relative;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--stone);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--turquoise);
+            transition: width 0.3s var(--ease-out-expo);
+        }
+
+        .nav-link:hover {
+            color: var(--charcoal);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            background: var(--turquoise);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--turq-glow);
+        }
+
+        .nav-cta-icon {
+            font-size: 1rem;
+            transition: transform 0.3s var(--ease-out-back);
+        }
+
+        .nav-cta:hover .nav-cta-icon {
+            transform: rotate(-12deg) scale(1.1);
+        }
+
+        .nav-mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--charcoal);
+            transition: all 0.3s;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .hero-bg-circle:nth-child(1) {
+            width: 800px;
+            height: 800px;
+            top: -300px;
+            right: -200px;
+            background: radial-gradient(circle, var(--turq-glow) 0%, transparent 70%);
+            animation: float-slow 20s ease-in-out infinite;
+        }
+
+        .hero-bg-circle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: 10%;
+            background: radial-gradient(circle, var(--mango-glow) 0%, transparent 70%);
+            animation: float-slow 15s ease-in-out infinite reverse;
+        }
+
+        .hero-bg-circle:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: -100px;
+            background: radial-gradient(circle, rgba(233, 30, 140, 0.08) 0%, transparent 70%);
+            animation: float-slow 18s ease-in-out infinite;
+        }
+
+        @keyframes float-slow {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -20px) scale(1.05);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-right: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 0.5rem 1rem 0.5rem 0.625rem;
+            background: var(--cream);
+            border: 1px solid rgba(43, 191, 170, 0.2);
+            border-radius: 100px;
+            margin-bottom: 2rem;
+            animation: fade-up 0.8s var(--ease-out-expo) both;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .hero-badge-dot {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--turq-light), var(--turquoise));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .hero-badge-text {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--stone);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-badge-text strong {
+            color: var(--turq-deep);
+            font-weight: 600;
+        }
+
+        @keyframes fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            animation: fade-up 0.8s 0.1s var(--ease-out-expo) both;
+        }
+
+        .hero-title-line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--turquoise);
+            position: relative;
+        }
+
+        .hero-title em::after {
+            content: '';
+            position: absolute;
+            bottom: 0.1em;
+            left: 0;
+            right: 0;
+            height: 0.12em;
+            background: var(--mango);
+            opacity: 0.4;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: underline-grow 0.8s 0.8s var(--ease-out-expo) forwards;
+        }
+
+        @keyframes underline-grow {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--stone);
+            line-height: 1.8;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            animation: fade-up 0.8s 0.2s var(--ease-out-expo) both;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fade-up 0.8s 0.3s var(--ease-out-expo) both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.125rem 2rem;
+            background: var(--turquoise);
+            color: white;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: 0 4px 20px var(--turq-glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--turq-deep);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(43, 191, 170, 0.35);
+        }
+
+        .btn-primary-icon {
+            font-size: 1.25rem;
+            transition: transform 0.4s var(--ease-out-back);
+        }
+
+        .btn-primary:hover .btn-primary-icon {
+            transform: scale(1.15) rotate(-8deg);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 0;
+            color: var(--charcoal);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--sand);
+            border-radius: 50%;
+            font-size: 0.875rem;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .btn-secondary:hover {
+            color: var(--turquoise);
+        }
+
+        .btn-secondary:hover .btn-secondary-arrow {
+            background: var(--turquoise);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fade-up 1s 0.4s var(--ease-out-expo) both;
+        }
+
+        .hero-bowl-wrapper {
+            position: relative;
+            width: 420px;
+            height: 420px;
+        }
+
+        .hero-bowl {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #fff 0%, var(--cream-dark) 50%, var(--sand) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(43, 191, 170, 0.12), 0 20px 40px rgba(0, 0, 0, 0.06), inset 0 -20px 40px rgba(43, 191, 170, 0.05);
+            animation: hero-float 5s ease-in-out infinite;
+        }
+
+        .hero-bowl::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--turquoise), var(--mango), var(--pitaya));
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        @keyframes hero-float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+
+            75% {
+                transform: translateY(8px) rotate(-1deg);
+            }
+        }
+
+        .hero-bowl-content {
+            font-size: 140px;
+            line-height: 1;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+            animation: bowl-wobble 3s ease-in-out infinite;
+        }
+
+        @keyframes bowl-wobble {
+
+            0%,
+            100% {
+                transform: rotate(-3deg);
+            }
+
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+
+        .hero-tag {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            background: white;
+            border-radius: 100px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            animation: tag-float 4s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .hero-tag-1 {
+            top: 10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .hero-tag-1::before {
+            background: var(--pitaya);
+        }
+
+        .hero-tag-2 {
+            top: 50%;
+            right: -15%;
+            animation-delay: 1s;
+        }
+
+        .hero-tag-2::before {
+            background: var(--taro);
+        }
+
+        .hero-tag-3 {
+            bottom: 15%;
+            left: -5%;
+            animation-delay: 2s;
+        }
+
+        .hero-tag-3::before {
+            background: var(--mango);
+        }
+
+        .hero-tag-4 {
+            bottom: 35%;
+            right: -10%;
+            animation-delay: 0.5s;
+        }
+
+        .hero-tag-4::before {
+            background: var(--turquoise);
+        }
+
+        @keyframes tag-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-deco {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: deco-drift 8s ease-in-out infinite;
+        }
+
+        .hero-deco-1 {
+            top: 20%;
+            right: 20%;
+            animation-delay: 0s;
+        }
+
+        .hero-deco-2 {
+            bottom: 25%;
+            right: 30%;
+            animation-delay: 2s;
+        }
+
+        .hero-deco-3 {
+            top: 60%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+
+        @keyframes deco-drift {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(10px, -10px) rotate(10deg);
+            }
+
+            66% {
+                transform: translate(-5px, 5px) rotate(-5deg);
+            }
+        }
+
+        .stats-marquee {
+            background: var(--charcoal);
+            padding: 1.25rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stats-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .stats-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0 3rem;
+            white-space: nowrap;
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--turquoise);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stat-divider {
+            width: 4px;
+            height: 4px;
+            background: var(--mango);
+            border-radius: 50%;
+            margin: 0 1rem;
+        }
+
+        .products {
+            padding: var(--space-3xl) var(--space-xl);
+            background: linear-gradient(180deg, var(--cream-dark) 0%, var(--cream) 100%);
+            position: relative;
+        }
+
+        .products::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, var(--turquoise), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto var(--space-2xl);
+        }
+
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--turquoise);
+            margin-bottom: 1rem;
+        }
+
+        .section-eyebrow::before,
+        .section-eyebrow::after {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--turquoise);
+            opacity: 0.4;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--turquoise);
+        }
+
+        .section-subtitle {
+            font-size: 1.0625rem;
+            color: var(--stone);
+            line-height: 1.7;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s var(--ease-out-expo);
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--turq-glow), var(--mango-glow));
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(43, 191, 170, 0.15);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-image {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-body {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .tag-nuevo {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            color: var(--pitaya);
+        }
+
+        .tag-vegano {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #2e7d32;
+        }
+
+        .tag-clasico {
+            background: linear-gradient(135deg, var(--turq-light), #b2dfdb);
+            color: var(--turq-deep);
+        }
+
+        .tag-exotico {
+            background: linear-gradient(135deg, var(--mango-light), #ffe0b2);
+            color: var(--mango-deep);
+        }
+
+        .tag-sinazucar {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            color: var(--taro);
+        }
+
+        .product-name {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            font-size: 0.875rem;
+            color: var(--stone);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-price {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--turquoise);
+        }
+
+        .product-add {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--charcoal);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .product-add:hover {
+            background: var(--turquoise);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .story {
+            padding: var(--space-3xl) var(--space-xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .story-visual {
+            position: relative;
+        }
+
+        .story-image-wrapper {
+            position: relative;
+            aspect-ratio: 4/5;
+            border-radius: 32px;
+            overflow: hidden;
+            background: linear-gradient(160deg, var(--turq-light) 0%, var(--cream-dark) 50%, var(--mango-light) 100%);
+            box-shadow: 0 32px 64px rgba(43, 191, 170, 0.12);
+        }
+
+        .story-image-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10rem;
+        }
+
+        .story-image-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 80%, var(--turq-glow) 0%, transparent 50%), radial-gradient(circle at 80% 20%, var(--mango-glow) 0%, transparent 50%);
+            opacity: 0.8;
+        }
+
+        .story-float-card {
+            position: absolute;
+            bottom: -24px;
+            right: -24px;
+            background: var(--charcoal);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .story-float-num {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--turquoise);
+            line-height: 1;
+        }
+
+        .story-float-label {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.25rem;
+        }
+
+        .story-badge {
+            position: absolute;
+            top: -16px;
+            left: 24px;
+            background: var(--mango);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 8px 24px rgba(255, 140, 66, 0.35);
+        }
+
+        .story-content .section-eyebrow {
+            justify-content: flex-start;
+        }
+
+        .story-content .section-eyebrow::before {
+            display: none;
+        }
+
+        .story-content .section-title {
+            text-align: left;
+        }
+
+        .story-text {
+            margin: 1.5rem 0;
+        }
+
+        .story-text p {
+            font-size: 1.0625rem;
+            color: var(--stone);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .story-quote {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--charcoal);
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--turquoise);
+            margin: 2rem 0;
+        }
+
+        .story-quote cite {
+            display: block;
+            font-size: 0.875rem;
+            font-style: normal;
+            color: var(--turquoise);
+            margin-top: 0.75rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+
+        .values-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .value-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.125rem;
+            background: white;
+            border: 1px solid var(--sand);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            transition: all 0.3s;
+        }
+
+        .value-tag:hover {
+            border-color: var(--turquoise);
+            background: var(--turq-light);
+        }
+
+        .configurator {
+            padding: var(--space-3xl) var(--space-xl);
+            background: var(--charcoal);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .configurator::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(43, 191, 170, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .configurator::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 140, 66, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .configurator-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .configurator .section-eyebrow {
+            color: var(--mango);
+        }
+
+        .configurator .section-eyebrow::before,
+        .configurator .section-eyebrow::after {
+            background: var(--mango);
+        }
+
+        .configurator .section-title {
+            color: white;
+        }
+
+        .configurator .section-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 4rem 0 3rem;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem 2rem;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .step-card:hover {
+            background: rgba(43, 191, 170, 0.1);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        .step-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--turquoise);
+            color: white;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-desc {
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.6;
+        }
+
+        .configurator-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--turquoise), var(--turq-deep));
+            color: white;
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: 0 8px 32px rgba(43, 191, 170, 0.35);
+        }
+
+        .configurator-cta:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(43, 191, 170, 0.45);
+        }
+
+        .configurator-cta span {
+            font-size: 1.25rem;
+            transition: transform 0.3s var(--ease-out-back);
+        }
+
+        .configurator-cta:hover span {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .testimonials {
+            padding: var(--space-3xl) var(--space-xl);
+            background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-family: var(--font-display);
+            font-size: 5rem;
+            color: var(--turq-light);
+            line-height: 1;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .testimonial-star {
+            color: var(--mango);
+            font-size: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--stone);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--turq-light), var(--mango-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--charcoal);
+            font-size: 0.9375rem;
+        }
+
+        .testimonial-location {
+            font-size: 0.8125rem;
+            color: var(--pebble);
+        }
+
+        .locations {
+            padding: var(--space-3xl) var(--space-xl);
+        }
+
+        .locations-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--sand);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--turquoise), var(--mango));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .location-card:hover {
+            box-shadow: 0 16px 48px rgba(43, 191, 170, 0.1);
+            border-color: transparent;
+        }
+
+        .location-card:hover::before {
+            opacity: 1;
+        }
+
+        .location-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--turq-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-address {
+            font-size: 0.9375rem;
+            color: var(--stone);
+            margin-bottom: 1.5rem;
+        }
+
+        .location-hours {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-hour-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .location-hour-row span:first-child {
+            color: var(--pebble);
+        }
+
+        .location-hour-row span:last-child {
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .location-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--turquoise);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: gap 0.3s;
+        }
+
+        .location-cta:hover {
+            gap: 0.875rem;
+        }
+
+        /* ═══════════════════════════════════════
+   LEAD CAPTURE SECTION ← NUEVO
+═══════════════════════════════════════ */
+        .leads-section {
+            padding: var(--space-3xl) var(--space-xl);
+            background: linear-gradient(135deg, var(--turq-light) 0%, var(--mango-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leads-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(43, 191, 170, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .leads-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .leads-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .leads-promo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--mango);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 24px rgba(255, 140, 66, 0.35);
+            animation: pulse-promo 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-promo {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .leads-form-card {
+            background: white;
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: 0 32px 64px rgba(43, 191, 170, 0.12);
+            border: 1px solid rgba(43, 191, 170, 0.1);
+        }
+
+        .leads-form-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .leads-form-subtitle {
+            font-size: 1rem;
+            color: var(--stone);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .form-label .label-icon {
+            font-size: 1rem;
+        }
+
+        .form-input,
+        .form-select {
+            padding: 0.875rem 1.25rem;
+            background: var(--cream);
+            border: 1.5px solid var(--sand);
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--ink);
+            outline: none;
+            transition: all 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--turquoise);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(43, 191, 170, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--pebble);
+        }
+
+        .form-select-wrapper {
+            position: relative;
+        }
+
+        .form-select-wrapper::after {
+            content: '▾';
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--turquoise);
+            pointer-events: none;
+            font-size: 1rem;
+        }
+
+        .form-consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--turq-light);
+            border-radius: 12px;
+        }
+
+        .form-consent input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--turquoise);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .form-consent-text {
+            font-size: 0.8125rem;
+            color: var(--stone);
+            line-height: 1.5;
+        }
+
+        .form-consent-text strong {
+            color: var(--turq-deep);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, var(--turquoise), var(--turq-deep));
+            color: white;
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 8px 32px rgba(43, 191, 170, 0.35);
+            letter-spacing: 0.01em;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(43, 191, 170, 0.45);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-submit .btn-icon {
+            font-size: 1.25rem;
+            transition: transform 0.3s var(--ease-out-back);
+        }
+
+        .btn-submit:hover:not(:disabled) .btn-icon {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        /* Success State */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            animation: fade-up 0.6s var(--ease-out-expo);
+        }
+
+        .form-success.visible {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: success-bounce 0.6s var(--ease-out-back);
+        }
+
+        @keyframes success-bounce {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.75rem;
+        }
+
+        .success-text {
+            font-size: 1.0625rem;
+            color: var(--stone);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .success-code {
+            display: inline-block;
+            background: var(--turq-light);
+            border: 2px dashed var(--turquoise);
+            border-radius: 16px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .success-code-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--turq-deep);
+            margin-bottom: 0.25rem;
+        }
+
+        .success-code-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--turquoise);
+            letter-spacing: 0.05em;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: #25D366;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-out-expo);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.45);
+            background: #20b558;
+        }
+
+        /* Error message */
+        .form-error {
+            color: #dc2626;
+            font-size: 0.8125rem;
+            margin-top: 0.375rem;
+            display: none;
+        }
+
+        .form-error.visible {
+            display: block;
+        }
+
+        /* Benefits strip */
+        .leads-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .lead-benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--stone);
+            font-weight: 500;
+        }
+
+        .lead-benefit-icon {
+            font-size: 1.125rem;
+        }
+
+        .footer {
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 5rem 4rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand-logo span {
+            color: var(--mango);
+        }
+
+        .footer-brand-text {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            max-width: 300px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footer-social-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            font-size: 1.125rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social-btn:hover {
+            background: var(--turquoise);
+            transform: translateY(-2px);
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--turquoise);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+        }
+
+        .footer-bottom-made {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .footer-bottom-made span {
+            color: #ef4444;
+            animation: heart-beat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heart-beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.75rem;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1) rotate(-8deg);
+            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-pulse {
+            position: absolute;
+            inset: -4px;
+            border: 2px solid #25D366;
+            border-radius: 50%;
+            animation: wa-pulse 2s ease-out infinite;
+        }
+
+        @keyframes wa-pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .reveal-delay-5 {
+            transition-delay: 0.5s;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 7rem 2rem 4rem;
+            }
+
+            .hero-content {
+                padding-right: 0;
+            }
+
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                margin-top: 3rem;
+            }
+
+            .hero-bowl-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-tag {
+                display: none;
+            }
+
+            .products-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .story-content .section-title {
+                text-align: center;
+            }
+
+            .story-content .section-eyebrow {
+                justify-content: center;
+            }
+
+            .story-text {
+                text-align: center;
+            }
+
+            .story-quote {
+                border-left: none;
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .values-grid {
+                justify-content: center;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-brand-text {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --space-xl: 1.5rem;
+                --space-2xl: 3rem;
+                --space-3xl: 5rem;
+            }
+
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-mobile-toggle {
+                display: flex;
+            }
+
+            .hero-bowl-wrapper {
+                width: 250px;
+                height: 250px;
+            }
+
+            .hero-bowl-content {
+                font-size: 100px;
+            }
+
+            .story-float-card {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 1.5rem;
+                display: inline-block;
+            }
+
+            .leads-form-card {
+                padding: 1.5rem;
+            }
+
+            .leads-benefits {
+                gap: 1.25rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════
+   CONFIGURATOR MODAL
+═══════════════════════════════════════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(28, 25, 23, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--cream);
+            border-radius: 32px;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 90vh;
+            height: 90vh;
+            /* NUEVO: Fija la altura para que el scroll sepa el límite exacto */
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.5s var(--ease-out-expo);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Modal Preview Side */
+        .modal-preview {
+            background: linear-gradient(160deg, var(--charcoal) 0%, #2a2520 100%);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-preview::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(43, 191, 170, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .modal-preview::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 140, 66, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .preview-header {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 2rem;
+        }
+
+        .preview-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(43, 191, 170, 0.2);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--turquoise);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .preview-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .preview-title em {
+            font-style: italic;
+            color: var(--turquoise);
+        }
+
+        /* 3D Model Viewer Area */
+        .preview-model {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .model-viewer-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+
+        /* Placeholder when no .glb */
+        .model-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+        }
+
+        .model-placeholder-visual {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: bowl-wobble 3s ease-in-out infinite;
+            filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.3));
+        }
+
+        .model-placeholder-text {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        /* Live model-viewer (hidden by default, shown when .glb loaded) */
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            background: transparent;
+            --poster-color: transparent;
+        }
+
+        /* Scoops visualization */
+        .preview-scoops {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .preview-scoop {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .preview-scoop.active {
+            border-color: var(--turquoise);
+            background: rgba(43, 191, 170, 0.2);
+            transform: scale(1.1);
+        }
+
+        .preview-scoop.empty {
+            opacity: 0.3;
+        }
+
+        /* Preview Summary */
+        .preview-summary {
+            position: relative;
+            z-index: 2;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.9375rem;
+        }
+
+        .summary-row .label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .summary-row .value {
+            color: white;
+            font-weight: 500;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-total .label {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .summary-total .value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--turquoise);
+        }
+
+        /* Modal Form Side */
+        /* Modal Form Side */
+        .modal-form {
+            padding: 2.5rem;
+            overflow-y: auto;
+            display: block;
+            /* NUEVO: Quitamos flexbox para evitar que se coman el contenido inferior */
+            height: 100%;
+            /* NUEVO: Obliga a respetar el límite del contenedor padre */
+        }
+
+        .modal-form::after {
+            content: '';
+            display: block;
+            height: 3rem;
+        }
+
+
+        /* Steps Progress */
+        .steps-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-indicator {
+            flex: 1;
+            height: 4px;
+            background: var(--sand);
+            border-radius: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-indicator.active::after,
+        .step-indicator.completed::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--turquoise);
+            border-radius: 100px;
+        }
+
+        .step-indicator.active::after {
+            animation: step-fill 0.5s var(--ease-out-expo) forwards;
+        }
+
+        @keyframes step-fill {
+            from {
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* Step Content */
+        .step-content {
+            flex: 1;
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fade-up 0.4s var(--ease-out-expo);
+        }
+
+        .step-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--turquoise);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            font-size: 0.9375rem;
+            color: var(--stone);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid var(--sand);
+            border-radius: 16px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .option-card:hover {
+            border-color: var(--turquoise);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(43, 191, 170, 0.1);
+        }
+
+        .option-card.selected {
+            border-color: var(--turquoise);
+            background: var(--turq-light);
+        }
+
+        .option-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 24px;
+            height: 24px;
+            background: var(--turquoise);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .option-name {
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 0.25rem;
+        }
+
+        .option-price {
+            font-size: 0.875rem;
+            color: var(--turquoise);
+            font-weight: 500;
+        }
+
+        .option-desc {
+            font-size: 0.8125rem;
+            color: var(--stone);
+            margin-top: 0.5rem;
+        }
+
+        /* Flavors Grid (3 columns) */
+        .flavors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.875rem;
+        }
+
+        .flavor-card {
+            background: white;
+            border: 2px solid var(--sand);
+            border-radius: 14px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            text-align: center;
+            position: relative;
+        }
+
+        .flavor-card:hover {
+            border-color: var(--turquoise);
+            transform: translateY(-2px);
+        }
+
+        .flavor-card.selected {
+            border-color: var(--turquoise);
+            background: var(--turq-light);
+        }
+
+        .flavor-card.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .flavor-card .option-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .flavor-card .option-name {
+            font-size: 0.8125rem;
+        }
+
+        .flavor-selection-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--mango-light);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--mango-deep);
+        }
+
+        /* Toppings (similar to flavors) */
+        .toppings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.875rem;
+        }
+
+        .topping-card {
+            background: white;
+            border: 2px solid var(--sand);
+            border-radius: 14px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            text-align: center;
+        }
+
+        .topping-card:hover {
+            border-color: var(--mango);
+            transform: translateY(-2px);
+        }
+
+        .topping-card.selected {
+            border-color: var(--mango);
+            background: var(--mango-light);
+        }
+
+        .topping-card .option-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .topping-card .option-name {
+            font-size: 0.8125rem;
+        }
+
+        .topping-card .option-price {
+            font-size: 0.75rem;
+            color: var(--mango);
+        }
+
+        /* Navigation Buttons */
+        .form-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--sand);
+        }
+
+        .btn-back {
+            padding: 1rem 1.5rem;
+            background: var(--sand);
+            color: var(--charcoal);
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            background: var(--cream-dark);
+        }
+
+        .btn-next {
+            flex: 1;
+            padding: 1rem 2rem;
+            background: var(--turquoise);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-next:hover {
+            background: var(--turq-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--turq-glow);
+        }
+
+        .btn-next:disabled {
+            background: var(--pebble);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Ticket Preview (Step 4) */
+        .ticket-preview {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--sand);
+        }
+
+        .ticket-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px dashed var(--sand);
+            margin-bottom: 1.5rem;
+        }
+
+        .ticket-logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.25rem;
+        }
+
+        .ticket-logo span {
+            color: var(--mango);
+        }
+
+        .ticket-subtitle {
+            font-size: 0.8125rem;
+            color: var(--stone);
+        }
+
+        .ticket-order-number {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--turq-light);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--turq-deep);
+            letter-spacing: 0.05em;
+        }
+
+        .ticket-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .ticket-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .ticket-item:last-child {
+            border-bottom: none;
+        }
+
+        .ticket-item-name {
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        .ticket-item-details {
+            font-size: 0.8125rem;
+            color: var(--stone);
+            margin-top: 0.25rem;
+        }
+
+        .ticket-item-price {
+            font-weight: 500;
+            color: var(--charcoal);
+            white-space: nowrap;
+        }
+
+        .ticket-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 2px solid var(--charcoal);
+            margin-top: 1rem;
+        }
+
+        .ticket-total-label {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .ticket-total-value {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--turquoise);
+        }
+
+        .ticket-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed var(--sand);
+        }
+
+        .ticket-footer p {
+            font-size: 0.8125rem;
+            color: var(--stone);
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-footer .ticket-date {
+            font-size: 0.75rem;
+            color: var(--pebble);
+        }
+
+        /* WhatsApp CTA */
+        .whatsapp-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1.125rem 2rem;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            text-decoration: none;
+            margin-top: 1.5rem;
+        }
+
+        .whatsapp-cta:hover {
+            background: #1fb855;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+        }
+
+        .whatsapp-cta svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* ═══════════════════════════════════════
+   RESPONSIVE MODAL
+═══════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .modal-container {
+                grid-template-columns: 1fr;
+                max-height: 95vh;
+            }
+
+            .modal-preview {
+                display: none;
+            }
+
+            .modal-form {
+                padding: 1.5rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flavors-grid,
+            .toppings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .flavors-grid,
+            .toppings-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.625rem;
+            }
+
+            .flavor-card,
+            .topping-card {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">
+            <span class="nav-logo-text">Isho's</span>
+            <span class="nav-logo-dot"></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#productos" class="nav-link">Productos</a></li>
+            <li><a href="#historia" class="nav-link">Nuestra Historia</a></li>
+            <li><a href="#configurador" class="nav-link">Configurador</a></li>
+            <li><a href="#ubicaciones" class="nav-link">Sucursales</a></li>
+            <li><a href="#oferta" class="nav-link">🎁 Oferta</a></li>
+        </ul>
+        <a href="#oferta" class="nav-cta">
+            <span class="nav-cta-icon">🎁</span>
+            10% de descuento
+        </a>
+        <button class="nav-mobile-toggle" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg">
+            <div class="hero-bg-circle"></div>
+            <div class="hero-bg-circle"></div>
+            <div class="hero-bg-circle"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot">🇸🇻</span>
+                <span class="hero-badge-text"><strong>Ahuachapán</strong> · Desde 1967</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="hero-title-line">El sabor de la</span>
+                <span class="hero-title-line"><em>tradición</em></span>
+                <span class="hero-title-line">en cada vaso</span>
+            </h1>
+            <p class="hero-subtitle">Sorbetes artesanales elaborados con amor, inspirados en el legado de don Alberto
+                Isho — más de cinco décadas de historia en cada cucharada.</p>
+            <div class="hero-actions">
+                <a href="#oferta" class="btn-primary">
+                    <span class="btn-primary-icon">🎁</span>
+                    Obtener 10% de descuento
+                </a>
+                <a href="#historia" class="btn-secondary">
+                    Conoce nuestra historia
+                    <span class="btn-secondary-arrow">→</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-bowl-wrapper">
+                <div class="hero-bowl">
+                    <span class="hero-bowl-content">🍧</span>
+                </div>
+                <div class="hero-tag hero-tag-1">Pitahaya Rosa</div>
+                <div class="hero-tag hero-tag-2">Taro Mágico</div>
+                <div class="hero-tag hero-tag-3">Mango con Chile</div>
+                <div class="hero-tag hero-tag-4">Jabuticaba</div>
+            </div>
+            <span class="hero-deco hero-deco-1">🥭</span>
+            <span class="hero-deco hero-deco-2">🍓</span>
+            <span class="hero-deco hero-deco-3">🫐</span>
+        </div>
+    </section>
+
+    <!-- STATS MARQUEE -->
+    <div class="stats-marquee">
+        <div class="stats-track">
+            <div class="stat-item"><span class="stat-num">57</span><span class="stat-label">Años de tradición</span>
+            </div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">20+</span><span class="stat-label">Sabores artesanales</span>
+            </div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Sucursales</span></div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">12K</span><span class="stat-label">Seguidores en TikTok</span>
+            </div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">57</span><span class="stat-label">Años de tradición</span>
+            </div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">20+</span><span class="stat-label">Sabores artesanales</span>
+            </div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Sucursales</span></div>
+            <span class="stat-divider"></span>
+            <div class="stat-item"><span class="stat-num">12K</span><span class="stat-label">Seguidores en TikTok</span>
+            </div>
+            <span class="stat-divider"></span>
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <section class="products" id="productos">
+        <div class="section-header reveal">
+            <span class="section-eyebrow">Nuestro Menú</span>
+            <h2 class="section-title">Sabores que te <em>enamoran</em></h2>
+            <p class="section-subtitle">Elaborados con frutas frescas y cariño artesanal. Opciones veganas, sin azúcar y
+                sabores únicos que no encontrarás en otro lugar.</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card reveal reveal-delay-1">
+                <div class="product-image" style="background: linear-gradient(135deg, #fce4ec, #f8bbd0)">🫐</div>
+                <div class="product-body">
+                    <span class="product-tag tag-nuevo">Nuevo</span>
+                    <h3 class="product-name">Pitahaya Rosa</h3>
+                    <p class="product-desc">Sorbete cremoso de fruta del dragón, refrescante y vibrante. El favorito de
+                        temporada.</p>
+                    <div class="product-footer"><span class="product-price">$1.50</span><button
+                            class="product-add">+</button></div>
+                </div>
+            </div>
+            <div class="product-card reveal reveal-delay-2">
+                <div class="product-image" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7)">🍈</div>
+                <div class="product-body">
+                    <span class="product-tag tag-vegano">Vegano</span>
+                    <h3 class="product-name">Taro Mágico</h3>
+                    <p class="product-desc">Sabor único inspirado en la raíz de taro, suave y con un color morado
+                        natural impresionante.</p>
+                    <div class="product-footer"><span class="product-price">$1.75</span><button
+                            class="product-add">+</button></div>
+                </div>
+            </div>
+            <div class="product-card reveal reveal-delay-3">
+                <div class="product-image" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2)">🥭</div>
+                <div class="product-body">
+                    <span class="product-tag tag-clasico">Clásico</span>
+                    <h3 class="product-name">Mango con Chile</h3>
+                    <p class="product-desc">El sabor salvadoreño por excelencia. Mango maduro con toque de chile y
+                        limón.</p>
+                    <div class="product-footer"><span class="product-price">$1.25</span><button
+                            class="product-add">+</button></div>
+                </div>
+            </div>
+            <div class="product-card reveal reveal-delay-1">
+                <div class="product-image" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9)">🫒</div>
+                <div class="product-body">
+                    <span class="product-tag tag-exotico">Exótico</span>
+                    <h3 class="product-name">Jabuticaba</h3>
+                    <p class="product-desc">La fruta tropical brasileña ahora en sorbete. Un sabor difícil de olvidar,
+                        intenso y frutal.</p>
+                    <div class="product-footer"><span class="product-price">$2.00</span><button
+                            class="product-add">+</button></div>
+                </div>
+            </div>
+            <div class="product-card reveal reveal-delay-2">
+                <div class="product-image" style="background: linear-gradient(135deg, #e0f7f4, #b2dfdb)">🍑</div>
+                <div class="product-body">
+                    <span class="product-tag tag-clasico">Clásico</span>
+                    <h3 class="product-name">Durazno con Mermelada</h3>
+                    <p class="product-desc">Sorbete de durazno fresco con remolino de mermelada artesanal. Dulce y
+                        nostálgico.</p>
+                    <div class="product-footer"><span class="product-price">$1.50</span><button
+                            class="product-add">+</button></div>
+                </div>
+            </div>
+            <div class="product-card reveal reveal-delay-3">
+                <div class="product-image" style="background: linear-gradient(135deg, #ffebee, #ffcdd2)">🍓</div>
+                <div class="product-body">
+                    <span class="product-tag tag-sinazucar">Sin Azúcar</span>
+                    <h3 class="product-name">Fresa Natural</h3>
+                    <p class="product-desc">Para quienes cuidan su salud sin renunciar al sabor. Fresa pura, sin azúcar
+                        añadida.</p>
+                    <div class="product-footer"><span class="product-price">$1.50</span><button
+                            class="product-add">+</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story" id="historia">
+        <div class="story-visual reveal">
+            <div class="story-image-wrapper">
+                <div class="story-image-pattern"></div>
+                <div class="story-image-content">👴🏽</div>
+            </div>
+            <span class="story-badge">Desde 1967</span>
+            <div class="story-float-card">
+                <div class="story-float-num">57</div>
+                <div class="story-float-label">años de tradición</div>
+            </div>
+        </div>
+        <div class="story-content">
+            <span class="section-eyebrow reveal">Nuestra Historia</span>
+            <h2 class="section-title reveal">Un legado que endulza <em>generaciones</em></h2>
+            <div class="story-text reveal">
+                <p>Don Alberto Isho pasó más de cinco décadas recorriendo las calles de Ahuachapán con su carretón de
+                    madera, regalando frescura y alegría a cada familia del pueblo. Su campana era sinónimo de tarde
+                    feliz.</p>
+                <p>En 2020, su nieta Julissa decidió que ese legado no podía perderse. Con 21 años, amor por la
+                    tradición y un espíritu emprendedor, transformó la receta familiar en Isho's Factory: un espacio
+                    donde el sorbete artesanal se convierte en experiencia.</p>
+            </div>
+            <blockquote class="story-quote reveal">
+                "Venimos de orígenes indígenas, por eso nuestro nombre refleja nuestras raíces como salvadoreños."
+                <cite>— Julissa Isho, Fundadora</cite>
+            </blockquote>
+            <div class="values-grid reveal">
+                <span class="value-tag">🤝 Fe</span>
+                <span class="value-tag">❤️ Empatía</span>
+                <span class="value-tag">⭐ Pasión</span>
+                <span class="value-tag">✅ Responsabilidad</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFIGURATOR -->
+    <section class="configurator" id="configurador">
+        <div class="configurator-inner">
+            <span class="section-eyebrow reveal">Experiencia Interactiva</span>
+            <h2 class="section-title reveal">Arma tu sorbete <em>perfecto</em></h2>
+            <p class="section-subtitle reveal">Elige tu base, tus sabores favoritos y los toppings que más te gusten.
+                Genera tu ticket y preséntalo en tienda.</p>
+            <div class="steps-grid reveal">
+                <div class="step-card">
+                    <span class="step-icon">🍦</span>
+                    <span class="step-number">1</span>
+                    <h3 class="step-title">Elige tu base</h3>
+                    <p class="step-desc">Cono, vaso pequeño, vaso grande o barquillo tradicional.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-icon">🎨</span>
+                    <span class="step-number">2</span>
+                    <h3 class="step-title">Selecciona sabores</h3>
+                    <p class="step-desc">Hasta 3 sabores combinados con visualización en tiempo real.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-icon">✨</span>
+                    <span class="step-number">3</span>
+                    <h3 class="step-title">Agrega toppings</h3>
+                    <p class="step-desc">Frutas frescas, mermeladas, granola y más opciones artesanales.</p>
+                </div>
+            </div>
+            <button class="btn-primary" id="openConfigurator">
+                <span class="btn-primary-icon">🍧</span>
+                Arma tu sorbete
+            </button>
+        </div>
+    </section>
+
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="section-header reveal">
+            <span class="section-eyebrow">Lo Que Dicen</span>
+            <h2 class="section-title">Clientes que nos <em>quieren</em></h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal reveal-delay-1">
+                <div class="testimonial-stars"><span class="testimonial-star">★</span><span
+                        class="testimonial-star">★</span><span class="testimonial-star">★</span><span
+                        class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+                <p class="testimonial-text">"El sorbete de pitahaya es lo mejor que he probado en mi vida. Se nota que
+                    está hecho con ingredientes frescos y mucho amor. ¡Ya soy cliente fiel!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">👩🏽</div>
+                    <div>
+                        <div class="testimonial-name">Sofía Ramírez</div>
+                        <div class="testimonial-location">Ahuachapán</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal reveal-delay-2">
+                <div class="testimonial-stars"><span class="testimonial-star">★</span><span
+                        class="testimonial-star">★</span><span class="testimonial-star">★</span><span
+                        class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+                <p class="testimonial-text">"Fui de visita desde San Salvador y no me arrepiento. El sabor de taro me
+                    sorprendió. La chica que atiende es súper amable y se nota el orgullo por su marca."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">👨🏽</div>
+                    <div>
+                        <div class="testimonial-name">Carlos Mendoza</div>
+                        <div class="testimonial-location">San Salvador</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal reveal-delay-3">
+                <div class="testimonial-stars"><span class="testimonial-star">★</span><span
+                        class="testimonial-star">★</span><span class="testimonial-star">★</span><span
+                        class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+                <p class="testimonial-text">"La historia detrás de Isho's lo hace todavía más especial. Cada sorbete
+                    tiene alma. El de mango con chile es un recuerdo de infancia en cada cucharada."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">👩🏼</div>
+                    <div>
+                        <div class="testimonial-name">María Fernanda</div>
+                        <div class="testimonial-location">Santa Ana</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+     LEAD CAPTURE — SECCIÓN PRINCIPAL
+═══════════════════════════════════════ -->
+    <section class="leads-section" id="oferta">
+        <div class="leads-inner">
+            <div class="leads-header reveal">
+                <div class="leads-promo">🎉 Oferta exclusiva para nuevos clientes</div>
+                <span class="section-eyebrow">Únete a la familia Isho's</span>
+                <h2 class="section-title">Regístrate y obtén<br><em>10% de descuento</em></h2>
+                <p class="section-subtitle">Déjanos tus datos y te mandamos tu código por WhatsApp. También te
+                    avisaremos de nuevos sabores y promociones exclusivas.</p>
+            </div>
+
+            <div class="leads-form-card reveal">
+                <!-- FORMULARIO -->
+                <div id="lead-form-wrapper">
+                    <h3 class="leads-form-title">🍧 ¡Quiero mi descuento!</h3>
+                    <p class="leads-form-subtitle">Solo toma 30 segundos. Canjea en cualquier sucursal.</p>
+
+                    <form id="lead-form" novalidate>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="nombre">
+                                    <span class="label-icon">👤</span> Nombre completo
+                                </label>
+                                <input type="text" id="nombre" class="form-input" placeholder="Ej: Sofía Ramírez"
+                                    autocomplete="name" required>
+                                <span class="form-error" id="error-nombre">Por favor ingresa tu nombre.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="whatsapp">
+                                    <span class="label-icon">📱</span> WhatsApp
+                                </label>
+                                <input type="tel" id="whatsapp" class="form-input" placeholder="Ej: 7645-4347"
+                                    autocomplete="tel" required>
+                                <span class="form-error" id="error-whatsapp">Por favor ingresa tu número de
+                                    WhatsApp.</span>
+                            </div>
+
+                            <div class="form-group full">
+                                <label class="form-label" for="sabor">
+                                    <span class="label-icon">🍧</span> ¿Cuál es tu sabor favorito?
+                                </label>
+                                <div class="form-select-wrapper">
+                                    <select id="sabor" class="form-select form-input" required>
+                                        <option value="">Selecciona un sabor...</option>
+                                        <option value="Pitahaya Rosa">🫐 Pitahaya Rosa</option>
+                                        <option value="Taro Mágico">🍈 Taro Mágico</option>
+                                        <option value="Mango con Chile">🥭 Mango con Chile</option>
+                                        <option value="Jabuticaba">🫒 Jabuticaba</option>
+                                        <option value="Durazno con Mermelada">🍑 Durazno con Mermelada</option>
+                                        <option value="Fresa Natural">🍓 Fresa Natural</option>
+                                        <option value="Todos me gustan">🍧 ¡Todos me gustan!</option>
+                                    </select>
+                                </div>
+                                <span class="form-error" id="error-sabor">Por favor selecciona un sabor.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-consent">
+                            <input type="checkbox" id="consent" required>
+                            <label class="form-consent-text" for="consent">
+                                Acepto recibir mensajes de <strong>Isho's Factory</strong> por WhatsApp con mi código de
+                                descuento, novedades y promociones exclusivas. Puedo cancelar en cualquier momento.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="btn-submit">
+                            <span class="btn-icon">🎁</span>
+                            Quiero mi 10% de descuento
+                        </button>
+                    </form>
+                </div>
+
+                <!-- SUCCESS STATE -->
+                <div class="form-success" id="form-success">
+                    <div class="success-icon">🎉</div>
+                    <h3 class="success-title">¡Ya eres parte de la familia!</h3>
+                    <p class="success-text">Hola <strong id="success-name"></strong>, tu código de descuento está listo.
+                        Preséntalo en cualquiera de nuestras dos sucursales en Ahuachapán.</p>
+
+                    <div class="success-code">
+                        <div class="success-code-label">Tu código exclusivo</div>
+                        <div class="success-code-value" id="success-code"></div>
+                    </div>
+
+                    <p class="success-text" style="margin-bottom: 1.5rem;">También te lo enviamos por WhatsApp ahora
+                        mismo 👇</p>
+
+                    <a href="#" class="btn-whatsapp" id="whatsapp-link" target="_blank">
+                        💬 Enviar mensaje a Isho's por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="leads-benefits reveal">
+                <div class="lead-benefit"><span class="lead-benefit-icon">✅</span> Sin spam</div>
+                <div class="lead-benefit"><span class="lead-benefit-icon">🔒</span> Datos seguros</div>
+                <div class="lead-benefit"><span class="lead-benefit-icon">⚡</span> Código inmediato</div>
+                <div class="lead-benefit"><span class="lead-benefit-icon">🎁</span> 10% en tu primera compra</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="locations" id="ubicaciones">
+        <div class="locations-inner">
+            <div class="section-header reveal">
+                <span class="section-eyebrow">Dónde Encontrarnos</span>
+                <h2 class="section-title">Visítanos en <em>Ahuachapán</em></h2>
+            </div>
+            <div class="locations-grid">
+                <div class="location-card reveal reveal-delay-1">
+                    <div class="location-icon">📍</div>
+                    <h3 class="location-name">Parque Los Pinitos</h3>
+                    <p class="location-address">4a Calle Poniente, Parque Los Pinitos, Ahuachapán</p>
+                    <div class="location-hours">
+                        <div class="location-hour-row"><span>Lunes – Viernes</span><span>10:00 AM – 8:00 PM</span></div>
+                        <div class="location-hour-row"><span>Sábado – Domingo</span><span>09:00 AM – 9:00 PM</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/50376454347" class="location-cta" target="_blank">Escribir por WhatsApp →</a>
+                </div>
+                <div class="location-card reveal reveal-delay-2">
+                    <div class="location-icon">📍</div>
+                    <h3 class="location-name">2da Avenida Norte</h3>
+                    <p class="location-address">2da Avenida Norte, Ahuachapán, El Salvador</p>
+                    <div class="location-hours">
+                        <div class="location-hour-row"><span>Lunes – Viernes</span><span>10:00 AM – 8:00 PM</span></div>
+                        <div class="location-hour-row"><span>Sábado – Domingo</span><span>09:00 AM – 9:00 PM</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/50376454347" class="location-cta" target="_blank">Escribir por WhatsApp →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal-overlay" id="configuratorModal">
+        <div class="modal-container">
+            <div class="modal-preview">
+                <button class="modal-close" id="closeModal">✕</button>
+
+                <div class="preview-header">
+                    <div class="preview-badge">✨ Configurador</div>
+                    <h2 class="preview-title">Tu sorbete <em>perfecto</em></h2>
+                </div>
+
+                <div class="preview-model">
+                    <div class="model-viewer-container">
+                        <div class="model-placeholder" id="modelPlaceholder">
+                            <div class="model-placeholder-visual" id="previewEmoji">🍦</div>
+                            <p class="model-placeholder-text">Visualización 3D próximamente</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="preview-scoops" id="previewScoops">
+                    <div class="preview-scoop empty" data-slot="1">?</div>
+                    <div class="preview-scoop empty" data-slot="2">?</div>
+                    <div class="preview-scoop empty" data-slot="3">?</div>
+                </div>
+
+                <div class="preview-summary">
+                    <div class="summary-row">
+                        <span class="label">Base</span>
+                        <span class="value" id="summaryBase">—</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Sabores</span>
+                        <span class="value" id="summaryFlavors">—</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="label">Toppings</span>
+                        <span class="value" id="summaryToppings">—</span>
+                    </div>
+                    <div class="summary-total">
+                        <span class="label">Total</span>
+                        <span class="value" id="summaryTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-form">
+                <div class="steps-progress">
+                    <div class="step-indicator active" data-step="1"></div>
+                    <div class="step-indicator" data-step="2"></div>
+                    <div class="step-indicator" data-step="3"></div>
+                    <div class="step-indicator" data-step="4"></div>
+                </div>
+
+                <div class="step-content active" id="step1">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Elige tu base</h3>
+                        <p class="step-desc">¿En qué quieres tu sorbete?</p>
+                    </div>
+
+                    <div class="options-grid" id="baseOptions">
+                        <div class="option-card" data-base="cono" data-price="0.25" data-emoji="🍦">
+                            <div class="option-icon">🍦</div>
+                            <div class="option-name">Cono Clásico</div>
+                            <div class="option-price">+$0.25</div>
+                            <div class="option-desc">Crujiente y tradicional</div>
+                        </div>
+                        <div class="option-card" data-base="vaso-p" data-price="0" data-emoji="🥤">
+                            <div class="option-icon">🥤</div>
+                            <div class="option-name">Vaso Pequeño</div>
+                            <div class="option-price">Incluido</div>
+                            <div class="option-desc">Perfecto para probar</div>
+                        </div>
+                        <div class="option-card" data-base="vaso-g" data-price="0.50" data-emoji="🍨">
+                            <div class="option-icon">🍨</div>
+                            <div class="option-name">Vaso Grande</div>
+                            <div class="option-price">+$0.50</div>
+                            <div class="option-desc">Para los que quieren más</div>
+                        </div>
+                        <div class="option-card" data-base="barquillo" data-price="0.35" data-emoji="🧇">
+                            <div class="option-icon">🧇</div>
+                            <div class="option-name">Barquillo</div>
+                            <div class="option-price">+$0.35</div>
+                            <div class="option-desc">Artesanal y delicioso</div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button class="btn-next" id="toStep2" disabled>
+                            Siguiente
+                            <span>→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step2">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Selecciona sabores</h3>
+                        <p class="step-desc">Elige hasta 3 sabores para combinar</p>
+                    </div>
+
+                    <div class="flavor-selection-info">
+                        <span>💡</span>
+                        <span>Seleccionados: <strong id="flavorCount">0</strong>/3</span>
+                    </div>
+
+                    <div class="flavors-grid" id="flavorOptions">
+                        <div class="flavor-card" data-flavor="pitahaya" data-price="1.50" data-emoji="🫐"
+                            data-color="#E91E8C">
+                            <div class="option-icon">🫐</div>
+                            <div class="option-name">Pitahaya Rosa</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="taro" data-price="1.75" data-emoji="🍈"
+                            data-color="#9B7BB8">
+                            <div class="option-icon">🍈</div>
+                            <div class="option-name">Taro Mágico</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="mango" data-price="1.25" data-emoji="🥭"
+                            data-color="#FF8C42">
+                            <div class="option-icon">🥭</div>
+                            <div class="option-name">Mango con Chile</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="jabuticaba" data-price="2.00" data-emoji="🫒"
+                            data-color="#5D3A7A">
+                            <div class="option-icon">🫒</div>
+                            <div class="option-name">Jabuticaba</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="durazno" data-price="1.50" data-emoji="🍑"
+                            data-color="#FFAB76">
+                            <div class="option-icon">🍑</div>
+                            <div class="option-name">Durazno</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="fresa" data-price="1.50" data-emoji="🍓"
+                            data-color="#E53935">
+                            <div class="option-icon">🍓</div>
+                            <div class="option-name">Fresa Natural</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="coco" data-price="1.25" data-emoji="🥥"
+                            data-color="#F5F5DC">
+                            <div class="option-icon">🥥</div>
+                            <div class="option-name">Coco</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="chocolate" data-price="1.50" data-emoji="🍫"
+                            data-color="#5D4037">
+                            <div class="option-icon">🍫</div>
+                            <div class="option-name">Chocolate</div>
+                        </div>
+                        <div class="flavor-card" data-flavor="vainilla" data-price="1.25" data-emoji="🍦"
+                            data-color="#FFF8E1">
+                            <div class="option-icon">🍦</div>
+                            <div class="option-name">Vainilla</div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button class="btn-back" id="backToStep1">← Atrás</button>
+                        <button class="btn-next" id="toStep3" disabled>
+                            Siguiente
+                            <span>→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step3">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Agrega toppings</h3>
+                        <p class="step-desc">Hazlo todavía más especial (opcional)</p>
+                    </div>
+
+                    <div class="toppings-grid" id="toppingOptions">
+                        <div class="topping-card" data-topping="frutas" data-price="0.50" data-emoji="🍇">
+                            <div class="option-icon">🍇</div>
+                            <div class="option-name">Frutas Frescas</div>
+                            <div class="option-price">+$0.50</div>
+                        </div>
+                        <div class="topping-card" data-topping="mermelada" data-price="0.35" data-emoji="🍯">
+                            <div class="option-icon">🍯</div>
+                            <div class="option-name">Mermelada</div>
+                            <div class="option-price">+$0.35</div>
+                        </div>
+                        <div class="topping-card" data-topping="granola" data-price="0.40" data-emoji="🥣">
+                            <div class="option-icon">🥣</div>
+                            <div class="option-name">Granola</div>
+                            <div class="option-price">+$0.40</div>
+                        </div>
+                        <div class="topping-card" data-topping="chispas" data-price="0.30" data-emoji="🍪">
+                            <div class="option-icon">🍪</div>
+                            <div class="option-name">Chispas de Chocolate</div>
+                            <div class="option-price">+$0.30</div>
+                        </div>
+                        <div class="topping-card" data-topping="nueces" data-price="0.50" data-emoji="🥜">
+                            <div class="option-icon">🥜</div>
+                            <div class="option-name">Nueces</div>
+                            <div class="option-price">+$0.50</div>
+                        </div>
+                        <div class="topping-card" data-topping="chamoy" data-price="0.25" data-emoji="🌶️">
+                            <div class="option-icon">🌶️</div>
+                            <div class="option-name">Chamoy</div>
+                            <div class="option-price">+$0.25</div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button class="btn-back" id="backToStep2">← Atrás</button>
+                        <button class="btn-next" id="toStep4">
+                            Ver mi pedido
+                            <span>→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="step-content" id="step4">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Tu pedido está listo</h3>
+                        <p class="step-desc">Revisa tu sorbete y envía el pedido por WhatsApp</p>
+                    </div>
+
+                    <div class="ticket-preview">
+                        <div class="ticket-header">
+                            <img src="logo.svg" alt="">
+                            <div class="ticket-subtitle">Sorbetería Artesanal</div>
+                            <div class="ticket-order-number" id="ticketOrderNumber">PEDIDO #0001</div>
+                        </div>
+
+                        <div class="ticket-items" id="ticketItems">
+                        </div>
+
+                        <div class="ticket-total">
+                            <span class="ticket-total-label">Total</span>
+                            <span class="ticket-total-value" id="ticketTotal">$0.00</span>
+                        </div>
+
+                        <div class="ticket-footer">
+                            <p>Presenta este ticket en tienda</p>
+                            <p class="ticket-date" id="ticketDate"></p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="whatsapp-cta" id="whatsappBtn" target="_blank">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        Enviar pedido por WhatsApp
+                    </a>
+
+                    <div class="form-nav">
+                        <button class="btn-back" id="backToStep3">← Modificar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="logo.svg" alt="">
+                <p class="footer-brand-text">Sorbetería artesanal con más de 50 años de tradición familiar. Elaboramos
+                    cada sorbete con ingredientes frescos y el amor que aprendimos de don Alberto Isho.</p>
+                <div class="footer-social">
+                    <a href="https://instagram.com/ishos_factory" class="footer-social-btn" target="_blank">📷</a>
+                    <a href="https://tiktok.com/@ishosfactory" class="footer-social-btn" target="_blank">🎵</a>
+                    <a href="https://wa.me/50376454347" class="footer-social-btn" target="_blank">💬</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Navegar</h4>
+                <ul>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#historia">Nuestra historia</a></li>
+                    <li><a href="#configurador">Arma tu sorbete</a></li>
+                    <li><a href="#ubicaciones">Sucursales</a></li>
+                    <li><a href="#oferta">🎁 Tu descuento</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="https://wa.me/50376454347">WhatsApp</a></li>
+                    <li><a href="https://instagram.com/ishos_factory">@ishos_factory</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Isho's Factory — Todos los derechos reservados</span>
+            <span class="footer-bottom-made">Hecho con <span>❤️</span> en El Salvador</span>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <div class="whatsapp-float">
+        <span class="whatsapp-pulse"></span>
+        <a href="https://wa.me/50376454347" class="whatsapp-btn" target="_blank" title="Escríbenos por WhatsApp">💬</a>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+     FIREBASE SDK
+     ⚠️ REEMPLAZA LA CONFIGURACIÓN CON LA TUYA
+═══════════════════════════════════════ -->
+    <script type="module">
+        // 1. IMPORTACIONES PARA CLOUD FIRESTORE (URLs completas para evitar errores locales)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+
+        // 2. TU CONFIGURACIÓN DE FIREBASE (Sin databaseURL, Firestore no la necesita)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
+            authDomain: "ishos-factory-web.firebaseapp.com",
+            projectId: "ishos-factory-web",
+            storageBucket: "ishos-factory-web.firebasestorage.app",
+            messagingSenderId: "948193083003",
+            appId: "1:948193083003:web:e141a769a9434ff0522cde",
+            measurementId: "G-9CF5Q1LE3B"
+        };
+
+        // 3. INICIALIZAR FIREBASE Y FIRESTORE
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app); // Conectamos con Cloud Firestore
+
+        // Número de WhatsApp del negocio
+        const ISHOS_WHATSAPP = "50363067067";
+
+        // Generar código único de descuento
+        function generarCodigo(nombre) {
+            const iniciales = nombre.trim().split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            const random = Math.floor(1000 + Math.random() * 9000);
+            return `ISHOS-${iniciales}${random}`;
+        }
+
+        // Lógica del Formulario
+        const form = document.getElementById('lead-form');
+        const btnSubmit = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const sabor = document.getElementById('sabor').value;
+            const consent = document.getElementById('consent').checked;
+
+            // Limpiar errores previos
+            document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
+
+            // Validación
+            let valid = true;
+            if (!nombre) { document.getElementById('error-nombre').classList.add('visible'); valid = false; }
+            if (!whatsapp) { document.getElementById('error-whatsapp').classList.add('visible'); valid = false; }
+            if (!sabor) { document.getElementById('error-sabor').classList.add('visible'); valid = false; }
+            if (!consent) { alert('Por favor acepta los términos para continuar.'); valid = false; }
+            if (!valid) return;
+
+            // Loading state
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<span class="btn-icon">⏳</span> Guardando...';
+
+            try {
+                const codigo = generarCodigo(nombre);
+
+                // Guardar en Cloud Firestore
+                await addDoc(collection(db, "leads"), {
+                    nombre,
+                    whatsapp,
+                    sabor,
+                    codigo,
+                    fecha: serverTimestamp(),
+                    fuente: "landing_ishos",
+                    convertido: false
+                });
+
+                // Mostrar success state
+                document.getElementById('lead-form-wrapper').style.display = 'none';
+                const successEl = document.getElementById('form-success');
+                successEl.classList.add('visible');
+                document.getElementById('success-name').textContent = nombre.split(' ')[0];
+                document.getElementById('success-code').textContent = codigo;
+
+                // Generar link de WhatsApp con mensaje pre-escrito
+                const mensaje = encodeURIComponent(
+                    `¡Hola Isho's! 🍧 Soy ${nombre}.\n\n` +
+                    `Me registré en su página web y quiero canjear mi descuento.\n\n` +
+                    `🎁 Mi código: *${codigo}*\n` +
+                    `🍧 Mi sabor favorito: ${sabor}\n\n` +
+                    `¿Cuándo puedo visitarlos?`
+                );
+                document.getElementById('whatsapp-link').href = `https://wa.me/${ISHOS_WHATSAPP}?text=${mensaje}`;
+
+            } catch (error) {
+                console.error('Error al guardar lead:', error);
+                alert('Hubo un error al guardar tus datos. Revisa la consola para más detalles.');
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = '<span class="btn-icon">🎁</span> Quiero mi 10% de descuento';
+            }
+        });
+    </script>
+
+    <!-- SCRIPTS GENERALES -->
+    <script>
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
+            let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            });
+            function animateRing() {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
+            document.querySelectorAll('a, button, .product-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+            });
+        }
+
+        // Nav scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. ESTADO Y PRECIOS
+            const state = {
+                currentStep: 1,
+                base: null,
+                basePrice: 0,
+                baseEmoji: '🍦',
+                flavors: [],
+                flavorPrices: {},
+                flavorEmojis: {},
+                toppings: [],
+                toppingPrices: {}
+            };
+
+            const FLAVOR_PRICES = { 'pitahaya': 1.50, 'taro': 1.75, 'mango': 1.25, 'jabuticaba': 2.00, 'durazno': 1.50, 'fresa': 1.50, 'coco': 1.25, 'chocolate': 1.50, 'vainilla': 1.25 };
+            const FLAVOR_NAMES = { 'pitahaya': 'Pitahaya Rosa', 'taro': 'Taro Mágico', 'mango': 'Mango con Chile', 'jabuticaba': 'Jabuticaba', 'durazno': 'Durazno', 'fresa': 'Fresa Natural', 'coco': 'Coco', 'chocolate': 'Chocolate', 'vainilla': 'Vainilla' };
+            const TOPPING_PRICES = { 'frutas': 0.50, 'mermelada': 0.35, 'granola': 0.40, 'chispas': 0.30, 'nueces': 0.50, 'chamoy': 0.25 };
+            const TOPPING_NAMES = { 'frutas': 'Frutas Frescas', 'mermelada': 'Mermelada', 'granola': 'Granola', 'chispas': 'Chispas de Chocolate', 'nueces': 'Nueces', 'chamoy': 'Chamoy' };
+            const BASE_NAMES = { 'cono': 'Cono Clásico', 'vaso-p': 'Vaso Pequeño', 'vaso-g': 'Vaso Grande', 'barquillo': 'Barquillo' };
+
+            // 2. ELEMENTOS DEL DOM
+            const modal = document.getElementById('configuratorModal');
+            if (!modal) return; // Seguridad si el modal no existe
+
+            const openBtns = [document.getElementById('openConfigurator'), document.getElementById('openConfiguratorHero')].filter(Boolean);
+            const closeBtn = document.getElementById('closeModal');
+            const stepContents = document.querySelectorAll('.step-content');
+            const stepIndicators = document.querySelectorAll('.step-indicator');
+
+            const toStep2Btn = document.getElementById('toStep2');
+            const toStep3Btn = document.getElementById('toStep3');
+            const toStep4Btn = document.getElementById('toStep4');
+            const backToStep1Btn = document.getElementById('backToStep1');
+            const backToStep2Btn = document.getElementById('backToStep2');
+            const backToStep3Btn = document.getElementById('backToStep3');
+
+            const summaryBase = document.getElementById('summaryBase');
+            const summaryFlavors = document.getElementById('summaryFlavors');
+            const summaryToppings = document.getElementById('summaryToppings');
+            const summaryTotal = document.getElementById('summaryTotal');
+            const previewEmoji = document.getElementById('previewEmoji');
+            const previewScoops = document.getElementById('previewScoops');
+            const flavorCount = document.getElementById('flavorCount');
+
+            // 3. ABRIR Y CERRAR MODAL
+            openBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.classList.add('active');
+                    document.body.classList.add('modal-open');
+                });
+            });
+
+            const closeModalFunc = () => {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            };
+
+            closeBtn.addEventListener('click', closeModalFunc);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModalFunc(); });
+
+            // 4. NAVEGACIÓN DE PASOS
+            function goToStep(stepNum) {
+                state.currentStep = stepNum;
+                stepContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(`step${stepNum}`).classList.add('active');
+
+                stepIndicators.forEach((indicator, index) => {
+                    indicator.classList.remove('active', 'completed');
+                    if (index + 1 < stepNum) indicator.classList.add('completed');
+                    else if (index + 1 === stepNum) indicator.classList.add('active');
+                });
+
+                if (stepNum === 4) generateTicket();
+            }
+
+            toStep2Btn.addEventListener('click', () => goToStep(2));
+            toStep3Btn.addEventListener('click', () => goToStep(3));
+            toStep4Btn.addEventListener('click', () => goToStep(4));
+            backToStep1Btn.addEventListener('click', () => goToStep(1));
+            backToStep2Btn.addEventListener('click', () => goToStep(2));
+            backToStep3Btn.addEventListener('click', () => goToStep(3));
+
+            // 5. SELECCIÓN DE BASE
+            document.querySelectorAll('#baseOptions .option-card').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('#baseOptions .option-card').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    state.base = option.dataset.base;
+                    state.basePrice = parseFloat(option.dataset.price);
+                    state.baseEmoji = option.dataset.emoji;
+                    previewEmoji.textContent = state.baseEmoji;
+                    summaryBase.textContent = BASE_NAMES[state.base];
+                    toStep2Btn.disabled = false;
+                    updateTotal();
+                });
+            });
+
+            // 6. SELECCIÓN DE SABORES
+            const flavorOptions = document.querySelectorAll('#flavorOptions .flavor-card');
+            flavorOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const flavor = option.dataset.flavor;
+                    if (option.classList.contains('selected')) {
+                        option.classList.remove('selected');
+                        state.flavors = state.flavors.filter(f => f !== flavor);
+                        delete state.flavorPrices[flavor];
+                        delete state.flavorEmojis[flavor];
+                    } else {
+                        if (state.flavors.length >= 3) return;
+                        option.classList.add('selected');
+                        state.flavors.push(flavor);
+                        state.flavorPrices[flavor] = parseFloat(option.dataset.price);
+                        state.flavorEmojis[flavor] = option.dataset.emoji;
+                    }
+
+                    flavorCount.textContent = state.flavors.length;
+                    flavorOptions.forEach(o => {
+                        if (state.flavors.length >= 3 && !o.classList.contains('selected')) o.classList.add('disabled');
+                        else o.classList.remove('disabled');
+                    });
+
+                    updatePreviewScoops();
+                    summaryFlavors.textContent = state.flavors.length > 0 ? state.flavors.map(f => FLAVOR_NAMES[f]).join(', ') : '—';
+                    toStep3Btn.disabled = state.flavors.length === 0;
+                    updateTotal();
+                });
+            });
+
+            function updatePreviewScoops() {
+                previewScoops.querySelectorAll('.preview-scoop').forEach((scoop, index) => {
+                    if (state.flavors[index]) {
+                        scoop.textContent = state.flavorEmojis[state.flavors[index]];
+                        scoop.classList.add('active');
+                        scoop.classList.remove('empty');
+                    } else {
+                        scoop.textContent = '?';
+                        scoop.classList.remove('active');
+                        scoop.classList.add('empty');
+                    }
+                });
+            }
+
+            // 7. SELECCIÓN DE TOPPINGS
+            document.querySelectorAll('#toppingOptions .topping-card').forEach(option => {
+                option.addEventListener('click', () => {
+                    const topping = option.dataset.topping;
+                    if (option.classList.contains('selected')) {
+                        option.classList.remove('selected');
+                        state.toppings = state.toppings.filter(t => t !== topping);
+                        delete state.toppingPrices[topping];
+                    } else {
+                        option.classList.add('selected');
+                        state.toppings.push(topping);
+                        state.toppingPrices[topping] = parseFloat(option.dataset.price);
+                    }
+                    summaryToppings.textContent = state.toppings.length > 0 ? state.toppings.map(t => TOPPING_NAMES[t]).join(', ') : '—';
+                    updateTotal();
+                });
+            });
+
+            // 8. CÁLCULOS Y TICKET
+            function calculateTotal() {
+                let total = state.basePrice;
+                Object.values(state.flavorPrices).forEach(p => total += p);
+                Object.values(state.toppingPrices).forEach(p => total += p);
+                return total;
+            }
+
+            function updateTotal() {
+                summaryTotal.textContent = `$${calculateTotal().toFixed(2)}`;
+            }
+
+            function generateTicket() {
+                const ticketItems = document.getElementById('ticketItems');
+                const orderNum = Math.floor(Math.random() * 9000) + 1000;
+                document.getElementById('ticketOrderNumber').textContent = `PEDIDO #${orderNum}`;
+                ticketItems.innerHTML = '';
+
+                // Base
+                ticketItems.innerHTML += `<div class="ticket-item"><div><div class="ticket-item-name">${BASE_NAMES[state.base]}</div><div class="ticket-item-details">Base</div></div><div class="ticket-item-price">${state.basePrice > 0 ? '+$' + state.basePrice.toFixed(2) : 'Incluido'}</div></div>`;
+
+                // Flavors
+                state.flavors.forEach(f => {
+                    ticketItems.innerHTML += `<div class="ticket-item"><div><div class="ticket-item-name">${FLAVOR_NAMES[f]}</div><div class="ticket-item-details">Sabor</div></div><div class="ticket-item-price">$${state.flavorPrices[f].toFixed(2)}</div></div>`;
+                });
+
+                // Toppings
+                state.toppings.forEach(t => {
+                    ticketItems.innerHTML += `<div class="ticket-item"><div><div class="ticket-item-name">${TOPPING_NAMES[t]}</div><div class="ticket-item-details">Topping</div></div><div class="ticket-item-price">+$${state.toppingPrices[t].toFixed(2)}</div></div>`;
+                });
+
+                const total = calculateTotal();
+                document.getElementById('ticketTotal').textContent = `$${total.toFixed(2)}`;
+                document.getElementById('ticketDate').textContent = new Date().toLocaleDateString('es-SV', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+                // Link WhatsApp
+                let msg = `🍧 *PEDIDO #${orderNum}*\n━━━━━━━━━━━━━━━\n\n📍 *Base:* ${BASE_NAMES[state.base]}\n\n🍨 *Sabores:*\n`;
+                state.flavors.forEach(f => msg += `   • ${FLAVOR_NAMES[f]}\n`);
+                if (state.toppings.length > 0) {
+                    msg += `\n✨ *Toppings:*\n`;
+                    state.toppings.forEach(t => msg += `   • ${TOPPING_NAMES[t]}\n`);
+                }
+                msg += `\n━━━━━━━━━━━━━━━\n💰 *Total: $${total.toFixed(2)}*\n\n¡Gracias por elegir Isho's Factory! 🙌`;
+                document.getElementById('whatsappBtn').href = `https://wa.me/50376454347?text=${encodeURIComponent(msg)}`;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
