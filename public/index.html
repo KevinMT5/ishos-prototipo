@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isho's Factory — Sorbetería Artesanal desde 1967</title>
+    <link rel="icon" type="image/png" href="/logo.pngn">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -128,6 +129,19 @@
         .nav.scrolled {
             padding: 0.875rem 3rem;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-logo-img {
+            height: 100px;
+            /* Puedes subir o bajar este número según el tamaño que prefieras */
+            width: auto;
+            display: block;
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .nav-logo:hover .nav-logo-img {
+            transform: scale(1.05);
+            /* Le da un pequeño efecto de zoom al pasar el mouse */
         }
 
         .nav-logo {
@@ -2917,8 +2931,7 @@
     <!-- NAVIGATION -->
     <nav class="nav" id="nav">
         <a href="#" class="nav-logo">
-            <span class="nav-logo-text">Isho's</span>
-            <span class="nav-logo-dot"></span>
+            <img src="logo.png" alt="Logo Isho's Factory" class="nav-logo-img">
         </a>
         <ul class="nav-links">
             <li><a href="#productos" class="nav-link">Productos</a></li>
@@ -3573,7 +3586,7 @@
 
                     <div class="ticket-preview">
                         <div class="ticket-header">
-                            <img src="logo.svg" alt="">
+                            <img src="logo.svg" alt="100px" height="100px">
                             <div class="ticket-subtitle">Sorbetería Artesanal</div>
                             <div class="ticket-order-number" id="ticketOrderNumber">PEDIDO #0001</div>
                         </div>
@@ -3611,13 +3624,16 @@
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-brand">
-                <img src="logo.svg" alt="">
+                <img src="logo.png" alt="100px" height="100px">
                 <p class="footer-brand-text">Sorbetería artesanal con más de 50 años de tradición familiar. Elaboramos
                     cada sorbete con ingredientes frescos y el amor que aprendimos de don Alberto Isho.</p>
                 <div class="footer-social">
-                    <a href="https://instagram.com/ishos_factory" class="footer-social-btn" target="_blank">📷</a>
-                    <a href="https://tiktok.com/@ishosfactory" class="footer-social-btn" target="_blank">🎵</a>
-                    <a href="https://wa.me/50376454347" class="footer-social-btn" target="_blank">💬</a>
+                    <a href="https://instagram.com/ishos_factory" class="footer-social-btn" target="_blank"><img
+                            src="Instagram_icon.png" alt="35px" height="35px"></a>
+                    <a href="https://tiktok.com/@ishosfactory" class="footer-social-btn" target="_blank"><img
+                            src="Tiktok_icon.svg.png" alt="35px" height="35px"></a>
+                    <a href="https://wa.me/50376454347" class="footer-social-btn" target="_blank"><img
+                            src="Diseño sin título (1).png" alt="35px" height="35px"></a>
                 </div>
             </div>
             <div class="footer-column">
