@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | Isho's Factory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+        }
+
+        .bg-isho {
+            background-color: #2BBFAA;
+        }
+
+        .text-isho {
+            color: #1A8F7D;
+        }
+
+        /* --- MAGIA DE IMPRESIÓN AQUÍ --- */
+        #seccion-ticket {
+            display: none;
+            /* Se oculta en la pantalla de la computadora */
+        }
+
+        @media print {
+
+            /* Al imprimir, oculta toda la tabla y botones */
+            body>*:not(#seccion-ticket) {
+                display: none !important;
+            }
+
+            /* Muestra solo el ticket, adaptado para ticketera térmica (80mm) */
+            #seccion-ticket {
+                display: block !important;
+                width: 80mm;
+                padding: 10px;
+                font-family: 'Courier New', Courier, monospace;
+                /* Letra clásica de ticket */
+                color: black;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body class="p-8 font-sans text-gray-800">
+
+    <div class="max-w-6xl mx-auto">
+        <header
+            class="flex justify-between items-center mb-8 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Leads en vivo 🍧</h1>
+                <p class="text-gray-500 mt-1">Sucursales Ahuachapán - Isho's Factory</p>
+            </div>
+            <div class="text-center bg-teal-50 px-6 py-3 rounded-xl border border-teal-100">
+                <span class="block text-sm font-semibold text-teal-600 uppercase tracking-wide">Total Clientes</span>
+                <span id="total-leads" class="text-4xl font-bold text-isho">0</span>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-100 text-sm uppercase text-gray-500">
+                            <th class="py-4 px-6 font-semibold">Fecha y Hora</th>
+                            <th class="py-4 px-6 font-semibold">Cliente</th>
+                            <th class="py-4 px-6 font-semibold">WhatsApp</th>
+                            <th class="py-4 px-6 font-semibold">Sabor Favorito</th>
+                            <th class="py-4 px-6 font-semibold">Código</th>
+                            <th class="py-4 px-6 font-semibold text-center">Estado</th>
+                            <th class="py-4 px-6 font-semibold text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-leads" class="divide-y divide-gray-100">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="seccion-ticket">
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
+            authDomain: "ishos-factory-web.firebaseapp.com",
+            projectId: "ishos-factory-web",
+            storageBucket: "ishos-factory-web.firebasestorage.app",
+            messagingSenderId: "948193083003",
+            appId: "1:948193083003:web:e141a769a9434ff0522cde"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const tbody = document.getElementById('tabla-leads');
+        const contador = document.getElementById('total-leads');
+
+        const leadsRef = collection(db, "leads");
+        const consulta = query(leadsRef, orderBy("fecha", "desc"));
+
+        // Almacenamos temporalmente los datos para usarlos en el botón de imprimir
+        window.datosLeads = {};
+
+        onSnapshot(consulta, (snapshot) => {
+            tbody.innerHTML = '';
+            let total = 0;
+            snapshot.forEach((documento) => {
+                total++;
+                const lead = documento.data();
+                const id = documento.id;
+                let fechaTexto = lead.fecha ? lead.fecha.toDate().toLocaleString() : "...";
+                const estaCanjeado = lead.convertido === true;
+                const badgeClass = estaCanjeado ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
+
+                // Guardamos el lead en la memoria global junto con su fecha formateada
+                window.datosLeads[id] = { ...lead, fechaTexto };
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-4 px-6 text-sm">${fechaTexto}</td>
+                        <td class="py-4 px-6 font-medium">${lead.nombre}</td>
+                        <td class="py-4 px-6 text-teal-600">${lead.whatsapp}</td>
+                        <td class="py-4 px-6">${lead.sabor}</td>
+                        <td class="py-4 px-6 font-mono font-bold">${lead.codigo}</td>
+                        <td class="py-4 px-6 text-center">
+                            <span class="px-2 py-1 rounded-full text-xs ${badgeClass}">${estaCanjeado ? "Canjeado" : "Pendiente"}</span>
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <button onclick="imprimirTicket('${id}')" title="Imprimir Ticket" class="text-2xl hover:scale-110 transition-transform">
+                                🖨️
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+            contador.innerText = total;
+        });
+
+        // Función que arma el ticket y lanza la impresora
+        window.imprimirTicket = function (id) {
+            const lead = window.datosLeads[id];
+            const ticketDiv = document.getElementById('seccion-ticket');
+
+            // Diseñamos el ticket con HTML básico
+            ticketDiv.innerHTML = `
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <h2 style="margin: 0; font-size: 20px;"><b>ISHO'S FACTORY</b></h2>
+                    <p style="margin: 0;">Sucursal Ahuachapán</p>
+                    <p style="margin: 5px 0;">------------------------</p>
+                    <h3 style="margin: 0; font-size: 16px;">TICKET DE CANJE</h3>
+                </div>
+                
+                <p style="margin: 5px 0;"><strong>Fecha:</strong> ${lead.fechaTexto}</p>
+                <p style="margin: 5px 0;"><strong>Cliente:</strong> ${lead.nombre}</p>
+                <p style="margin: 5px 0;"><strong>Teléfono:</strong> ${lead.whatsapp}</p>
+                
+                <p style="margin: 15px 0 5px 0;">------------------------</p>
+                <h3 style="margin: 0;">Sabor Elegido:</h3>
+                <p style="margin: 5px 0; font-size: 16px;"><b>${lead.sabor}</b></p>
+                
+                <div style="text-align: center; margin-top: 15px; border: 1px dashed black; padding: 10px;">
+                    <p style="margin: 0; font-size: 12px;">CÓDIGO DE DESCUENTO</p>
+                    <h1 style="margin: 5px 0; font-size: 24px;">${lead.codigo}</h1>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="margin: 0; font-size: 12px;">¡Gracias por preferir<br>la tradición en cada vaso!</p>
+                    <p style="margin: 10px 0;">------------------------</p>
+                </div>
+            `;
+
+            // Llama a la ventana de impresión del navegador
+            window.print();
+        };
+    </script>
+</body>
+
+</html>

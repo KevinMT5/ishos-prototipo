@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isho's Factory — Cocina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --turquoise: #2BBFAA;
+            --turq-deep: #1A8F7D;
+            --turq-light: #E8F8F5;
+            --turq-glow: rgba(43, 191, 170, 0.15);
+            --mango: #FF8C42;
+            --mango-light: #FFF4EC;
+            --mango-glow: rgba(255, 140, 66, 0.12);
+            --cream: #FFFBF5;
+            --cream-dark: #FFF3E4;
+            --sand: #F5EDE4;
+            --charcoal: #1C1917;
+            --ink: #292524;
+            --stone: #78716C;
+            --pebble: #A8A29E;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--ink);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        /* LOGIN */
+        #loginScreen {
+            position: fixed;
+            inset: 0;
+            background: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        #loginScreen::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--turq-glow) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        #loginScreen::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--mango-glow) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .login-wrap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .login-brand-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .login-brand-title em {
+            font-style: italic;
+            color: var(--turquoise);
+        }
+
+        .login-brand-sub {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--stone);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 2.5rem;
+            width: 100%;
+            backdrop-filter: blur(20px);
+        }
+
+        .login-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1.75rem;
+            text-align: center;
+        }
+
+        .login-field {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .login-field i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--stone);
+            font-size: 0.875rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 2.75rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .login-input:focus {
+            border-color: var(--turquoise);
+            box-shadow: 0 0 0 3px var(--turq-glow);
+        }
+
+        .login-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: var(--turquoise);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: 0 8px 24px var(--turq-glow);
+        }
+
+        .login-btn:hover {
+            background: var(--turq-deep);
+            transform: translateY(-2px);
+        }
+
+        #loginError {
+            color: #fca5a5;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        /* APP */
+        #appContainer {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--charcoal);
+            height: 68px;
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .topbar::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--turquoise), var(--mango), transparent);
+            opacity: 0.3;
+        }
+
+        .topbar-brand {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topbar-brand em {
+            font-style: italic;
+            color: var(--turquoise);
+        }
+
+        .topbar-badge {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: var(--turq-glow);
+            color: var(--turquoise);
+            border: 1px solid rgba(43, 191, 170, 0.3);
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        .topbar-center {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .topbar-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+        }
+
+        .topbar-stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--stone);
+        }
+
+        .topbar-stat-value {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--turquoise);
+        }
+
+        .topbar-stat-value.white {
+            color: white;
+        }
+
+        .topbar-divider {
+            width: 1px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .topbar-btn {
+            height: 38px;
+            padding: 0 1.125rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .topbar-btn:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .topbar-btn.active {
+            background: var(--turq-glow);
+            border-color: var(--turquoise);
+            color: var(--turquoise);
+        }
+
+        /* TABS */
+        .tabs-bar {
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            height: 52px;
+            flex-shrink: 0;
+        }
+
+        .tab-btn {
+            height: 100%;
+            padding: 0 1.25rem;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--stone);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn.active {
+            color: var(--ink);
+            border-bottom-color: var(--turquoise);
+            font-weight: 600;
+        }
+
+        .tab-count {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 100px;
+            background: var(--sand);
+            color: var(--stone);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active .tab-count {
+            background: var(--turquoise);
+            color: white;
+        }
+
+        /* GRID */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.75rem 2.5rem;
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: var(--sand);
+            border-radius: 3px;
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        /* TICKET */
+        .ticket {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            animation: ticketIn 0.4s var(--ease-out-expo);
+            transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+        }
+
+        @keyframes ticketIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ticket:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .ticket-accent {
+            height: 3px;
+            background: var(--turquoise);
+            transition: background 0.5s;
+        }
+
+        .ticket-accent.warning {
+            background: var(--warning);
+        }
+
+        .ticket-accent.danger {
+            background: var(--danger);
+            animation: pulse-accent 1.5s ease-in-out infinite;
+        }
+
+        .ticket-accent.done {
+            background: var(--pebble);
+        }
+
+        @keyframes pulse-accent {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .ticket-top {
+            padding: 1.25rem 1.5rem 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .ticket-num {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            line-height: 1;
+        }
+
+        .ticket-num span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--pebble);
+        }
+
+        .ticket-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.375rem;
+        }
+
+        .ticket-timer {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: #ecfdf5;
+            color: var(--success);
+        }
+
+        .ticket-timer.warning {
+            background: #fffbeb;
+            color: var(--warning);
+        }
+
+        .ticket-timer.danger {
+            background: #fef2f2;
+            color: var(--danger);
+        }
+
+        .ticket-timer.done {
+            background: var(--sand);
+            color: var(--pebble);
+        }
+
+        .ticket-price {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--turquoise);
+        }
+
+        .ticket-client {
+            margin: 0 1.5rem 0.875rem;
+            padding: 0.625rem 0.875rem;
+            background: var(--sand);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+        }
+
+        .ticket-client i {
+            color: var(--turquoise);
+            font-size: 0.75rem;
+        }
+
+        .ticket-client strong {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .ticket-client span {
+            color: var(--stone);
+        }
+
+        .ticket-dash {
+            height: 1px;
+            margin: 0 1.5rem;
+            border-top: 2px dashed rgba(0, 0, 0, 0.06);
+        }
+
+        .ticket-body {
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+
+        .ticket-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .ticket-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pebble);
+        }
+
+        .ticket-value {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .ticket-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .ticket-list li {
+            font-size: 0.875rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ticket-list li i {
+            color: var(--turquoise);
+            font-size: 0.625rem;
+            width: 12px;
+        }
+
+        .ticket-list li.muted {
+            color: var(--pebble);
+            font-style: italic;
+        }
+
+        .ticket-list li.muted i {
+            color: var(--pebble);
+        }
+
+        .ticket-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .ticket-source.directo {
+            background: var(--mango-light);
+            color: var(--mango);
+        }
+
+        .ticket-source.configurador {
+            background: var(--turq-light);
+            color: var(--turq-deep);
+        }
+
+        .ticket-foot {
+            padding: 1rem 1.5rem 1.5rem;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 0.875rem;
+            border-radius: 100px;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.625rem;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .btn-complete {
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .btn-complete:hover {
+            background: var(--turquoise);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--turq-glow);
+        }
+
+        .btn-restore {
+            background: var(--sand);
+            color: var(--stone);
+        }
+
+        .btn-restore:hover {
+            background: var(--cream-dark);
+            color: var(--ink);
+        }
+
+        /* EMPTY */
+        .empty-state {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 55vh;
+            gap: 1.25rem;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--sand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--pebble);
+        }
+
+        .empty-state h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--charcoal);
+        }
+
+        .empty-state p {
+            font-size: 0.9375rem;
+            color: var(--stone);
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="bellSound" src="https://actions.google.com/sounds/v1/alarms/dinner_bell_triangle.ogg"
+        preload="auto"></audio>
+
+    <!-- LOGIN -->
+    <div id="loginScreen">
+        <div class="login-wrap">
+            <div>
+                <div class="login-brand-title"><em>Isho's</em> Factory</div>
+                <div class="login-brand-sub">Kitchen Display System</div>
+            </div>
+            <div class="login-card">
+                <h3>Acceso empleados</h3>
+                <form id="loginForm">
+                    <div class="login-field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="emailInput" class="login-input" placeholder="Correo electrónico"
+                            required>
+                    </div>
+                    <div class="login-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="passwordInput" class="login-input" placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" class="login-btn" id="loginBtn">Entrar a cocina</button>
+                    <div id="loginError"><i class="fa-solid fa-circle-exclamation"></i> Credenciales incorrectas</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP -->
+    <div id="appContainer">
+        <header class="topbar">
+            <div class="topbar-brand">
+                <em>Isho's</em> Factory
+                <span class="topbar-badge">Cocina</span>
+            </div>
+            <div class="topbar-center">
+                <div class="topbar-stat">
+                    <span class="topbar-stat-label">Ventas hoy</span>
+                    <span class="topbar-stat-value" id="dailyTotalSales">$0.00</span>
+                </div>
+                <div class="topbar-divider"></div>
+                <div class="topbar-stat">
+                    <span class="topbar-stat-label">Completados</span>
+                    <span class="topbar-stat-value white" id="dailyOrdersCount">0</span>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button class="topbar-btn" id="toggleSoundBtn">
+                    <i class="fa-solid fa-volume-xmark"></i> Sonido
+                </button>
+                <button class="topbar-btn" id="logoutBtn">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+                </button>
+            </div>
+        </header>
+
+        <div class="tabs-bar">
+            <button class="tab-btn active" data-tab="pendientes">
+                Pendientes <span class="tab-count" id="badgePending">0</span>
+            </button>
+            <button class="tab-btn" data-tab="completados">
+                Completados hoy <span class="tab-count" id="badgeCompleted">0</span>
+            </button>
+        </div>
+
+        <main class="main-content">
+            <div class="orders-grid" id="ordersContainer">
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+                    <h3>Cargando pedidos...</h3>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
+            authDomain: "ishos-factory-web.firebaseapp.com",
+            projectId: "ishos-factory-web",
+            storageBucket: "ishos-factory-web.firebasestorage.app",
+            messagingSenderId: "948193083003",
+            appId: "1:948193083003:web:e141a769a9434ff0522cde",
+            measurementId: "G-9CF5Q1LE3B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        let allOrders = [], currentTab = 'pendientes', soundEnabled = false, lastOrderCount = 0, unsubscribeSnapshot = null;
+
+        const loginScreen = document.getElementById('loginScreen');
+        const appContainer = document.getElementById('appContainer');
+        const ordersContainer = document.getElementById('ordersContainer');
+        const badgePending = document.getElementById('badgePending');
+        const badgeCompleted = document.getElementById('badgeCompleted');
+        const dailyTotalSales = document.getElementById('dailyTotalSales');
+        const dailyOrdersCount = document.getElementById('dailyOrdersCount');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginScreen.style.display = 'none';
+                appContainer.style.display = 'flex';
+                iniciarDB();
+            } else {
+                loginScreen.style.display = 'flex';
+                appContainer.style.display = 'none';
+                if (unsubscribeSnapshot) unsubscribeSnapshot();
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...';
+            document.getElementById('loginError').style.display = 'none';
+            try {
+                await signInWithEmailAndPassword(auth, document.getElementById('emailInput').value, document.getElementById('passwordInput').value);
+                document.getElementById('loginForm').reset();
+            } catch {
+                document.getElementById('loginError').style.display = 'block';
+            } finally {
+                btn.textContent = 'Entrar a cocina';
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+        document.getElementById('toggleSoundBtn').addEventListener('click', (e) => {
+            soundEnabled = !soundEnabled;
+            const btn = e.currentTarget;
+            btn.classList.toggle('active', soundEnabled);
+            btn.innerHTML = soundEnabled
+                ? '<i class="fa-solid fa-volume-high"></i> Sonido ON'
+                : '<i class="fa-solid fa-volume-xmark"></i> Sonido';
+            if (soundEnabled) document.getElementById('bellSound').play().catch(() => { });
+        });
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                currentTab = e.currentTarget.dataset.tab;
+                renderOrders();
+            });
+        });
+
+        function iniciarDB() {
+            const q = query(collection(db, "pedidos"), orderBy("fecha", "asc"));
+            unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
+                allOrders = [];
+                let pendingCount = 0;
+                snapshot.forEach(d => {
+                    const data = { ...d.data(), id: d.id };
+                    allOrders.push(data);
+                    if (data.estado !== 'completado') pendingCount++;
+                });
+                if (soundEnabled && pendingCount > lastOrderCount) {
+                    document.getElementById('bellSound').play().catch(() => { });
+                }
+                lastOrderCount = pendingCount;
+                renderOrders();
+                actualizarResumen();
+            });
+        }
+
+        function actualizarResumen() {
+            const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+            let ventas = 0, completados = 0;
+            allOrders.forEach(o => {
+                if (o.estado === 'completado' && o.fecha && o.fecha.toDate() >= hoy) {
+                    ventas += parseFloat(o.total || 0);
+                    completados++;
+                }
+            });
+            dailyTotalSales.textContent = `$${ventas.toFixed(2)}`;
+            dailyOrdersCount.textContent = completados;
+        }
+
+        function timerInfo(fecha, done) {
+            if (done) return { text: 'Despachado', cls: 'done' };
+            const mins = Math.floor((Date.now() - (fecha ? fecha.toMillis() : Date.now())) / 60000);
+            return {
+                text: mins < 1 ? 'Recién llegado' : `Hace ${mins} min`,
+                cls: mins >= 10 ? 'danger' : mins >= 5 ? 'warning' : ''
+            };
+        }
+
+        function renderOrders() {
+            ordersContainer.innerHTML = '';
+            const isPending = currentTab === 'pendientes';
+            const filtered = allOrders.filter(o => isPending ? o.estado !== 'completado' : o.estado === 'completado');
+
+            badgePending.textContent = allOrders.filter(o => o.estado !== 'completado').length;
+            badgeCompleted.textContent = allOrders.filter(o => o.estado === 'completado').length;
+
+            if (filtered.length === 0) {
+                ordersContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="fa-solid ${isPending ? 'fa-mug-hot' : 'fa-check-double'}"></i></div>
+                    <h3>${isPending ? 'Cocina despejada' : 'Sin historial'}</h3>
+                    <p>${isPending ? 'Esperando nuevos pedidos...' : 'No hay pedidos completados hoy'}</p>
+                </div>`;
+                return;
+            }
+
+            if (!isPending) filtered.reverse();
+
+            filtered.forEach(data => {
+                const t = timerInfo(data.fecha, !isPending);
+                const esDirecto = data.base === 'Pedido directo';
+
+                const saboresHTML = (data.sabores || []).length > 0
+                    ? data.sabores.map(s => `<li><i class="fa-solid fa-circle"></i>${s}</li>`).join('')
+                    : '<li class="muted"><i class="fa-solid fa-minus"></i>Sin especificar</li>';
+
+                const toppingsHTML = (data.toppings || []).length > 0
+                    ? data.toppings.map(t => `<li><i class="fa-solid fa-plus"></i>${t}</li>`).join('')
+                    : '<li class="muted"><i class="fa-solid fa-minus"></i>Sin toppings</li>';
+
+                const clienteHTML = (data.nombre || data.whatsapp) ? `
+                <div class="ticket-client">
+                    <i class="fa-solid fa-user"></i>
+                    <strong>${data.nombre || '—'}</strong>
+                    ${data.whatsapp ? `<span>· ${data.whatsapp}</span>` : ''}
+                </div>` : '';
+
+                const card = document.createElement('div');
+                card.className = 'ticket';
+                card.innerHTML = `
+                <div class="ticket-accent ${t.cls}"></div>
+                <div class="ticket-top">
+                    <div class="ticket-num"><span>#</span>${data.numero_pedido}</div>
+                    <div class="ticket-right">
+                        <span class="ticket-timer ${t.cls}" data-time="${data.fecha ? data.fecha.toMillis() : 0}" data-done="${!isPending}">${t.text}</span>
+                        <span class="ticket-price">$${parseFloat(data.total || 0).toFixed(2)}</span>
+                    </div>
+                </div>
+                ${clienteHTML}
+                <div class="ticket-dash"></div>
+                <div class="ticket-body">
+                    <div class="ticket-section">
+                        <span class="ticket-label">Tipo</span>
+                        <span class="ticket-source ${esDirecto ? 'directo' : 'configurador'}">
+                            <i class="fa-solid ${esDirecto ? 'fa-bag-shopping' : 'fa-sliders'}"></i>
+                            ${esDirecto ? 'Producto directo' : 'Configurador'}
+                        </span>
+                    </div>
+                    ${!esDirecto ? `<div class="ticket-section">
+                        <span class="ticket-label">Base</span>
+                        <span class="ticket-value">${data.base}</span>
+                    </div>` : ''}
+                    <div class="ticket-section">
+                        <span class="ticket-label">${esDirecto ? 'Productos' : 'Sabores'}</span>
+                        <ul class="ticket-list">${saboresHTML}</ul>
+                    </div>
+                    ${!esDirecto ? `<div class="ticket-section">
+                        <span class="ticket-label">Toppings</span>
+                        <ul class="ticket-list">${toppingsHTML}</ul>
+                    </div>` : ''}
+                </div>
+                <div class="ticket-foot">
+                    ${isPending
+                        ? `<button class="btn-action btn-complete" data-action="completar" data-id="${data.id}">
+                            <i class="fa-solid fa-check"></i> Marcar como listo
+                           </button>`
+                        : `<button class="btn-action btn-restore" data-action="restaurar" data-id="${data.id}">
+                            <i class="fa-solid fa-rotate-left"></i> Reactivar
+                           </button>`
+                    }
+                </div>
+            `;
+                ordersContainer.appendChild(card);
+            });
+        }
+
+        setInterval(() => {
+            if (currentTab !== 'pendientes') return;
+            document.querySelectorAll('.ticket-timer[data-done="false"]').forEach(el => {
+                const ts = parseInt(el.dataset.time);
+                if (!ts) return;
+                const mins = Math.floor((Date.now() - ts) / 60000);
+                el.textContent = mins < 1 ? 'Recién llegado' : `Hace ${mins} min`;
+                const cls = mins >= 10 ? 'danger' : mins >= 5 ? 'warning' : '';
+                el.className = `ticket-timer ${cls}`;
+                const accent = el.closest('.ticket')?.querySelector('.ticket-accent');
+                if (accent) accent.className = `ticket-accent ${cls}`;
+            });
+        }, 60000);
+
+        ordersContainer.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.btn-action');
+            if (!btn) return;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.disabled = true;
+            try {
+                await updateDoc(doc(db, "pedidos", btn.dataset.id), {
+                    estado: btn.dataset.action === 'completar' ? 'completado' : 'pendiente'
+                });
+            } catch {
+                alert('Error al actualizar el pedido.');
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>
