@@ -14,17 +14,13 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 
 <body>
 
-    <!-- CUSTOM CURSOR -->
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
 
-    <!-- NAVIGATION -->
     <nav class="nav" id="nav">
         <a href="#" class="nav-logo">
             <img src="logo.png" alt="Logo Isho's Factory" class="nav-logo-img">
@@ -45,7 +41,6 @@
         </button>
     </nav>
 
-    <!-- HERO -->
     <section class="hero" id="inicio">
         <div class="hero-bg">
             <div class="hero-bg-circle"></div>
@@ -91,7 +86,6 @@
         </div>
     </section>
 
-    <!-- STATS MARQUEE -->
     <div class="stats-marquee">
         <div class="stats-track">
             <div class="stat-item"><span class="stat-num">57</span><span class="stat-label">Años de tradición</span>
@@ -119,7 +113,6 @@
         </div>
     </div>
 
-    <!-- PRODUCTS -->
     <section class="products" id="productos">
         <div class="section-header reveal">
             <span class="section-eyebrow">Nuestro Menú</span>
@@ -147,8 +140,8 @@
                     <h3 class="product-name">Leche</h3>
                     <p class="product-desc">Sabor único inspirado en la raíz de taro, suave y con un color morado
                         natural impresionante.</p>
-                    <div class="product-footer"><span class="product-price">$1.75</span><button
-                            class="product-add">+</button></div>
+                    <div class="product-footer"><span class="product-price">$1.75</span><button class="product-add"
+                            data-name="Leche" data-price="1.75">+</button></div>
                 </div>
             </div>
             <div class="product-card reveal reveal-delay-3">
@@ -158,8 +151,8 @@
                     <h3 class="product-name">Mango</h3>
                     <p class="product-desc">El sabor salvadoreño por excelencia. Mango maduro con toque de chile y
                         limón.</p>
-                    <div class="product-footer"><span class="product-price">$1.25</span><button
-                            class="product-add">+</button></div>
+                    <div class="product-footer"><span class="product-price">$1.25</span><button class="product-add"
+                            data-name="Mango" data-price="1.25">+</button></div>
                 </div>
             </div>
             <div class="product-card reveal reveal-delay-1">
@@ -169,8 +162,8 @@
                     <h3 class="product-name">Tamarindo</h3>
                     <p class="product-desc">La fruta tropical brasileña ahora en sorbete. Un sabor difícil de olvidar,
                         intenso y frutal.</p>
-                    <div class="product-footer"><span class="product-price">$2.00</span><button
-                            class="product-add">+</button></div>
+                    <div class="product-footer"><span class="product-price">$2.00</span><button class="product-add"
+                            data-name="Tamarindo" data-price="2.00">+</button></div>
                 </div>
             </div>
             <div class="product-card reveal reveal-delay-2">
@@ -180,8 +173,8 @@
                     <h3 class="product-name">Zapote</h3>
                     <p class="product-desc">Sorbete de durazno fresco con remolino de mermelada artesanal. Dulce y
                         nostálgico.</p>
-                    <div class="product-footer"><span class="product-price">$1.50</span><button
-                            class="product-add">+</button></div>
+                    <div class="product-footer"><span class="product-price">$1.50</span><button class="product-add"
+                            data-name="Zapote" data-price="1.50">+</button></div>
                 </div>
             </div>
             <div class="product-card reveal reveal-delay-3">
@@ -191,14 +184,13 @@
                     <h3 class="product-name">Chocolate</h3>
                     <p class="product-desc">Para quienes cuidan su salud sin renunciar al sabor. Fresa pura, sin azúcar
                         añadida.</p>
-                    <div class="product-footer"><span class="product-price">$1.50</span><button
-                            class="product-add">+</button></div>
+                    <div class="product-footer"><span class="product-price">$1.50</span><button class="product-add"
+                            data-name="Chocolate" data-price="1.50">+</button></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- STORY -->
     <section class="story" id="historia">
         <div class="story-visual reveal">
             <div class="story-image-wrapper">
@@ -220,7 +212,7 @@
                     feliz.</p>
                 <p>En 2020, su nieta Julissa decidió que ese legado no podía perderse. Con 21 años, amor por la
                     tradición y un espíritu emprendedor, transformó la receta familiar en Isho's Factory: un espacio
-                    donde el sorbete artesanal se convierte en experiencia.</p>
+                    where el sorbete artesanal se convierte en experiencia.</p>
             </div>
             <blockquote class="story-quote reveal">
                 "Venimos de orígenes indígenas, por eso nuestro nombre refleja nuestras raíces como salvadoreños."
@@ -235,7 +227,6 @@
         </div>
     </section>
 
-    <!-- CONFIGURATOR -->
     <section class="configurator" id="configurador">
         <div class="configurator-inner">
             <span class="section-eyebrow reveal">Experiencia Interactiva</span>
@@ -270,7 +261,6 @@
     </section>
 
 
-    <!-- TESTIMONIALS -->
     <section class="testimonials">
         <div class="section-header reveal">
             <span class="section-eyebrow">Lo Que Dicen</span>
@@ -322,9 +312,6 @@
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-     LEAD CAPTURE — SECCIÓN PRINCIPAL
-═══════════════════════════════════════ -->
     <section class="leads-section" id="oferta">
         <div class="leads-inner">
             <div class="leads-header reveal">
@@ -336,7 +323,6 @@
             </div>
 
             <div class="leads-form-card reveal">
-                <!-- FORMULARIO -->
                 <div id="lead-form-wrapper">
                     <h3 class="leads-form-title">🍧 ¡Quiero mi descuento!</h3>
                     <p class="leads-form-subtitle">Solo toma 30 segundos. Canjea en cualquier sucursal.</p>
@@ -395,7 +381,6 @@
                 </form>
             </div>
 
-            <!-- SUCCESS STATE -->
             <div class="form-success" id="form-success">
                 <div class="success-icon">🎉</div>
                 <h3 class="success-title">¡Ya eres de la familia!</h3>
@@ -440,7 +425,6 @@
         </div>
     </section>
 
-    <!-- LOCATIONS -->
     <section class="locations" id="ubicaciones">
         <div class="locations-inner">
             <div class="section-header reveal">
@@ -473,6 +457,7 @@
             </div>
         </div>
     </section>
+
     <div class="modal-overlay" id="configuratorModal">
         <div class="modal-container">
             <div class="modal-preview">
@@ -483,15 +468,11 @@
                     <h2 class="preview-title">Tu sorbete <em>perfecto</em></h2>
                 </div>
 
-                <div class="preview-model">
-                    <div class="model-viewer-container">
-                        <model-viewer src="3d/cone.glb" alt="Cono de sorbete 3D" auto-rotate camera-controls
-                            shadow-intensity="1.5" exposure="1.2" environment-image="legacy"
-                            style="width: 100%; height: 300px; background: transparent;" id="coneViewer">
-                            <div id="previewEmoji" style="display:none;"></div>
-
-                        </model-viewer>
-                    </div>
+                <div class="preview-model"
+                    style="display: flex; justify-content: center; align-items: center; height: 220px; background: radial-gradient(circle, rgba(43, 191, 170, 0.1) 0%, transparent 70%); border-radius: 20px; margin-bottom: 1.5rem;">
+                    <div id="previewEmoji"
+                        style="font-size: 7rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                        🍦</div>
                 </div>
 
                 <div class="preview-scoops" id="previewScoops">
@@ -692,7 +673,7 @@
                     <div class="step-header">
                         <div class="step-number">4</div>
                         <h3 class="step-title">Tu pedido está listo</h3>
-                        <p class="step-desc">Revisa tu sorbete y envía el pedido por WhatsApp</p>
+                        <p class="step-desc">Revisa tu sorbete y completa tus datos para recibir tu ticket</p>
                     </div>
 
                     <div class="ticket-preview">
@@ -716,9 +697,29 @@
                         </div>
                     </div>
 
+                    <div class="configurator-customer-fields" style="margin-top: 1.5rem; text-align: left;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                                <i class="fa-solid fa-user"></i> Tu Nombre completo
+                            </label>
+                            <input type="text" id="configNombre" class="form-input" placeholder="Ej: Sofía Ramírez"
+                                style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                                <i class="fa-brands fa-whatsapp"></i> Tu WhatsApp
+                            </label>
+                            <input type="tel" id="configTel" class="form-input" placeholder="Ej: 7645-4347"
+                                style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+                        </div>
+                        <span class="form-error" id="configError"
+                            style="color: #e53935; font-size: 0.85rem; display: none; margin-bottom: 1rem;">Por favor
+                            completa ambos campos para continuar.</span>
+                    </div>
+
                     <button class="btn-primary" id="confirmOrderBtn" style="width: 100%; margin-top: 1rem;">
                         <span class="btn-primary-icon"><i class="fa-solid fa-bell"></i></span>
-                        Enviar Orden a Cocina
+                        Confirmar y Recibir Ticket por WhatsApp
                     </button>
 
                     <div id="orderFeedback"
@@ -726,8 +727,8 @@
                         <div style="font-size: 2rem; margin-bottom: 10px;"><i class="fa-solid fa-circle-check"></i>
                         </div>
                         <strong>¡Pedido #<span id="feedbackOrderNum"></span> enviado con éxito!</strong><br>
-                        <p style="margin-top: 5px; font-size: 0.9rem;">Presenta este número en caja para pagar y retirar
-                            tu sorbete.</p>
+                        <p style="margin-top: 5px; font-size: 0.9rem;">Hemos enviado tu comprobante oficial
+                            automáticamente a tu celular. Presenta este número en caja para pagar y retirar.</p>
                     </div>
 
                     <div class="form-nav">
@@ -737,7 +738,6 @@
             </div>
         </div>
     </div>
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -781,21 +781,11 @@
         </div>
     </footer>
 
-    <!-- WHATSAPP FLOAT 
-    <div class="whatsapp-float">
-        <span class="whatsapp-pulse"></span>
-        <a href="https://wa.me/50376454347" class="whatsapp-btn" target="_blank" title="Escríbenos por WhatsApp">💬</a>
-    </div>
-    -->
-
-
     <script type="module">
-        // 1. IMPORTACIONES PARA CLOUD FIRESTORE
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
-        // 2. TU CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
             authDomain: "ishos-factory-web.firebaseapp.com",
@@ -806,33 +796,23 @@
             measurementId: "G-9CF5Q1LE3B"
         };
 
-        // 3. INICIALIZAR FIREBASE Y FIRESTORE
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
 
-        // 4. EL PUENTE GLOBAL (Esto soluciona el error)
         window.db = db;
         window.addDoc = addDoc;
         window.collection = collection;
         window.serverTimestamp = serverTimestamp;
 
-        // ----------------------------------------------------------------
-        // (AQUÍ DEBAJO CONSERVA EL RESTO DE TU CÓDIGO DEL FORMULARIO)
-        // const ISHOS_WHATSAPP = "50363067067";
-        // function generarCodigo(nombre) { ... }
-        // ...
-        // Número de WhatsApp del negocio
         const ISHOS_WHATSAPP = "50363067067";
 
-        // Generar código único de descuento
         function generarCodigo(nombre) {
             const iniciales = nombre.trim().split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
             const random = Math.floor(1000 + Math.random() * 9000);
             return `ISHOS-${iniciales}${random}`;
         }
 
-        // Lógica del Formulario
         const form = document.getElementById('lead-form');
         const btnSubmit = document.getElementById('btn-submit');
 
@@ -844,10 +824,8 @@
             const sabor = document.getElementById('sabor').value;
             const consent = document.getElementById('consent').checked;
 
-            // Limpiar errores previos
             document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
 
-            // Validación
             let valid = true;
             if (!nombre) { document.getElementById('error-nombre').classList.add('visible'); valid = false; }
             if (!whatsapp) { document.getElementById('error-whatsapp').classList.add('visible'); valid = false; }
@@ -855,17 +833,13 @@
             if (!consent) { alert('Por favor acepta los términos para continuar.'); valid = false; }
             if (!valid) return;
 
-            // 1. ESTADO DE CARGA (FontAwesome)
             btnSubmit.disabled = true;
             btnSubmit.innerHTML = '<span class="btn-icon"><i class="fa-solid fa-circle-notch fa-spin"></i></span> Guardando...';
 
             try {
                 const codigo = generarCodigo(nombre);
-
-                // Aseguramos que el número solo tenga dígitos
                 let whatsappLimpio = whatsapp.replace(/\D/g, '');
 
-                // Guardar en Cloud Firestore
                 await addDoc(collection(db, "leads"), {
                     nombre,
                     whatsapp,
@@ -876,12 +850,10 @@
                     convertido: false
                 });
 
-                // 2. FORZAR LA OCULTACIÓN (Doble seguridad)
                 const wrapper = document.getElementById('lead-form-wrapper');
                 if (wrapper) wrapper.style.display = 'none';
-                form.style.display = 'none'; // Ocultamos el form directamente también
+                form.style.display = 'none';
 
-                // 3. MOSTRAR ÉXITO
                 const successEl = document.getElementById('form-success');
                 successEl.style.display = 'block';
                 successEl.classList.add('visible');
@@ -889,7 +861,6 @@
                 document.getElementById('success-name').textContent = nombre.split(' ')[0];
                 document.getElementById('success-code').textContent = codigo;
 
-                // 4. CONFIGURAR LINK DE WHATSAPP (Dirigido al propio cliente)
                 const mensajeAuto = encodeURIComponent(
                     `✨ *MI CUPÓN ISHO'S FACTORY* ✨\n\n` +
                     `¡Hola! Aquí tengo guardado mi código de descuento:\n` +
@@ -902,36 +873,28 @@
                 waLink.href = `https://wa.me/${whatsappLimpio}?text=${mensajeAuto}`;
                 waLink.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Guardar cupón en mi WhatsApp';
 
-                // 5. Scroll suave para asegurar que vean el éxito
                 successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             } catch (error) {
                 console.error('Error al guardar lead:', error);
                 alert('Hubo un error de conexión al guardar tus datos. Intenta de nuevo.');
             } finally {
-                // 6. RESTAURAR BOTÓN SIEMPRE (Pase lo que pase, el botón vuelve a la normalidad)
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = '<span class="btn-icon"><i class="fa-solid fa-gift"></i></span> Quiero mi 10% de descuento';
             }
-            // Funcionalidad para copiar el código al portapapeles
+
             const copyBtn = document.getElementById('copyCodeBtn');
             const copyFeedback = document.getElementById('copyFeedback');
 
             if (copyBtn) {
                 copyBtn.addEventListener('click', () => {
                     const codeToCopy = document.getElementById('success-code').innerText;
-
-                    // Copiar al portapapeles
                     navigator.clipboard.writeText(codeToCopy).then(() => {
-                        // Mostrar mensaje de feedback
                         copyFeedback.classList.add('show');
-
-                        // Cambiar icono temporalmente
                         const icon = copyBtn.querySelector('i');
                         icon.classList.remove('fa-copy', 'fa-regular');
                         icon.classList.add('fa-check', 'fa-solid');
 
-                        // Regresar a la normalidad después de 2 segundos
                         setTimeout(() => {
                             copyFeedback.classList.remove('show');
                             icon.classList.remove('fa-check', 'fa-solid');
@@ -943,9 +906,7 @@
         });
     </script>
 
-    <!-- SCRIPTS GENERALES -->
     <script>
-        // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorRing = document.querySelector('.cursor-ring');
         if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
@@ -969,13 +930,11 @@
             });
         }
 
-        // Nav scroll
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Reveal on scroll
         const reveals = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             reveals.forEach(el => {
@@ -987,7 +946,6 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
 
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -997,7 +955,7 @@
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-        // --- MENÚ MÓVIL ---
+
         const mobileToggle = document.querySelector('.nav-mobile-toggle');
         const navLinksList = document.querySelector('.nav-links');
 
@@ -1008,7 +966,6 @@
                 navLinksList.classList.toggle('active');
             });
 
-            // Cerrar menú automáticamente si tocan un enlace
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileToggle.classList.remove('active');
@@ -1017,9 +974,9 @@
             });
         }
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. ESTADO Y PRECIOS
             const state = {
                 currentStep: 1,
                 base: null,
@@ -1030,8 +987,8 @@
                 flavorEmojis: {},
                 toppings: [],
                 toppingPrices: {},
-                orderNum: null, // NUEVO
-                total: 0        // NUEVO
+                orderNum: null,
+                total: 0
             };
 
             const FLAVOR_PRICES = { 'pitahaya': 1.50, 'taro': 1.75, 'mango': 1.25, 'jabuticaba': 2.00, 'durazno': 1.50, 'fresa': 1.50, 'coco': 1.25, 'chocolate': 1.50, 'vainilla': 1.25 };
@@ -1040,9 +997,8 @@
             const TOPPING_NAMES = { 'frutas': 'Frutas Frescas', 'mermelada': 'Mermelada', 'granola': 'Granola', 'chispas': 'Chispas de Chocolate', 'nueces': 'Nueces', 'chamoy': 'Chamoy' };
             const BASE_NAMES = { 'cono': 'Cono Clásico', 'vaso-p': 'Vaso Pequeño', 'vaso-g': 'Vaso Grande', 'barquillo': 'Barquillo' };
 
-            // 2. ELEMENTOS DEL DOM
             const modal = document.getElementById('configuratorModal');
-            if (!modal) return; // Seguridad si el modal no existe
+            if (!modal) return;
 
             const openBtns = [document.getElementById('openConfigurator'), document.getElementById('openConfiguratorHero')].filter(Boolean);
             const closeBtn = document.getElementById('closeModal');
@@ -1064,7 +1020,6 @@
             const previewScoops = document.getElementById('previewScoops');
             const flavorCount = document.getElementById('flavorCount');
 
-            // 3. ABRIR Y CERRAR MODAL
             openBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1082,7 +1037,6 @@
             modal.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModalFunc(); });
 
-            // 4. NAVEGACIÓN DE PASOS
             function goToStep(stepNum) {
                 state.currentStep = stepNum;
                 stepContents.forEach(content => content.classList.remove('active'));
@@ -1104,7 +1058,15 @@
             backToStep2Btn.addEventListener('click', () => goToStep(2));
             backToStep3Btn.addEventListener('click', () => goToStep(3));
 
-            // 5. SELECCIÓN DE BASE
+            function popEmoji() {
+                if (previewEmoji) {
+                    previewEmoji.style.transform = 'scale(1.2) rotate(-5deg)';
+                    setTimeout(() => {
+                        previewEmoji.style.transform = 'scale(1) rotate(0deg)';
+                    }, 250);
+                }
+            }
+
             document.querySelectorAll('#baseOptions .option-card').forEach(option => {
                 option.addEventListener('click', () => {
                     document.querySelectorAll('#baseOptions .option-card').forEach(o => o.classList.remove('selected'));
@@ -1112,14 +1074,16 @@
                     state.base = option.dataset.base;
                     state.basePrice = parseFloat(option.dataset.price);
                     state.baseEmoji = option.dataset.emoji;
+
                     previewEmoji.textContent = state.baseEmoji;
+                    popEmoji();
+
                     summaryBase.textContent = BASE_NAMES[state.base];
                     toStep2Btn.disabled = false;
                     updateTotal();
                 });
             });
 
-            // 6. SELECCIÓN DE SABORES
             const flavorOptions = document.querySelectorAll('#flavorOptions .flavor-card');
             flavorOptions.forEach(option => {
                 option.addEventListener('click', () => {
@@ -1164,7 +1128,6 @@
                 });
             }
 
-            // 7. SELECCIÓN DE TOPPINGS
             document.querySelectorAll('#toppingOptions .topping-card').forEach(option => {
                 option.addEventListener('click', () => {
                     const topping = option.dataset.topping;
@@ -1182,7 +1145,6 @@
                 });
             });
 
-            // 8. CÁLCULOS Y TICKET
             function calculateTotal() {
                 let total = state.basePrice;
                 Object.values(state.flavorPrices).forEach(p => total += p);
@@ -1197,12 +1159,10 @@
             function generateTicket() {
                 const ticketItems = document.getElementById('ticketItems');
 
-                // Generar y guardar el número de orden en el estado
                 state.orderNum = Math.floor(Math.random() * 9000) + 1000;
                 document.getElementById('ticketOrderNumber').textContent = `PEDIDO #${state.orderNum}`;
                 ticketItems.innerHTML = '';
 
-                // (El código que ya tienes para pintar Base, Sabores y Toppings va aquí, se mantiene igual...)
                 ticketItems.innerHTML += `<div class="ticket-item"><div><div class="ticket-item-name">${BASE_NAMES[state.base]}</div><div class="ticket-item-details">Base</div></div><div class="ticket-item-price">${state.basePrice > 0 ? '+$' + state.basePrice.toFixed(2) : 'Incluido'}</div></div>`;
 
                 state.flavors.forEach(f => {
@@ -1213,39 +1173,78 @@
                     ticketItems.innerHTML += `<div class="ticket-item"><div><div class="ticket-item-name">${TOPPING_NAMES[t]}</div><div class="ticket-item-details">Topping</div></div><div class="ticket-item-price">+$${state.toppingPrices[t].toFixed(2)}</div></div>`;
                 });
 
-                // Guardar el total en el estado
                 state.total = calculateTotal();
                 document.getElementById('ticketTotal').textContent = `$${state.total.toFixed(2)}`;
                 document.getElementById('ticketDate').textContent = new Date().toLocaleDateString('es-SV', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-                // ELIMINADO: La lógica del enlace de WhatsApp que estaba aquí
             }
 
-            // NUEVO: Evento para guardar la orden en Firestore
+            // BOTÓN DE CONFIRMACIÓN CON ENVÍO AUTOMÁTICO AL CLIENTE POR API PRIVADA EN PYTHON
             const confirmOrderBtn = document.getElementById('confirmOrderBtn');
             if (confirmOrderBtn) {
                 confirmOrderBtn.addEventListener('click', async () => {
-                    // Estado de carga
+                    const nombre = document.getElementById('configNombre').value.trim();
+                    const telefono = document.getElementById('configTel').value.trim();
+                    const errorEl = document.getElementById('configError');
+
+                    if (!nombre || !telefono) {
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+                    errorEl.style.display = 'none';
+
                     confirmOrderBtn.disabled = true;
-                    confirmOrderBtn.innerHTML = '<span class="btn-primary-icon"><i class="fa-solid fa-spinner fa-spin"></i></span> Procesando...';
+                    confirmOrderBtn.innerHTML = '<span class="btn-primary-icon"><i class="fa-solid fa-spinner fa-spin"></i></span> Enviando...';
 
                     try {
-                        // Agregamos window. a addDoc, collection, db y serverTimestamp
                         await window.addDoc(window.collection(window.db, "pedidos"), {
                             numero_pedido: state.orderNum,
+                            nombre: nombre,
+                            whatsapp: telefono,
                             base: BASE_NAMES[state.base],
                             sabores: state.flavors.map(f => FLAVOR_NAMES[f]),
                             toppings: state.toppings.map(t => TOPPING_NAMES[t]),
                             total: state.total,
                             estado: "pendiente",
+                            origen: "configurador",
                             fecha: window.serverTimestamp()
                         });
 
-                        // Ocultar botones para no duplicar el envío
+                        // 1. Notificación a la administración vía CallMeBot (Se mantiene)
+                        const adminMsgConfig = `🍧 *NUEVO SORBETE ARMADO* 🍧\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${telefono}\n🔢 *Ticket:* #${state.orderNum}\n🍦 *Base:* ${BASE_NAMES[state.base]}\n💰 *Total:* $${state.total.toFixed(2)}`;
+                        const callMeBotUrlConfig = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B50363067067&apikey=6666426&text=${encodeURIComponent(adminMsgConfig)}&_t=${Date.now()}`;
+                        fetch(callMeBotUrlConfig, { mode: 'no-cors', cache: 'no-store' }).catch(err => console.error("Error CallMeBot:", err));
+
+                        // 2. ENVÍO AUTOMÁTICO AL CLIENTE vía API Privada (FastAPI en Python)
+                        const tuApiKeyPrivada = "ISHOS_CLAVE_SECRETA_2026";
+                        let telClienteLimpio = telefono.replace(/\D/g, '');
+                        let telConCodigo = telClienteLimpio.startsWith('503') ? telClienteLimpio : `503${telClienteLimpio}`;
+
+                        let saboresTexto = state.flavors.map(f => `• ${FLAVOR_NAMES[f]}`).join('\n');
+                        let toppingsTexto = state.toppings.length > 0 ? `\n*Toppings:*\n` + state.toppings.map(t => `• ${TOPPING_NAMES[t]}`).join('\n') : '';
+
+                        const ticketParaCliente =
+                            `🍧 *ISHOS FACTORY — TICKET DE PEDIDO* 🍧\n` +
+                            `━━━━━━━━━━━━━━━━━━\n\n` +
+                            `¡Hola *${nombre}*! Hemos recibido tu orden en cocina. Aquí está el resumen de tu sorbete:\n\n` +
+                            `🎫 *PEDIDO:* #${state.orderNum}\n` +
+                            `🍨 *Base:* ${BASE_NAMES[state.base]}\n` +
+                            `*Sabores:*\n${saboresTexto}` +
+                            `${toppingsTexto}\n\n` +
+                            `━━━━━━━━━━━━━━━━━━\n` +
+                            `💰 *TOTAL A PAGAR: $${state.total.toFixed(2)}*\n\n` +
+                            `📍 Presenta este número (*#${state.orderNum}*) en caja para pagar y retirar tu pedido. ¡Te esperamos! 🙌`;
+
+                        const urlMiApiConfig = `http://localhost:8000/enviar?telefono=${telConCodigo}&apikey=${tuApiKeyPrivada}&texto=${encodeURIComponent(ticketParaCliente)}`;
+                        fetch(urlMiApiConfig)
+                            .then(res => res.json())
+                            .then(data => console.log("✅ Respuesta de mi API en Python:", data))
+                            .catch(err => console.error("❌ Error comunicando con la API en Python:", err));
+
+                        // 3. Ocultar botones y mostrar mensaje de éxito en pantalla
                         confirmOrderBtn.style.display = 'none';
+                        document.querySelector('.configurator-customer-fields').style.display = 'none';
                         document.getElementById('backToStep3').style.display = 'none';
 
-                        // Mostrar mensaje de éxito
                         const feedback = document.getElementById('orderFeedback');
                         document.getElementById('feedbackOrderNum').textContent = state.orderNum;
                         feedback.style.display = 'block';
@@ -1253,8 +1252,6 @@
                     } catch (error) {
                         console.error("Error al guardar el pedido:", error);
                         alert("Hubo un error de conexión al enviar tu orden. Por favor, intenta de nuevo.");
-
-                        // Restaurar botón si falla
                         confirmOrderBtn.disabled = false;
                         confirmOrderBtn.innerHTML = '<span class="btn-primary-icon"><i class="fa-solid fa-bell"></i></span> Intentar de nuevo';
                     }
@@ -1265,7 +1262,6 @@
 
 
 
-    <!-- CARRITO MODAL -->
     <div class="cart-overlay" id="cartOverlay">
         <div class="cart-modal">
             <div class="cart-modal-header">
@@ -1298,19 +1294,18 @@
                 </div>
                 <button class="cart-whatsapp-btn" id="cartCheckout">
                     <i class="fa-brands fa-whatsapp"></i>
-                    Enviar pedido por WhatsApp
+                    Completar Pedido
                 </button>
                 <button class="cart-clear" id="cartClear">Vaciar pedido</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL CONFIRMACIÓN PEDIDO -->
     <div class="checkout-overlay" id="checkoutOverlay">
         <div class="checkout-modal">
             <div class="checkout-header">
                 <h3>¿A nombre de quién va el pedido?</h3>
-                <p>Solo toma 5 segundos 🍧</p>
+                <p>Te enviaremos tu comprobante por WhatsApp 🍧</p>
             </div>
             <div class="checkout-body">
                 <div class="checkout-field">
@@ -1326,13 +1321,12 @@
             <div class="checkout-footer">
                 <button class="checkout-cancel" id="checkoutCancel">Cancelar</button>
                 <button class="checkout-confirm" id="checkoutConfirm">
-                    <i class="fa-brands fa-whatsapp"></i> Confirmar pedido
+                    <i class="fa-brands fa-whatsapp"></i> Confirmar y Recibir Ticket
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- FAB -->
     <div class="cart-fab" id="cartFab">
         <i class="fa-solid fa-bag-shopping"></i>
         <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
@@ -1411,7 +1405,9 @@
         cartTotalEl.textContent = `$${total.toFixed(2)}`;
         cartBadge.textContent = count;
         cartBadge.style.display = count > 0 ? 'flex' : 'none';
-        cartWhatsapp.href = `https://wa.me/50376454347?text=${encodeURIComponent(msg)}`;
+        if (cartWhatsapp) {
+            cartWhatsapp.href = `https://wa.me/50376454347?text=${encodeURIComponent(msg)}`;
+        }
     }
 
     function changeQty(name, delta) {
@@ -1447,22 +1443,19 @@
         }
 
         checkoutError.classList.remove('visible');
-        checkoutConfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Guardando...';
+        checkoutConfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
         checkoutConfirm.disabled = true;
 
         const orderNum = Math.floor(Math.random() * 9000) + 1000;
         const items = Object.entries(cart).filter(([, v]) => v.qty > 0);
         const total = items.reduce((acc, [, v]) => acc + v.price * v.qty, 0);
 
-        let msg = `🍧 *PEDIDO #${orderNum}*\n━━━━━━━━━━━━━━━\n\n`;
-        msg += `👤 *Cliente:* ${nombre}\n📱 *WhatsApp:* ${tel}\n\n`;
+        let listaItems = '';
         items.forEach(([name, item]) => {
-            msg += `• ${name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
+            listaItems += `• ${name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
         });
-        msg += `\n━━━━━━━━━━━━━━━\n💰 *Total: $${total.toFixed(2)}*\n\n¡Gracias por tu pedido! 🙌`;
 
         try {
-            // Guardar en Firestore
             const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
             const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
 
@@ -1490,37 +1483,58 @@
                 fecha: serverTimestamp()
             });
 
-            // Abrir WhatsApp
-            //// Mostrar éxito
-            checkoutOverlay.classList.remove('active');
-            document.getElementById('checkoutNombre').value = '';
-            document.getElementById('checkoutTel').value = '';
+            // 1. Notificación a administración vía CallMeBot (Se mantiene)
+            const adminMsgCarrito = `🚨 *NUEVO PEDIDO DE CARRITO* 🚨\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${tel}\n🔢 *Orden:* #${orderNum}\n💰 *Total:* $${total.toFixed(2)}\n\nRevisa la base de datos para ver el detalle de los sorbetes.`;
+            const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B50363067067&apikey=6666426&text=${encodeURIComponent(adminMsgCarrito)}&_t=${Date.now()}`;
+            fetch(callMeBotUrl, { mode: 'no-cors', cache: 'no-store' }).catch(err => console.error("Error CallMeBot:", err));
+
+            // 2. ENVÍO AUTOMÁTICO AL CLIENTE vía API Privada en Python
+            const tuApiKeyPrivada = "ISHOS_CLAVE_SECRETA_2026";
+            let telClienteLimpio = tel.replace(/\D/g, '');
+            let telConCodigo = telClienteLimpio.startsWith('503') ? telClienteLimpio : `503${telClienteLimpio}`;
+
+            const ticketCarritoCliente =
+                `🍧 *ISHOS FACTORY — TICKET DE PEDIDO* 🍧\n` +
+                `━━━━━━━━━━━━━━━━━━\n\n` +
+                `¡Hola *${nombre}*! Hemos registrado tu pedido con éxito:\n\n` +
+                `🎫 *PEDIDO:* #${orderNum}\n\n` +
+                `*Detalle:*\n${listaItems}\n` +
+                `━━━━━━━━━━━━━━━━━━\n` +
+                `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n` +
+                `📍 Presenta el número *#${orderNum}* en caja para retirar tu pedido. ¡Gracias por tu preferencia! 🙌`;
+
+            const urlMiApiCarrito = `http://localhost:8000/enviar?telefono=${telConCodigo}&apikey=${tuApiKeyPrivada}&texto=${encodeURIComponent(ticketCarritoCliente)}`;
+            fetch(urlMiApiCarrito)
+                .then(res => res.json())
+                .then(data => console.log("✅ Respuesta de mi API en Python:", data))
+                .catch(err => console.error("❌ Error comunicando con la API en Python:", err));
 
             // Mostrar notificación de éxito
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-    background: #1e3a34; color: white; padding: 1rem 2rem;
-    border-radius: 50px; font-weight: 600; z-index: 9999;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2); font-size: 0.95rem;
-`;
-            toast.innerHTML = '✅ ¡Pedido enviado! Pronto lo atendemos.';
-            document.body.appendChild(toast);
-            // setTimeout(() => toast.remove(), 4000); window.open(`https://wa.me/50376454347?text=${encodeURIComponent(msg)}`, '_blank');
-
-            // Limpiar
-            Object.keys(cart).forEach(k => delete cart[k]);
-            updateCart();
             checkoutOverlay.classList.remove('active');
             document.getElementById('checkoutNombre').value = '';
             document.getElementById('checkoutTel').value = '';
+
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+                background: #1e3a34; color: white; padding: 1.2rem 2rem;
+                border-radius: 50px; font-weight: 600; z-index: 9999;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 0.95rem; text-align: center;
+            `;
+            toast.innerHTML = `✅ ¡Pedido #${orderNum} registrado! Te hemos enviado el ticket oficial a tu WhatsApp.`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 6000);
+
+            // Limpiar carrito
+            Object.keys(cart).forEach(k => delete cart[k]);
+            updateCart();
 
         } catch (err) {
             console.error(err);
             checkoutError.textContent = 'Error al guardar el pedido. Intenta de nuevo.';
             checkoutError.classList.add('visible');
         } finally {
-            checkoutConfirm.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar pedido';
+            checkoutConfirm.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar y Recibir Ticket';
             checkoutConfirm.disabled = false;
         }
     });

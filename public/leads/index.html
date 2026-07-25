@@ -4,90 +4,913 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración | Isho's Factory</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Isho's Factory — Cupones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --turquoise: #2BBFAA;
+            --turq-deep: #1A8F7D;
+            --turq-light: #E8F8F5;
+            --turq-glow: rgba(43, 191, 170, 0.15);
+            --mango: #FF8C42;
+            --mango-light: #FFF4EC;
+            --mango-glow: rgba(255, 140, 66, 0.12);
+            --cream: #FFFBF5;
+            --cream-dark: #FFF3E4;
+            --sand: #F5EDE4;
+            --charcoal: #1C1917;
+            --ink: #292524;
+            --stone: #78716C;
+            --pebble: #A8A29E;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Outfit', system-ui, sans-serif;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
         body {
-            background-color: #f8fafc;
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
         }
 
-        .bg-isho {
-            background-color: #2BBFAA;
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 10000;
         }
 
-        .text-isho {
-            color: #1A8F7D;
+        /* ── LOGIN ── */
+        #loginScreen {
+            position: fixed;
+            inset: 0;
+            background: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            overflow: hidden;
         }
 
-        /* --- MAGIA DE IMPRESIÓN AQUÍ --- */
+        #loginScreen::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--turq-glow) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        #loginScreen::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--mango-glow) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .login-wrap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .login-brand-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .login-brand-title em {
+            font-style: italic;
+            color: var(--turquoise);
+        }
+
+        .login-brand-sub {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--stone);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 2.5rem;
+            width: 100%;
+            backdrop-filter: blur(20px);
+        }
+
+        .login-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1.75rem;
+            text-align: center;
+        }
+
+        .login-field {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .login-field i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--stone);
+            font-size: 0.875rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 2.75rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .login-input:focus {
+            border-color: var(--turquoise);
+            box-shadow: 0 0 0 3px var(--turq-glow);
+        }
+
+        .login-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: var(--turquoise);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: 0 8px 24px var(--turq-glow);
+        }
+
+        .login-btn:hover {
+            background: var(--turq-deep);
+            transform: translateY(-2px);
+        }
+
+        #loginError {
+            color: #fca5a5;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        /* ── APP ── */
+        #appContainer {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--charcoal);
+            height: 68px;
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--turquoise), var(--mango), transparent);
+            opacity: 0.3;
+        }
+
+        .topbar-brand {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topbar-brand em {
+            font-style: italic;
+            color: var(--turquoise);
+        }
+
+        .topbar-badge {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: var(--turq-glow);
+            color: var(--turquoise);
+            border: 1px solid rgba(43, 191, 170, 0.3);
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .topbar-btn {
+            height: 38px;
+            padding: 0 1.125rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .topbar-btn:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* MAIN */
+        .main-content {
+            padding: 2rem 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* STATS */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.teal {
+            background: var(--turq-light);
+            color: var(--turquoise);
+        }
+
+        .stat-icon.mango {
+            background: var(--mango-light);
+            color: var(--mango);
+        }
+
+        .stat-icon.green {
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--pebble);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            line-height: 1;
+        }
+
+        /* TOOLBAR */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--pebble);
+            font-size: 0.875rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 100px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--ink);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--turquoise);
+            box-shadow: 0 0 0 3px var(--turq-glow);
+        }
+
+        .search-input::placeholder {
+            color: var(--pebble);
+        }
+
+        .filter-btn {
+            height: 42px;
+            padding: 0 1.25rem;
+            border-radius: 100px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: white;
+            color: var(--stone);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--turquoise);
+            color: var(--turquoise);
+        }
+
+        .filter-btn.active {
+            background: var(--turq-light);
+            border-color: var(--turquoise);
+            color: var(--turq-deep);
+            font-weight: 600;
+        }
+
+        /* TABLE */
+        .table-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: var(--sand);
+        }
+
+        thead th {
+            padding: 1rem 1.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--stone);
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--cream);
+        }
+
+        tbody td {
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--ink);
+            vertical-align: middle;
+        }
+
+        .td-fecha {
+            color: var(--stone);
+            font-size: 0.8125rem;
+        }
+
+        .td-nombre {
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .td-whatsapp {
+            color: var(--turquoise);
+            font-weight: 500;
+        }
+
+        .td-sabor {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--mango-light);
+            color: var(--mango);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        .td-codigo {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            background: var(--sand);
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.3rem 0.875rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.pendiente {
+            background: var(--mango-light);
+            color: var(--mango);
+        }
+
+        .badge.canjeado {
+            background: #ecfdf5;
+            color: #10b981;
+        }
+
+        .btn-canjear {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .btn-canjear.pendiente {
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .btn-canjear.pendiente:hover {
+            background: var(--turquoise);
+            transform: translateY(-1px);
+        }
+
+        .btn-canjear.canjeado {
+            background: var(--sand);
+            color: var(--pebble);
+            cursor: default;
+        }
+
+        .btn-print {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--sand);
+            color: var(--stone);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-print:hover {
+            background: var(--turq-light);
+            color: var(--turquoise);
+        }
+
+        .td-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .empty-cell {
+            padding: 4rem !important;
+            text-align: center;
+        }
+
+        .empty-icon-wrap {
+            width: 72px;
+            height: 72px;
+            background: var(--sand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: var(--pebble);
+            margin: 0 auto 1rem;
+        }
+
+        .empty-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-sub {
+            font-size: 0.9rem;
+            color: var(--stone);
+        }
+
+        /* ── CONFIRM MODAL ── */
+        .confirm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-overlay.active {
+            display: flex;
+        }
+
+        .confirm-modal {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.3s var(--ease-out-expo);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .confirm-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--turq-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--turquoise);
+            margin: 0 auto 1.25rem;
+        }
+
+        .confirm-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.75rem;
+        }
+
+        .confirm-text {
+            font-size: 0.9rem;
+            color: var(--stone);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .confirm-cancel {
+            flex: 1;
+            padding: 0.875rem;
+            border: 1.5px solid var(--sand);
+            border-radius: 100px;
+            background: white;
+            color: var(--stone);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .confirm-cancel:hover {
+            border-color: var(--pebble);
+            color: var(--ink);
+        }
+
+        .confirm-ok {
+            flex: 2;
+            padding: 0.875rem;
+            border: none;
+            border-radius: 100px;
+            background: var(--charcoal);
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .confirm-ok:hover {
+            background: var(--turquoise);
+        }
+
+        /* PRINT */
         #seccion-ticket {
             display: none;
-            /* Se oculta en la pantalla de la computadora */
         }
 
         @media print {
-
-            /* Al imprimir, oculta toda la tabla y botones */
             body>*:not(#seccion-ticket) {
                 display: none !important;
             }
 
-            /* Muestra solo el ticket, adaptado para ticketera térmica (80mm) */
             #seccion-ticket {
                 display: block !important;
                 width: 80mm;
                 padding: 10px;
-                font-family: 'Courier New', Courier, monospace;
-                /* Letra clásica de ticket */
+                font-family: 'Courier New', monospace;
                 color: black;
                 font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 1.25rem;
+            }
+
+            .topbar {
+                padding: 0 1.25rem;
             }
         }
     </style>
 </head>
 
-<body class="p-8 font-sans text-gray-800">
+<body>
 
-    <div class="max-w-6xl mx-auto">
-        <header
-            class="flex justify-between items-center mb-8 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+    <div id="seccion-ticket"></div>
+
+    <!-- LOGIN -->
+    <div id="loginScreen">
+        <div class="login-wrap">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Leads en vivo 🍧</h1>
-                <p class="text-gray-500 mt-1">Sucursales Ahuachapán - Isho's Factory</p>
+                <div class="login-brand-title"><em>Isho's</em> Factory</div>
+                <div class="login-brand-sub">Panel de Cupones</div>
             </div>
-            <div class="text-center bg-teal-50 px-6 py-3 rounded-xl border border-teal-100">
-                <span class="block text-sm font-semibold text-teal-600 uppercase tracking-wide">Total Clientes</span>
-                <span id="total-leads" class="text-4xl font-bold text-isho">0</span>
+            <div class="login-card">
+                <h3>Acceso administración</h3>
+                <form id="loginForm">
+                    <div class="login-field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="emailInput" class="login-input" placeholder="Correo electrónico"
+                            required>
+                    </div>
+                    <div class="login-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="passwordInput" class="login-input" placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" class="login-btn" id="loginBtn">Entrar</button>
+                    <div id="loginError"><i class="fa-solid fa-circle-exclamation"></i> Credenciales incorrectas</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP -->
+    <div id="appContainer">
+        <header class="topbar">
+            <div class="topbar-brand">
+                <em>Isho's</em> Factory
+                <span class="topbar-badge">Cupones</span>
+            </div>
+            <div class="topbar-actions">
+                <button class="topbar-btn" id="logoutBtn">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+                </button>
             </div>
         </header>
 
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+        <div class="main-content">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon teal"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <div class="stat-label">Total clientes</div>
+                        <div class="stat-value" id="statTotal">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon mango"><i class="fa-solid fa-clock"></i></div>
+                    <div>
+                        <div class="stat-label">Pendientes</div>
+                        <div class="stat-value" id="statPendientes">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+                    <div>
+                        <div class="stat-label">Canjeados</div>
+                        <div class="stat-value" id="statCanjeados">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="search-input" id="searchInput"
+                        placeholder="Buscar por nombre, código o WhatsApp...">
+                </div>
+                <button class="filter-btn active" data-filter="todos"><i class="fa-solid fa-list"></i> Todos</button>
+                <button class="filter-btn" data-filter="pendiente"><i class="fa-solid fa-clock"></i> Pendientes</button>
+                <button class="filter-btn" data-filter="canjeado"><i class="fa-solid fa-check"></i> Canjeados</button>
+            </div>
+
+            <div class="table-card">
+                <table>
                     <thead>
-                        <tr class="bg-gray-50 border-b border-gray-100 text-sm uppercase text-gray-500">
-                            <th class="py-4 px-6 font-semibold">Fecha y Hora</th>
-                            <th class="py-4 px-6 font-semibold">Cliente</th>
-                            <th class="py-4 px-6 font-semibold">WhatsApp</th>
-                            <th class="py-4 px-6 font-semibold">Sabor Favorito</th>
-                            <th class="py-4 px-6 font-semibold">Código</th>
-                            <th class="py-4 px-6 font-semibold text-center">Estado</th>
-                            <th class="py-4 px-6 font-semibold text-center">Acciones</th>
+                        <tr>
+                            <th>Fecha y hora</th>
+                            <th>Cliente</th>
+                            <th>WhatsApp</th>
+                            <th>Sabor favorito</th>
+                            <th>Código</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="tabla-leads" class="divide-y divide-gray-100">
+                    <tbody id="tablaLeads">
+                        <tr>
+                            <td colspan="7" class="empty-cell">
+                                <div class="empty-icon-wrap"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+                                <div class="empty-title">Cargando datos...</div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <div id="seccion-ticket">
+    <!-- CONFIRM MODAL -->
+    <div class="confirm-overlay" id="confirmOverlay">
+        <div class="confirm-modal">
+            <div class="confirm-icon">
+                <i class="fa-solid fa-ticket"></i>
+            </div>
+            <h3 class="confirm-title">¿Confirmar canje?</h3>
+            <p class="confirm-text">Estás a punto de marcar este cupón como canjeado. Esta acción no se puede deshacer.
+            </p>
+            <div class="confirm-actions">
+                <button class="confirm-cancel" id="confirmCancel">Cancelar</button>
+                <button class="confirm-ok" id="confirmOk">
+                    <i class="fa-solid fa-check"></i> Confirmar canje
+                </button>
+            </div>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
@@ -100,83 +923,218 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const tbody = document.getElementById('tabla-leads');
-        const contador = document.getElementById('total-leads');
+        const auth = getAuth(app);
 
-        const leadsRef = collection(db, "leads");
-        const consulta = query(leadsRef, orderBy("fecha", "desc"));
-
-        // Almacenamos temporalmente los datos para usarlos en el botón de imprimir
+        let todosLosLeads = [];
+        let filtroActual = 'todos';
+        let busqueda = '';
+        let pendingId = null;
+        let pendingBtn = null;
         window.datosLeads = {};
 
-        onSnapshot(consulta, (snapshot) => {
-            tbody.innerHTML = '';
-            let total = 0;
-            snapshot.forEach((documento) => {
-                total++;
-                const lead = documento.data();
-                const id = documento.id;
-                let fechaTexto = lead.fecha ? lead.fecha.toDate().toLocaleString() : "...";
-                const estaCanjeado = lead.convertido === true;
-                const badgeClass = estaCanjeado ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
+        const loginScreen = document.getElementById('loginScreen');
+        const appContainer = document.getElementById('appContainer');
+        const confirmOverlay = document.getElementById('confirmOverlay');
 
-                // Guardamos el lead en la memoria global junto con su fecha formateada
-                window.datosLeads[id] = { ...lead, fechaTexto };
-
-                tbody.innerHTML += `
-                    <tr class="hover:bg-gray-50">
-                        <td class="py-4 px-6 text-sm">${fechaTexto}</td>
-                        <td class="py-4 px-6 font-medium">${lead.nombre}</td>
-                        <td class="py-4 px-6 text-teal-600">${lead.whatsapp}</td>
-                        <td class="py-4 px-6">${lead.sabor}</td>
-                        <td class="py-4 px-6 font-mono font-bold">${lead.codigo}</td>
-                        <td class="py-4 px-6 text-center">
-                            <span class="px-2 py-1 rounded-full text-xs ${badgeClass}">${estaCanjeado ? "Canjeado" : "Pendiente"}</span>
-                        </td>
-                        <td class="py-4 px-6 text-center">
-                            <button onclick="imprimirTicket('${id}')" title="Imprimir Ticket" class="text-2xl hover:scale-110 transition-transform">
-                                🖨️
-                            </button>
-                        </td>
-                    </tr>`;
-            });
-            contador.innerText = total;
+        // Auth
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginScreen.style.display = 'none';
+                appContainer.style.display = 'flex';
+                appContainer.style.flexDirection = 'column';
+                iniciarDB();
+            } else {
+                loginScreen.style.display = 'flex';
+                appContainer.style.display = 'none';
+            }
         });
 
-        // Función que arma el ticket y lanza la impresora
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...';
+            document.getElementById('loginError').style.display = 'none';
+            try {
+                await signInWithEmailAndPassword(auth, document.getElementById('emailInput').value, document.getElementById('passwordInput').value);
+                document.getElementById('loginForm').reset();
+            } catch {
+                document.getElementById('loginError').style.display = 'block';
+            } finally {
+                btn.textContent = 'Entrar';
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+        // Filtros
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filtroActual = btn.dataset.filter;
+                renderTabla();
+            });
+        });
+
+        // Búsqueda
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            busqueda = e.target.value.toLowerCase();
+            renderTabla();
+        });
+
+        // Confirm modal
+        document.getElementById('confirmCancel').addEventListener('click', () => {
+            confirmOverlay.classList.remove('active');
+            pendingId = null;
+            pendingBtn = null;
+        });
+
+        confirmOverlay.addEventListener('click', (e) => {
+            if (e.target === confirmOverlay) {
+                confirmOverlay.classList.remove('active');
+                pendingId = null;
+                pendingBtn = null;
+            }
+        });
+
+        document.getElementById('confirmOk').addEventListener('click', async () => {
+            if (!pendingId) return;
+            const btn = pendingBtn;
+            const okBtn = document.getElementById('confirmOk');
+            confirmOverlay.classList.remove('active');
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                btn.disabled = true;
+            }
+            okBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            try {
+                await updateDoc(doc(db, "leads", pendingId), { convertido: true });
+            } catch {
+                alert('Error al actualizar el cupón.');
+                if (btn) btn.disabled = false;
+            } finally {
+                okBtn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar canje';
+                pendingId = null;
+                pendingBtn = null;
+            }
+        });
+
+        // DB
+        function iniciarDB() {
+            const q = query(collection(db, "leads"), orderBy("fecha", "desc"));
+            onSnapshot(q, (snapshot) => {
+                todosLosLeads = [];
+                snapshot.forEach(d => {
+                    const data = { ...d.data(), id: d.id };
+                    data.fechaTexto = data.fecha ? data.fecha.toDate().toLocaleString('es-SV') : '—';
+                    window.datosLeads[d.id] = data;
+                    todosLosLeads.push(data);
+                });
+                actualizarStats();
+                renderTabla();
+            });
+        }
+
+        function actualizarStats() {
+            const total = todosLosLeads.length;
+            const canjeados = todosLosLeads.filter(l => l.convertido === true).length;
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statPendientes').textContent = total - canjeados;
+            document.getElementById('statCanjeados').textContent = canjeados;
+        }
+
+        function renderTabla() {
+            const tbody = document.getElementById('tablaLeads');
+            let leads = todosLosLeads.filter(l => {
+                if (filtroActual === 'pendiente') return l.convertido !== true;
+                if (filtroActual === 'canjeado') return l.convertido === true;
+                return true;
+            });
+
+            if (busqueda) {
+                leads = leads.filter(l =>
+                    (l.nombre || '').toLowerCase().includes(busqueda) ||
+                    (l.codigo || '').toLowerCase().includes(busqueda) ||
+                    (l.whatsapp || '').toLowerCase().includes(busqueda)
+                );
+            }
+
+            if (leads.length === 0) {
+                tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-cell">
+                        <div class="empty-icon-wrap"><i class="fa-solid fa-ticket"></i></div>
+                        <div class="empty-title">No hay resultados</div>
+                        <div class="empty-sub">Prueba con otro filtro o búsqueda</div>
+                    </td>
+                </tr>`;
+                return;
+            }
+
+            tbody.innerHTML = leads.map(lead => {
+                const canjeado = lead.convertido === true;
+                return `
+                <tr>
+                    <td class="td-fecha">${lead.fechaTexto}</td>
+                    <td class="td-nombre">${lead.nombre || '—'}</td>
+                    <td class="td-whatsapp">${lead.whatsapp || '—'}</td>
+                    <td><span class="td-sabor"><i class="fa-solid fa-ice-cream"></i> ${lead.sabor || '—'}</span></td>
+                    <td><span class="td-codigo">${lead.codigo || '—'}</span></td>
+                    <td>
+                        <span class="badge ${canjeado ? 'canjeado' : 'pendiente'}">
+                            <i class="fa-solid ${canjeado ? 'fa-check' : 'fa-clock'}"></i>
+                            ${canjeado ? 'Canjeado' : 'Pendiente'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="td-actions">
+                            ${!canjeado
+                        ? `<button class="btn-canjear pendiente" onclick="abrirConfirm('${lead.id}', this)">
+                                    <i class="fa-solid fa-check"></i> Canjear
+                                   </button>`
+                        : `<button class="btn-canjear canjeado" disabled>
+                                    <i class="fa-solid fa-check-double"></i> Canjeado
+                                   </button>`
+                    }
+                            <button class="btn-print" onclick="imprimirTicket('${lead.id}')" title="Imprimir ticket">
+                                <i class="fa-solid fa-print"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        window.abrirConfirm = function (id, btn) {
+            pendingId = id;
+            pendingBtn = btn;
+            confirmOverlay.classList.add('active');
+        };
+
         window.imprimirTicket = function (id) {
             const lead = window.datosLeads[id];
-            const ticketDiv = document.getElementById('seccion-ticket');
-
-            // Diseñamos el ticket con HTML básico
-            ticketDiv.innerHTML = `
-                <div style="text-align: center; margin-bottom: 15px;">
-                    <h2 style="margin: 0; font-size: 20px;"><b>ISHO'S FACTORY</b></h2>
-                    <p style="margin: 0;">Sucursal Ahuachapán</p>
-                    <p style="margin: 5px 0;">------------------------</p>
-                    <h3 style="margin: 0; font-size: 16px;">TICKET DE CANJE</h3>
-                </div>
-                
-                <p style="margin: 5px 0;"><strong>Fecha:</strong> ${lead.fechaTexto}</p>
-                <p style="margin: 5px 0;"><strong>Cliente:</strong> ${lead.nombre}</p>
-                <p style="margin: 5px 0;"><strong>Teléfono:</strong> ${lead.whatsapp}</p>
-                
-                <p style="margin: 15px 0 5px 0;">------------------------</p>
-                <h3 style="margin: 0;">Sabor Elegido:</h3>
-                <p style="margin: 5px 0; font-size: 16px;"><b>${lead.sabor}</b></p>
-                
-                <div style="text-align: center; margin-top: 15px; border: 1px dashed black; padding: 10px;">
-                    <p style="margin: 0; font-size: 12px;">CÓDIGO DE DESCUENTO</p>
-                    <h1 style="margin: 5px 0; font-size: 24px;">${lead.codigo}</h1>
-                </div>
-
-                <div style="text-align: center; margin-top: 20px;">
-                    <p style="margin: 0; font-size: 12px;">¡Gracias por preferir<br>la tradición en cada vaso!</p>
-                    <p style="margin: 10px 0;">------------------------</p>
-                </div>
-            `;
-
-            // Llama a la ventana de impresión del navegador
+            if (!lead) return;
+            document.getElementById('seccion-ticket').innerHTML = `
+            <div style="text-align:center;margin-bottom:15px;">
+                <h2 style="margin:0;font-size:20px;"><b>ISHO'S FACTORY</b></h2>
+                <p style="margin:0;">Sorbetería Artesanal · Ahuachapán</p>
+                <p style="margin:8px 0;">------------------------</p>
+                <h3 style="margin:0;font-size:16px;">TICKET DE CANJE</h3>
+            </div>
+            <p style="margin:5px 0;"><strong>Fecha:</strong> ${lead.fechaTexto}</p>
+            <p style="margin:5px 0;"><strong>Cliente:</strong> ${lead.nombre}</p>
+            <p style="margin:5px 0;"><strong>WhatsApp:</strong> ${lead.whatsapp}</p>
+            <p style="margin:15px 0 5px 0;">------------------------</p>
+            <h3 style="margin:0;">Sabor Elegido:</h3>
+            <p style="margin:5px 0;font-size:16px;"><b>${lead.sabor}</b></p>
+            <div style="text-align:center;margin-top:15px;border:1px dashed black;padding:10px;">
+                <p style="margin:0;font-size:12px;">CÓDIGO DE DESCUENTO</p>
+                <h1 style="margin:5px 0;font-size:24px;">${lead.codigo}</h1>
+            </div>
+            <div style="text-align:center;margin-top:20px;">
+                <p style="margin:0;font-size:12px;">¡Gracias por preferir<br>la tradición en cada vaso!</p>
+                <p style="margin:10px 0;">------------------------</p>
+            </div>`;
             window.print();
         };
     </script>
