@@ -14,6 +14,277 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- ESTILOS AÑADIDOS PARA EL MENÚ POR PESTAÑAS Y DISEÑO EDITORIAL -->
+    <style>
+        /* =========================================================
+           CORRECCIÓN DE CLICS (CURSOR Y TABS AISLADOS)
+           ========================================================= */
+        .cursor-dot,
+        .cursor-ring {
+            pointer-events: none !important;
+            z-index: 99999 !important;
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 999 !important;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 2px solid #38B29E;
+            color: #38B29E;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1000 !important;
+            pointer-events: auto !important;
+        }
+
+        .tab-btn:hover {
+            background: rgba(56, 178, 158, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: #38B29E;
+            color: white;
+            box-shadow: 0 10px 20px rgba(56, 178, 158, 0.3);
+            border-color: #38B29E;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================================
+           ESTILOS DEL GRID DE PRODUCTOS (BOWLS)
+           ========================================================= */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            color: transparent;
+        }
+
+        .product-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: left;
+            padding: 0 0.5rem;
+        }
+
+        .product-tag {
+            align-self: flex-start;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .tag-nuevo {
+            background: rgba(211, 47, 47, 0.1);
+            color: #d32f2f;
+        }
+
+        .tag-exotico {
+            background: rgba(245, 124, 0, 0.1);
+            color: #f57c00;
+        }
+
+        .tag-clasico {
+            background: rgba(0, 151, 167, 0.1);
+            color: #0097a7;
+        }
+
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem 0;
+            color: #1a1a1a;
+            line-height: 1.1;
+        }
+
+        .product-desc {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: #666666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            border-top: 1px dashed rgba(26, 26, 26, 0.15);
+            padding-top: 1rem;
+        }
+
+        .product-price {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #38B29E;
+        }
+
+        .menu-list,
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .menu-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 0.8rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed rgba(26, 26, 26, 0.15);
+            transition: border-color 0.3s ease;
+        }
+
+        .menu-item-row:hover {
+            border-bottom: 1px dashed #38B29E;
+        }
+
+        .menu-item-info {
+            flex: 1;
+            padding-right: 1rem;
+        }
+
+        .menu-item-info h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            margin-bottom: 0.2rem;
+        }
+
+        .menu-item-info p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: #666666;
+            margin: 0;
+        }
+
+        .menu-item-action {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-item-price {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: #38B29E;
+            font-size: 1.2rem;
+        }
+
+        .menu-item-action .product-add,
+        .product-footer .product-add {
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            background: transparent !important;
+            color: #38B29E !important;
+            border: 1px solid #38B29E !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .menu-item-action .product-add:hover,
+        .product-footer .product-add:hover {
+            background: #38B29E !important;
+            color: white !important;
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -72,8 +343,21 @@
         </div>
         <div class="hero-visual">
             <div class="hero-bowl-wrapper">
-                <div class="hero-bowl">
-                    <span class="hero-bowl-content">🍧</span>
+                <div class="hero-bowl-content"
+                    style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                    <svg viewBox="0 0 200 200" width="85%" height="85%" xmlns="http://www.w3.org/2000/svg"
+                        style="filter: drop-shadow(0 15px 30px rgba(0,0,0,0.08)); animation: float 6s ease-in-out infinite;">
+                        <ellipse cx="100" cy="170" rx="45" ry="6" fill="rgba(0,0,0,0.04)" />
+                        <path d="M140 50 L110 95" stroke="#E5E7EB" stroke-width="7" stroke-linecap="round" />
+                        <ellipse cx="144" cy="42" rx="9" ry="13" fill="#E5E7EB" transform="rotate(35 144 42)" />
+                        <circle cx="70" cy="100" r="34" fill="#FFB75E" />
+                        <circle cx="130" cy="100" r="34" fill="#E91E8C" />
+                        <circle cx="100" cy="78" r="38" fill="#F9FAFB" />
+                        <path d="M 45 115 L 60 155 Q 100 165 140 155 L 155 115 Z" fill="#FFFFFF" />
+                        <path d="M 45 115 Q 100 132 155 115" fill="#FFFFFF" />
+                        <path d="M 45 115 Q 100 132 155 115" stroke="#F3F4F6" stroke-width="3" fill="none"
+                            stroke-linecap="round" />
+                    </svg>
                 </div>
                 <div class="hero-tag hero-tag-1">Bananofresa</div>
                 <div class="hero-tag hero-tag-2">Mango</div>
@@ -102,94 +386,269 @@
             <div class="stat-item"><span class="stat-num">57</span><span class="stat-label">Años de tradición</span>
             </div>
             <span class="stat-divider"></span>
-            <div class="stat-item"><span class="stat-num">20+</span><span class="stat-label">Sabores artesanales</span>
-            </div>
-            <span class="stat-divider"></span>
-            <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Sucursales</span></div>
-            <span class="stat-divider"></span>
-            <div class="stat-item"><span class="stat-num">12K</span><span class="stat-label">Seguidores en TikTok</span>
-            </div>
-            <span class="stat-divider"></span>
         </div>
     </div>
 
+    <!-- SECCIÓN MENÚ DIGITAL CON PESTAÑAS -->
     <section class="products" id="productos">
         <div class="section-header reveal">
-            <span class="section-eyebrow">Nuestro Menú</span>
-            <h2 class="section-title">Sabores que te <em>enamoran</em></h2>
-            <p class="section-subtitle">Elaborados con frutas frescas y cariño artesanal. Opciones veganas, sin azúcar y
-                sabores únicos que no encontrarás en otro lugar.</p>
+            <span class="section-eyebrow">Menú Interactivo</span>
+            <h2 class="section-title">Elige tus <em>Favoritos</em></h2>
         </div>
-        <div class="products-grid">
-            <div class="product-card reveal reveal-delay-1">
-                <div class="product-image"><img src="images/bananofresa.jpg" alt="Banana con Fresa"></div>
-                <div class="product-body">
-                    <span class="product-tag tag-nuevo">Nuevo</span>
-                    <h3 class="product-name">Banana con Fresa</h3>
-                    <p class="product-desc">Sorbete cremoso de fruta del dragón, refrescante y vibrante. El favorito de
-                        temporada.</p>
-                    <div class="product-footer"><span class="product-price">$1.50</span><button class="product-add"
-                            data-name="Banana con Fresa" data-price="1.50">+</button>
+
+        <div class="menu-tabs reveal">
+            <button type="button" class="tab-btn active" data-target="pane-bowls"><i class="fa-solid fa-bowl-food"></i>
+                Bowls</button>
+            <button type="button" class="tab-btn" data-target="pane-conos"><i class="fa-solid fa-ice-cream"></i>
+                Conos</button>
+            <button type="button" class="tab-btn" data-target="pane-vasos"><i class="fa-solid fa-glass-water"></i>
+                Vasos</button>
+            <button type="button" class="tab-btn" data-target="pane-llevar"><i class="fa-solid fa-box-open"></i> Para
+                Llevar</button>
+            <button type="button" class="tab-btn" data-target="pane-extras"><i class="fa-solid fa-star"></i>
+                Extras</button>
+        </div>
+
+        <div class="menu-content reveal">
+
+            <!-- PESTAÑA 1: BOWLS -->
+            <div class="tab-pane active" id="pane-bowls">
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image"><img src="images/apaneca.jpeg" alt="Bowl Apaneca"></div>
+                        <div class="product-body">
+                            <span class="product-tag tag-nuevo">Especial</span>
+                            <h3 class="product-name">Bowl Apaneca</h3>
+                            <p class="product-desc">4 bolas, capa de chía saborizada, fresas, guineo, moras, kiwi. (2
+                                Toppings / 1 Jalea)</p>
+                            <div class="product-footer">
+                                <span class="product-price">$4.50</span>
+                                <button class="product-add" data-name="Bowl Apaneca" data-price="4.50">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image"><img src="images/izalco.jpeg" alt="Bowl Izalco"></div>
+                        <div class="product-body">
+                            <span class="product-tag tag-exotico">Exótico</span>
+                            <h3 class="product-name">Bowl Izalco</h3>
+                            <p class="product-desc">4 bolas, capa de granola, fresas, mango y kiwi. (1 Topping / 1
+                                Jalea)</p>
+                            <div class="product-footer">
+                                <span class="product-price">$3.85</span>
+                                <button class="product-add" data-name="Bowl Izalco" data-price="3.85">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image"><img src="images/tradicional.jpeg" alt="Banana Split"></div>
+                        <div class="product-body">
+                            <span class="product-tag tag-clasico">Clásico</span>
+                            <h3 class="product-name">Banana Split</h3>
+                            <p class="product-desc">3 bolas de sorbete, topping y fruta fresca sobre una cama de guineo.
+                            </p>
+                            <div class="product-footer">
+                                <span class="product-price">$3.85</span>
+                                <button class="product-add" data-name="Banana Split" data-price="3.85">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="product-card reveal reveal-delay-2">
-                <div class="product-image"><img src="images/leche.jpg" alt="Leche"></div>
-                <div class="product-body">
-                    <span class="product-tag tag-vegano">Vegano</span>
-                    <h3 class="product-name">Leche</h3>
-                    <p class="product-desc">Sabor único inspirado en la raíz de taro, suave y con un color morado
-                        natural impresionante.</p>
-                    <div class="product-footer"><span class="product-price">$1.75</span><button class="product-add"
-                            data-name="Leche" data-price="1.75">+</button></div>
+
+            <!-- PESTAÑA 2: CONOS Y BARQUILLOS -->
+            <div class="tab-pane" id="pane-conos">
+                <div class="menu-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Cono Sencillo</h4>
+                            <p>1 Bola</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.90</span><button
+                                class="product-add" data-name="Cono Sencillo" data-price="0.90">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Barquillo Sencillo</h4>
+                            <p>1 Bola</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$1.15</span><button
+                                class="product-add" data-name="Barquillo Sencillo" data-price="1.15">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Cono Doble</h4>
+                            <p>2 Bolas</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$1.75</span><button
+                                class="product-add" data-name="Cono Doble" data-price="1.75">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Barquillo Doble</h4>
+                            <p>2 Bolas</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$1.85</span><button
+                                class="product-add" data-name="Barquillo Doble" data-price="1.85">+</button></div>
+                    </div>
                 </div>
             </div>
-            <div class="product-card reveal reveal-delay-3">
-                <div class="product-image"><img src="images/mango.jpg" alt="Mango con Chile"></div>
-                <div class="product-body">
-                    <span class="product-tag tag-clasico">Clásico</span>
-                    <h3 class="product-name">Mango</h3>
-                    <p class="product-desc">El sabor salvadoreño por excelencia. Mango maduro con toque de chile y
-                        limón.</p>
-                    <div class="product-footer"><span class="product-price">$1.25</span><button class="product-add"
-                            data-name="Mango" data-price="1.25">+</button></div>
+
+            <!-- PESTAÑA 3: VASOS Y TARRINAS -->
+            <div class="tab-pane" id="pane-vasos">
+                <div class="menu-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Vasito</h4>
+                            <p>2 Bolas</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$1.25</span><button
+                                class="product-add" data-name="Vasito" data-price="1.25">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Vaso Frutal</h4>
+                            <p>2 Bolas + Fruta</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$2.00</span><button
+                                class="product-add" data-name="Vaso Frutal" data-price="2.00">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Sundae</h4>
+                            <p>2 Bolas + Topping</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$2.50</span><button
+                                class="product-add" data-name="Sundae" data-price="2.50">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Tarrina</h4>
+                            <p>3 Bolas + Topping</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$2.50</span><button
+                                class="product-add" data-name="Tarrina" data-price="2.50">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Tarrina Frutal</h4>
+                            <p>3 Bolas + Fruta</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$2.85</span><button
+                                class="product-add" data-name="Tarrina Frutal" data-price="2.85">+</button></div>
+                    </div>
                 </div>
             </div>
-            <div class="product-card reveal reveal-delay-1">
-                <div class="product-image"><img src="images/tamarindo.jpg" alt="Jabuticaba"></div>
-                <div class="product-body">
-                    <span class="product-tag tag-exotico">Exótico</span>
-                    <h3 class="product-name">Tamarindo</h3>
-                    <p class="product-desc">La fruta tropical brasileña ahora en sorbete. Un sabor difícil de olvidar,
-                        intenso y frutal.</p>
-                    <div class="product-footer"><span class="product-price">$2.00</span><button class="product-add"
-                            data-name="Tamarindo" data-price="2.00">+</button></div>
+
+            <!-- PESTAÑA 4: PARA LLEVAR -->
+            <div class="tab-pane" id="pane-llevar">
+                <div class="menu-list">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Cajita Mix</h4>
+                            <p>6 Bolas + 2 oz Jalea</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$5.00</span><button
+                                class="product-add" data-name="Cajita Mix" data-price="5.00">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Pinta</h4>
+                            <p>Sorbete para llevar</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$3.25</span><button
+                                class="product-add" data-name="Pinta" data-price="3.25">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Litro</h4>
+                            <p>Sorbete para llevar</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$6.50</span><button
+                                class="product-add" data-name="Litro" data-price="6.50">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Chocobananos</h4>
+                            <p>Con topping a elección</p>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.75</span><button
+                                class="product-add" data-name="Chocobanano" data-price="0.75">+</button></div>
+                    </div>
                 </div>
             </div>
-            <div class="product-card reveal reveal-delay-2">
-                <div class="product-image"><img src="images/zapote.jpg" alt="Zapote"></div>
-                <div class="product-body">
-                    <span class="product-tag tag-clasico">Clásico</span>
-                    <h3 class="product-name">Zapote</h3>
-                    <p class="product-desc">Sorbete de durazno fresco con remolino de mermelada artesanal. Dulce y
-                        nostálgico.</p>
-                    <div class="product-footer"><span class="product-price">$1.50</span><button class="product-add"
-                            data-name="Zapote" data-price="1.50">+</button></div>
-                </div>
-            </div>
-            <div class="product-card reveal reveal-delay-3">
-                <div class="product-image"><img src="images/chocolate.jpg" alt="Fresa Natural"></div>
-                <div class="product-body">
-                    <span class="product-tag tag-sinazucar">Sin Azúcar</span>
-                    <h3 class="product-name">Chocolate</h3>
-                    <p class="product-desc">Para quienes cuidan su salud sin renunciar al sabor. Fresa pura, sin azúcar
-                        añadida.</p>
-                    <div class="product-footer"><span class="product-price">$1.50</span><button class="product-add"
-                            data-name="Chocolate" data-price="1.50">+</button></div>
+
+            <!-- PESTAÑA 5: EXTRAS -->
+            <div class="tab-pane" id="pane-extras">
+                <div class="extras-grid">
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Topping Extra</h4>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.35</span><button
+                                class="product-add" data-name="Topping Extra" data-price="0.35">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Jalea Extra</h4>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.35</span><button
+                                class="product-add" data-name="Jalea Extra" data-price="0.35">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>1/2 Onza Jalea</h4>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.35</span><button
+                                class="product-add" data-name="1/2 oz Jalea" data-price="0.35">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>1 Onza Jalea</h4>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.50</span><button
+                                class="product-add" data-name="1 oz Jalea" data-price="0.50">+</button></div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div class="menu-item-info">
+                            <h4>Crema Batida</h4>
+                        </div>
+                        <div class="menu-item-action"><span class="menu-item-price">$0.50</span><button
+                                class="product-add" data-name="Crema Batida" data-price="0.50">+</button></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- SCRIPT DE PESTAÑAS (AISLADO PARA QUE NINGÚN OTRO SCRIPT LO ROMPA) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const btns = document.querySelectorAll('.tab-btn');
+            const panes = document.querySelectorAll('.tab-pane');
+
+            btns.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Remover clase active de todos los botones y paneles
+                    btns.forEach(b => b.classList.remove('active'));
+                    panes.forEach(p => p.classList.remove('active'));
+
+                    // Agregar clase active al botón actual
+                    this.classList.add('active');
+
+                    // Mostrar el panel correspondiente
+                    const targetId = this.getAttribute('data-target');
+                    const targetPane = document.getElementById(targetId);
+                    if (targetPane) {
+                        targetPane.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- FIN DEL SCRIPT AISLADO -->
 
     <section class="story" id="historia">
         <div class="story-visual reveal">
@@ -259,7 +718,6 @@
             </button>
         </div>
     </section>
-
 
     <section class="testimonials">
         <div class="section-header reveal">
@@ -335,6 +793,7 @@
                                 </label>
                                 <input type="text" id="nombre" class="form-input" placeholder="Ej: Sofía Ramírez"
                                     required>
+                                <span class="form-error" id="error-nombre">Por favor ingresa tu nombre.</span>
                             </div>
 
                             <div class="form-group">
@@ -342,6 +801,8 @@
                                     <span class="label-icon"><i class="fa-brands fa-whatsapp"></i></span> WhatsApp
                                 </label>
                                 <input type="tel" id="whatsapp" class="form-input" placeholder="Ej: 7645-4347" required>
+                                <span class="form-error" id="error-whatsapp">Por favor ingresa tu número de
+                                    WhatsApp.</span>
                             </div>
 
                             <div class="form-group full">
@@ -364,64 +825,66 @@
                             </div>
                             <span class="form-error" id="error-sabor">Por favor selecciona un sabor.</span>
                         </div>
-                </div>
 
-                <div class="form-consent">
-                    <input type="checkbox" id="consent" required>
-                    <label class="form-consent-text" for="consent">
-                        Acepto recibir mensajes de <strong>Isho's Factory</strong> por WhatsApp con mi código de
-                        descuento, novedades y promociones exclusivas. Puedo cancelar en cualquier momento.
-                    </label>
-                </div>
+                        <div class="form-consent">
+                            <input type="checkbox" id="consent" required>
+                            <label class="form-consent-text" for="consent">
+                                Acepto recibir mensajes de <strong>Isho's Factory</strong> por WhatsApp con mi código de
+                                descuento, novedades y promociones exclusivas. Puedo cancelar en cualquier momento.
+                            </label>
+                        </div>
 
-                <button type="submit" class="btn-submit" id="btn-submit">
-                    <span class="btn-icon"><i class="fa-solid fa-gift"></i></span>
-                    Quiero mi 10% de descuento
-                </button>
-                </form>
-            </div>
-
-            <div class="form-success" id="form-success">
-                <div class="success-icon">🎉</div>
-                <h3 class="success-title">¡Ya eres de la familia!</h3>
-                <p class="success-text">Hola <strong id="success-name"></strong>, tu regalo está listo.</p>
-
-                <div class="modern-coupon">
-                    <div class="coupon-badge">
-                        <i class="fa-solid fa-star"></i> 10% DE DESCUENTO
-                    </div>
-                    <div class="coupon-content">
-                        <span class="coupon-label">Tu código exclusivo</span>
-                        <button class="coupon-code-btn" id="copyCodeBtn" title="Copiar código">
-                            <span id="success-code">ISHOS-XXXX</span>
-                            <i class="fa-regular fa-copy copy-icon"></i>
+                        <button type="submit" class="btn-submit" id="btn-submit">
+                            <span class="btn-icon"><i class="fa-solid fa-gift"></i></span>
+                            Quiero mi 10% de descuento
                         </button>
-                        <span class="copy-feedback" id="copyFeedback">¡Copiado!</span>
-                    </div>
-                    <div class="coupon-footer">
-                        <i class="fa-solid fa-location-dot"></i> Válido en sucursales de Ahuachapán
-                    </div>
+                    </form>
                 </div>
 
-                <p class="success-text" style="margin-top: 2rem; margin-bottom: 1rem;">O guárdalo directamente en tu
-                    celular 👇</p>
+                <div class="form-success" id="form-success">
+                    <div class="success-icon">🎉</div>
+                    <h3 class="success-title">¡Ya eres de la familia!</h3>
+                    <p class="success-text">Hola <strong id="success-name"></strong>, tu regalo está listo.</p>
 
-                <a href="#" class="btn-whatsapp-send" id="whatsapp-link" target="_blank">
-                    <i class="fa-brands fa-whatsapp"></i> Guardar cupón en mi WhatsApp
-                </a>
+                    <div class="modern-coupon">
+                        <div class="coupon-badge">
+                            <i class="fa-solid fa-star"></i> 10% DE DESCUENTO
+                        </div>
+                        <div class="coupon-content">
+                            <span class="coupon-label">Tu código exclusivo</span>
+                            <button class="coupon-code-btn" id="copyCodeBtn" title="Copiar código"
+                                aria-label="Copiar código de descuento">
+                                <span id="success-code">ISHOS-XXXX</span>
+                                <i class="fa-regular fa-copy copy-icon"></i>
+                            </button>
+                            <span class="copy-feedback" id="copyFeedback">¡Copiado!</span>
+                        </div>
+                        <div class="coupon-footer">
+                            <i class="fa-solid fa-location-dot"></i> Válido en sucursales de Ahuachapán
+                        </div>
+                    </div>
+
+                    <p class="success-text" style="margin-top: 2rem; margin-bottom: 1rem;">O guárdalo directamente en tu
+                        celular 👇</p>
+
+                    <a href="#" class="btn-whatsapp-send" id="whatsapp-link" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-whatsapp"></i> Guardar cupón en mi WhatsApp
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="leads-benefits reveal">
-            <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-shield-halved"></i></span>
-                Sin spam</div>
-            <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-lock"></i></span> Datos
-                seguros</div>
-            <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-bolt"></i></span> Código
-                inmediato</div>
-            <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-gift"></i></span> 10% en tu
-                primera compra</div>
-        </div>
+            <div class="leads-benefits reveal">
+                <div class="lead-benefit"><span class="lead-benefit-icon"><i
+                            class="fa-solid fa-shield-halved"></i></span>
+                    Sin spam</div>
+                <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-lock"></i></span> Datos
+                    seguros</div>
+                <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-bolt"></i></span> Código
+                    inmediato</div>
+                <div class="lead-benefit"><span class="lead-benefit-icon"><i class="fa-solid fa-gift"></i></span> 10% en
+                    tu
+                    primera compra</div>
+            </div>
         </div>
     </section>
 
@@ -441,7 +904,8 @@
                         <div class="location-hour-row"><span>Sábado – Domingo</span><span>09:00 AM – 9:00 PM</span>
                         </div>
                     </div>
-                    <a href="https://wa.me/50376454347" class="location-cta" target="_blank">Escribir por WhatsApp →</a>
+                    <a href="https://wa.me/50376454347" class="location-cta" target="_blank" rel="noopener">Escribir por
+                        WhatsApp →</a>
                 </div>
                 <div class="location-card reveal reveal-delay-2">
                     <div class="location-icon"><i class="fa-solid fa-location-dot"></i></div>
@@ -452,7 +916,8 @@
                         <div class="location-hour-row"><span>Sábado – Domingo</span><span>09:00 AM – 9:00 PM</span>
                         </div>
                     </div>
-                    <a href="https://wa.me/50376454347" class="location-cta" target="_blank">Escribir por WhatsApp →</a>
+                    <a href="https://wa.me/50376454347" class="location-cta" target="_blank" rel="noopener">Escribir por
+                        WhatsApp →</a>
                 </div>
             </div>
         </div>
@@ -461,7 +926,7 @@
     <div class="modal-overlay" id="configuratorModal">
         <div class="modal-container">
             <div class="modal-preview">
-                <button class="modal-close" id="closeModal">✕</button>
+                <button class="modal-close" id="closeModal" aria-label="Cerrar configurador">✕</button>
 
                 <div class="preview-header">
                     <div class="preview-badge">✨ Configurador</div>
@@ -738,6 +1203,93 @@
             </div>
         </div>
     </div>
+
+    <!-- ==========================================
+         HTML DEL CARRITO DE COMPRAS
+         ========================================== -->
+
+    <!-- Botón Flotante del Carrito -->
+    <div class="cart-fab" id="cartFab" role="button" tabindex="0" aria-label="Abrir carrito de compras"
+        style="position: fixed; bottom: 30px; right: 30px; background: #38B29E; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 10px 25px rgba(56, 178, 158, 0.4); z-index: 1000;">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge"
+            style="position: absolute; top: -5px; right: -5px; background: #e53935; color: white; width: 24px; height: 24px; border-radius: 50%; display: none; justify-content: center; align-items: center; font-size: 0.8rem; font-weight: bold;">0</span>
+    </div>
+
+    <!-- Menú Lateral / Modal del Carrito -->
+    <div class="modal-overlay" id="cartOverlay">
+        <div class="modal-container" style="max-width: 450px; padding: 2rem; display: block; height: auto;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin: 0;">Tu Pedido</h3>
+                <button id="cartClose" aria-label="Cerrar carrito"
+                    style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #666;">✕</button>
+            </div>
+
+            <div class="cart-items" id="cartItems" style="max-height: 40vh; overflow-y: auto; margin-bottom: 1rem;">
+                <div class="cart-empty" id="cartEmpty"
+                    style="display: flex; justify-content: center; padding: 2rem; color: #999;">
+                    Tu carrito está vacío 🍧
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid #eee; padding-top: 1rem;">
+                <div
+                    style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; margin-bottom: 1.5rem;">
+                    <span>Total:</span>
+                    <span id="cartTotal" style="color: #38B29E;">$0.00</span>
+                    <span id="cartSubtotal" style="display: none;"></span>
+                </div>
+                <button class="btn-primary" id="cartCheckout" style="width: 100%; justify-content: center;">
+                    Proceder al pago →
+                </button>
+                <button class="btn-back" id="cartClear"
+                    style="width: 100%; margin-top: 10px; background: transparent; border: none; color: #d32f2f; cursor: pointer; padding: 0.8rem; justify-content: center;">
+                    <i class="fa-solid fa-trash"></i> Vaciar carrito
+                </button>
+                <a href="#" id="cartWhatsapp" style="display: none;">WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout (Datos del cliente) -->
+    <div class="modal-overlay" id="checkoutOverlay">
+        <div class="modal-container" style="max-width: 400px; padding: 2rem; display: block; height: auto;">
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <h3 style="margin-bottom: 0.5rem; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;">Completa
+                    tu orden</h3>
+                <p style="color: #666; font-size: 0.95rem; line-height: 1.4;">Ingresa tus datos para enviarte el ticket
+                    de retiro por WhatsApp.</p>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem; text-align: left;">
+                <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;"><i
+                        class="fa-solid fa-user"></i> Tu Nombre</label>
+                <input type="text" id="checkoutNombre" class="form-input" placeholder="Ej: Sofía Ramírez"
+                    style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-family: 'Outfit', sans-serif;">
+            </div>
+            <div class="form-group" style="margin-bottom: 1.5rem; text-align: left;">
+                <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;"><i
+                        class="fa-brands fa-whatsapp"></i> Tu WhatsApp</label>
+                <input type="tel" id="checkoutTel" class="form-input" placeholder="Ej: 7645-4347"
+                    style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-family: 'Outfit', sans-serif;">
+            </div>
+
+            <span class="form-error" id="checkoutError"
+                style="color: #e53935; font-size: 0.85rem; display: none; margin-bottom: 1rem; text-align: center;">Por
+                favor completa ambos campos.</span>
+
+            <button class="btn-primary" id="checkoutConfirm"
+                style="width: 100%; margin-bottom: 10px; justify-content: center;">
+                <i class="fa-brands fa-whatsapp"></i> Recibir Ticket Oficial
+            </button>
+            <button class="btn-back" id="checkoutCancel"
+                style="width: 100%; background: transparent; border: none; color: #666; cursor: pointer; padding: 0.8rem; justify-content: center;">
+                ← Volver al carrito
+            </button>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -745,13 +1297,16 @@
                 <p class="footer-brand-text">Sorbetería artesanal con más de 50 años de tradición familiar. Elaboramos
                     cada sorbete con ingredientes frescos y el amor que aprendimos de don Alberto Isho.</p>
                 <div class="footer-social">
-                    <a href="https://instagram.com/ishos_factory" class="footer-social-btn" target="_blank">
+                    <a href="https://instagram.com/ishos_factory" class="footer-social-btn" target="_blank"
+                        rel="noopener" aria-label="Instagram">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="https://tiktok.com/@ishosfactory" class="footer-social-btn" target="_blank">
+                    <a href="https://tiktok.com/@ishosfactory" class="footer-social-btn" target="_blank" rel="noopener"
+                        aria-label="TikTok">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
-                    <a href="https://wa.me/50376454347" class="footer-social-btn" target="_blank">
+                    <a href="https://wa.me/50376454347" class="footer-social-btn" target="_blank" rel="noopener"
+                        aria-label="WhatsApp">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </div>
@@ -800,12 +1355,26 @@
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
 
+        // Se exponen en window para que los demás scripts (no-module) de esta
+        // página los reutilicen en lugar de volver a inicializar Firebase.
         window.db = db;
         window.addDoc = addDoc;
         window.collection = collection;
         window.serverTimestamp = serverTimestamp;
 
-        const ISHOS_WHATSAPP = "50363067067";
+        // ---------------------------------------------------------------
+        // ⚠️ NOTA DE SEGURIDAD IMPORTANTE
+        // ---------------------------------------------------------------
+        // El envío de WhatsApp (CallMeBot + API propia) vive en scripts más
+        // abajo y usa claves que quedan visibles en el código fuente del
+        // navegador. Cualquier visitante puede leerlas y usarlas para
+        // enviar mensajes en tu nombre o saturar tu servidor.
+        // La forma correcta de resolver esto es mover ese envío a una
+        // Cloud Function de Firebase disparada por la escritura en
+        // Firestore (onDocumentCreated en "leads"/"pedidos"), para que la
+        // clave nunca salga del servidor. Mientras migras, considera al
+        // menos rotar esas claves periódicamente.
+        // ---------------------------------------------------------------
 
         function generarCodigo(nombre) {
             const iniciales = nombre.trim().split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
@@ -852,7 +1421,6 @@
 
                 const wrapper = document.getElementById('lead-form-wrapper');
                 if (wrapper) wrapper.style.display = 'none';
-                form.style.display = 'none';
 
                 const successEl = document.getElementById('form-success');
                 successEl.style.display = 'block';
@@ -882,28 +1450,63 @@
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = '<span class="btn-icon"><i class="fa-solid fa-gift"></i></span> Quiero mi 10% de descuento';
             }
-
-            const copyBtn = document.getElementById('copyCodeBtn');
-            const copyFeedback = document.getElementById('copyFeedback');
-
-            if (copyBtn) {
-                copyBtn.addEventListener('click', () => {
-                    const codeToCopy = document.getElementById('success-code').innerText;
-                    navigator.clipboard.writeText(codeToCopy).then(() => {
-                        copyFeedback.classList.add('show');
-                        const icon = copyBtn.querySelector('i');
-                        icon.classList.remove('fa-copy', 'fa-regular');
-                        icon.classList.add('fa-check', 'fa-solid');
-
-                        setTimeout(() => {
-                            copyFeedback.classList.remove('show');
-                            icon.classList.remove('fa-check', 'fa-solid');
-                            icon.classList.add('fa-copy', 'fa-regular');
-                        }, 2000);
-                    });
-                });
-            }
         });
+
+        const copyBtn = document.getElementById('copyCodeBtn');
+        const copyFeedback = document.getElementById('copyFeedback');
+
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const codeToCopy = document.getElementById('success-code').innerText;
+                navigator.clipboard.writeText(codeToCopy).then(() => {
+                    copyFeedback.classList.add('show');
+                    const icon = copyBtn.querySelector('i');
+                    icon.classList.remove('fa-copy', 'fa-regular');
+                    icon.classList.add('fa-check', 'fa-solid');
+
+                    setTimeout(() => {
+                        copyFeedback.classList.remove('show');
+                        icon.classList.remove('fa-check', 'fa-solid');
+                        icon.classList.add('fa-copy', 'fa-regular');
+                    }, 2000);
+                });
+            });
+        }
+    </script>
+
+    <!-- ==========================================
+         ENVÍO DE NOTIFICACIONES DE WHATSAPP
+         (función compartida por configurador y carrito
+         para no duplicar la lógica de envío)
+         ========================================== -->
+    <script>
+        const ISHOS_WHATSAPP = "50363067067";
+
+        /**
+         * Envía la notificación interna (CallMeBot) y el ticket al cliente
+         * (API propia). Centralizado aquí para no repetir esta lógica en
+         * cada flujo de compra.
+         *
+         * ⚠️ Ver nota de seguridad más arriba: estas claves están expuestas
+         * en el cliente. Ideal: mover esto a una Cloud Function.
+         */
+        function notificarPedido({ mensajeAdmin, telefonoCliente, mensajeCliente }) {
+            const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B50363067067&apikey=6666426&text=${encodeURIComponent(mensajeAdmin)}&_t=${Date.now()}`;
+            fetch(callMeBotUrl, { mode: 'no-cors', cache: 'no-store' }).catch(err => console.error("Error CallMeBot:", err));
+
+            const tuApiKeyPrivada = "ISHOS_CLAVE_SECRETA_2026";
+            let telClienteLimpio = telefonoCliente.replace(/\D/g, '');
+            let telConCodigo = telClienteLimpio.startsWith('503') ? telClienteLimpio : `503${telClienteLimpio}`;
+
+            // Nota: este endpoint es HTTP (no HTTPS). Si el sitio se sirve
+            // por HTTPS, el navegador bloqueará esta petición por
+            // "contenido mixto". Hay que exponer la API propia por HTTPS.
+            const urlMiApi = `http://18.222.202.24:8000/enviar?telefono=${telConCodigo}&apikey=${tuApiKeyPrivada}&texto=${encodeURIComponent(mensajeCliente)}`;
+            fetch(urlMiApi)
+                .then(res => res.json())
+                .then(data => console.log("✅ Respuesta de la API en Python:", data))
+                .catch(err => console.error("❌ Error comunicando con la API en Python:", err));
+        }
     </script>
 
     <script>
@@ -1178,7 +1781,6 @@
                 document.getElementById('ticketDate').textContent = new Date().toLocaleDateString('es-SV', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
             }
 
-            // BOTÓN DE CONFIRMACIÓN CON ENVÍO AUTOMÁTICO AL CLIENTE POR API PRIVADA EN PYTHON
             const confirmOrderBtn = document.getElementById('confirmOrderBtn');
             if (confirmOrderBtn) {
                 confirmOrderBtn.addEventListener('click', async () => {
@@ -1209,15 +1811,7 @@
                             fecha: window.serverTimestamp()
                         });
 
-                        // 1. Notificación a la administración vía CallMeBot (Se mantiene)
                         const adminMsgConfig = `🍧 *NUEVO SORBETE ARMADO* 🍧\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${telefono}\n🔢 *Ticket:* #${state.orderNum}\n🍦 *Base:* ${BASE_NAMES[state.base]}\n💰 *Total:* $${state.total.toFixed(2)}`;
-                        const callMeBotUrlConfig = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B50363067067&apikey=6666426&text=${encodeURIComponent(adminMsgConfig)}&_t=${Date.now()}`;
-                        fetch(callMeBotUrlConfig, { mode: 'no-cors', cache: 'no-store' }).catch(err => console.error("Error CallMeBot:", err));
-
-                        // 2. ENVÍO AUTOMÁTICO AL CLIENTE vía API Privada (FastAPI en Python)
-                        const tuApiKeyPrivada = "ISHOS_CLAVE_SECRETA_2026";
-                        let telClienteLimpio = telefono.replace(/\D/g, '');
-                        let telConCodigo = telClienteLimpio.startsWith('503') ? telClienteLimpio : `503${telClienteLimpio}`;
 
                         let saboresTexto = state.flavors.map(f => `• ${FLAVOR_NAMES[f]}`).join('\n');
                         let toppingsTexto = state.toppings.length > 0 ? `\n*Toppings:*\n` + state.toppings.map(t => `• ${TOPPING_NAMES[t]}`).join('\n') : '';
@@ -1234,13 +1828,12 @@
                             `💰 *TOTAL A PAGAR: $${state.total.toFixed(2)}*\n\n` +
                             `📍 Presenta este número (*#${state.orderNum}*) en caja para pagar y retirar tu pedido. ¡Te esperamos! 🙌`;
 
-                        const urlMiApiConfig = `http://localhost:8000/enviar?telefono=${telConCodigo}&apikey=${tuApiKeyPrivada}&texto=${encodeURIComponent(ticketParaCliente)}`;
-                        fetch(urlMiApiConfig)
-                            .then(res => res.json())
-                            .then(data => console.log("✅ Respuesta de mi API en Python:", data))
-                            .catch(err => console.error("❌ Error comunicando con la API en Python:", err));
+                        notificarPedido({
+                            mensajeAdmin: adminMsgConfig,
+                            telefonoCliente: telefono,
+                            mensajeCliente: ticketParaCliente
+                        });
 
-                        // 3. Ocultar botones y mostrar mensaje de éxito en pantalla
                         confirmOrderBtn.style.display = 'none';
                         document.querySelector('.configurator-customer-fields').style.display = 'none';
                         document.getElementById('backToStep3').style.display = 'none';
@@ -1260,282 +1853,204 @@
         });
     </script>
 
+    <script>
+        const cart = {};
 
+        const cartFab = document.getElementById('cartFab');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartClose = document.getElementById('cartClose');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartItemsEl = document.getElementById('cartItems');
+        const cartEmpty = document.getElementById('cartEmpty');
+        const cartSubtotalEl = document.getElementById('cartSubtotal');
+        const cartTotalEl = document.getElementById('cartTotal');
+        const cartWhatsapp = document.getElementById('cartWhatsapp');
+        const cartClear = document.getElementById('cartClear');
 
-    <div class="cart-overlay" id="cartOverlay">
-        <div class="cart-modal">
-            <div class="cart-modal-header">
-                <div class="cart-modal-title">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span>Tu pedido</span>
+        if (cartFab) {
+            cartFab.addEventListener('click', () => cartOverlay.classList.add('active'));
+            cartFab.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cartOverlay.classList.add('active'); }
+            });
+        }
+        if (cartClose) cartClose.addEventListener('click', () => cartOverlay.classList.remove('active'));
+        if (cartOverlay) cartOverlay.addEventListener('click', (e) => { if (e.target === cartOverlay) cartOverlay.classList.remove('active'); });
+
+        if (cartClear) {
+            cartClear.addEventListener('click', () => {
+                Object.keys(cart).forEach(k => delete cart[k]);
+                updateCart();
+            });
+        }
+
+        document.querySelectorAll('.product-add').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.dataset.name;
+                const price = parseFloat(btn.dataset.price);
+                cart[name] = cart[name] ? { price, qty: cart[name].qty + 1 } : { price, qty: 1 };
+                updateCart();
+                if (cartOverlay) cartOverlay.classList.add('active');
+            });
+        });
+
+        function updateCart() {
+            let total = 0, count = 0;
+            let msg = '🍧 *MI PEDIDO — Isho\'s Factory*\n━━━━━━━━━━━━━━━\n\n';
+
+            if (cartItemsEl) cartItemsEl.innerHTML = '';
+            if (cartItemsEl && cartEmpty) cartItemsEl.appendChild(cartEmpty);
+
+            const entries = Object.entries(cart).filter(([, v]) => v.qty > 0);
+            if (cartEmpty) cartEmpty.style.display = entries.length === 0 ? 'flex' : 'none';
+
+            entries.forEach(([name, item]) => {
+                total += item.price * item.qty;
+                count += item.qty;
+                msg += `• ${name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
+
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${name}</div>
+                    <div class="cart-item-price-unit">$${item.price.toFixed(2)} c/u</div>
                 </div>
-                <button class="cart-modal-close" id="cartClose">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <div class="cart-modal-body" id="cartItems">
-                <div class="cart-empty" id="cartEmpty">
-                    <i class="fa-solid fa-bowl-food"></i>
-                    <p>Tu pedido está vacío</p>
+                <div class="cart-item-controls">
+                    <button onclick="changeQty('${name}', -1)" aria-label="Quitar uno de ${name}">−</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty('${name}', 1)" aria-label="Agregar uno más de ${name}">+</button>
                 </div>
-            </div>
+                <div class="cart-item-subtotal">$${(item.price * item.qty).toFixed(2)}</div>
+            `;
+                if (cartItemsEl) cartItemsEl.appendChild(div);
+            });
 
-            <div class="cart-modal-footer">
-                <div class="cart-summary">
-                    <div class="cart-summary-row">
-                        <span>Subtotal</span>
-                        <span id="cartSubtotal">$0.00</span>
-                    </div>
-                    <div class="cart-summary-row cart-summary-total">
-                        <span>Total</span>
-                        <span id="cartTotal">$0.00</span>
-                    </div>
-                </div>
-                <button class="cart-whatsapp-btn" id="cartCheckout">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    Completar Pedido
-                </button>
-                <button class="cart-clear" id="cartClear">Vaciar pedido</button>
-            </div>
-        </div>
-    </div>
+            msg += `\n━━━━━━━━━━━━━━━\n💰 *Total: $${total.toFixed(2)}*\n\n¡Gracias! 🙌`;
+            if (cartSubtotalEl) cartSubtotalEl.textContent = `$${total.toFixed(2)}`;
+            if (cartTotalEl) cartTotalEl.textContent = `$${total.toFixed(2)}`;
+            if (cartBadge) {
+                cartBadge.textContent = count;
+                cartBadge.style.display = count > 0 ? 'flex' : 'none';
+            }
+            if (cartWhatsapp) {
+                cartWhatsapp.href = `https://wa.me/50376454347?text=${encodeURIComponent(msg)}`;
+            }
+        }
 
-    <div class="checkout-overlay" id="checkoutOverlay">
-        <div class="checkout-modal">
-            <div class="checkout-header">
-                <h3>¿A nombre de quién va el pedido?</h3>
-                <p>Te enviaremos tu comprobante por WhatsApp 🍧</p>
-            </div>
-            <div class="checkout-body">
-                <div class="checkout-field">
-                    <label><i class="fa-solid fa-user"></i> Nombre</label>
-                    <input type="text" id="checkoutNombre" placeholder="Ej: Sofía Ramírez">
-                </div>
-                <div class="checkout-field">
-                    <label><i class="fa-brands fa-whatsapp"></i> WhatsApp</label>
-                    <input type="tel" id="checkoutTel" placeholder="Ej: 7645-4347">
-                </div>
-                <span class="checkout-error" id="checkoutError"></span>
-            </div>
-            <div class="checkout-footer">
-                <button class="checkout-cancel" id="checkoutCancel">Cancelar</button>
-                <button class="checkout-confirm" id="checkoutConfirm">
-                    <i class="fa-brands fa-whatsapp"></i> Confirmar y Recibir Ticket
-                </button>
-            </div>
-        </div>
-    </div>
+        window.changeQty = function (name, delta) {
+            cart[name].qty += delta;
+            if (cart[name].qty <= 0) delete cart[name];
+            updateCart();
+        }
 
-    <div class="cart-fab" id="cartFab">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
-    </div>
+        const checkoutOverlay = document.getElementById('checkoutOverlay');
+        const checkoutCancel = document.getElementById('checkoutCancel');
+        const checkoutConfirm = document.getElementById('checkoutConfirm');
+        const checkoutError = document.getElementById('checkoutError');
+
+        const cartCheckoutBtn = document.getElementById('cartCheckout');
+        if (cartCheckoutBtn) {
+            cartCheckoutBtn.addEventListener('click', () => {
+                if (Object.keys(cart).length === 0) return;
+                cartOverlay.classList.remove('active');
+                checkoutOverlay.classList.add('active');
+            });
+        }
+
+        if (checkoutCancel) {
+            checkoutCancel.addEventListener('click', () => {
+                checkoutOverlay.classList.remove('active');
+                cartOverlay.classList.add('active');
+            });
+        }
+
+        if (checkoutConfirm) {
+            checkoutConfirm.addEventListener('click', async () => {
+                const nombre = document.getElementById('checkoutNombre').value.trim();
+                const tel = document.getElementById('checkoutTel').value.trim();
+
+                if (!nombre || !tel) {
+                    checkoutError.textContent = 'Por favor completa ambos campos.';
+                    checkoutError.classList.add('visible');
+                    return;
+                }
+
+                checkoutError.classList.remove('visible');
+                checkoutConfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+                checkoutConfirm.disabled = true;
+
+                const orderNum = Math.floor(Math.random() * 9000) + 1000;
+                const items = Object.entries(cart).filter(([, v]) => v.qty > 0);
+                const total = items.reduce((acc, [, v]) => acc + v.price * v.qty, 0);
+
+                let listaItems = '';
+                items.forEach(([name, item]) => {
+                    listaItems += `• ${name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
+                });
+
+                try {
+                    // Se reutiliza la instancia de Firebase ya inicializada
+                    // arriba (window.db) en vez de volver a importar y
+                    // crear la app de nuevo.
+                    await window.addDoc(window.collection(window.db, "pedidos"), {
+                        numero_pedido: orderNum,
+                        nombre,
+                        whatsapp: tel,
+                        sabores: items.map(([name]) => name),
+                        base: 'Pedido directo',
+                        toppings: [],
+                        total: total.toFixed(2),
+                        estado: 'pendiente',
+                        fecha: window.serverTimestamp()
+                    });
+
+                    const adminMsgCarrito = `🚨 *NUEVO PEDIDO DE CARRITO* 🚨\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${tel}\n🔢 *Orden:* #${orderNum}\n💰 *Total:* $${total.toFixed(2)}\n\nRevisa la base de datos para ver el detalle de los sorbetes.`;
+
+                    const ticketCarritoCliente =
+                        `🍧 *ISHOS FACTORY — TICKET DE PEDIDO* 🍧\n` +
+                        `━━━━━━━━━━━━━━━━━━\n\n` +
+                        `¡Hola *${nombre}*! Hemos registrado tu pedido con éxito:\n\n` +
+                        `🎫 *PEDIDO:* #${orderNum}\n\n` +
+                        `*Detalle:*\n${listaItems}\n` +
+                        `━━━━━━━━━━━━━━━━━━\n` +
+                        `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n` +
+                        `📍 Presenta el número *#${orderNum}* en caja para retirar tu pedido. ¡Gracias por tu preferencia! 🙌`;
+
+                    notificarPedido({
+                        mensajeAdmin: adminMsgCarrito,
+                        telefonoCliente: tel,
+                        mensajeCliente: ticketCarritoCliente
+                    });
+
+                    checkoutOverlay.classList.remove('active');
+                    document.getElementById('checkoutNombre').value = '';
+                    document.getElementById('checkoutTel').value = '';
+
+                    const toast = document.createElement('div');
+                    toast.style.cssText = `
+                        position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+                        background: #1e3a34; color: white; padding: 1.2rem 2rem;
+                        border-radius: 50px; font-weight: 600; z-index: 9999;
+                        box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 0.95rem; text-align: center;
+                    `;
+                    toast.innerHTML = `✅ ¡Pedido #${orderNum} registrado! Te hemos enviado el ticket oficial a tu WhatsApp.`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 6000);
+
+                    Object.keys(cart).forEach(k => delete cart[k]);
+                    updateCart();
+
+                } catch (err) {
+                    console.error(err);
+                    checkoutError.textContent = 'Error al guardar el pedido. Intenta de nuevo.';
+                    checkoutError.classList.add('visible');
+                } finally {
+                    checkoutConfirm.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar y Recibir Ticket';
+                    checkoutConfirm.disabled = false;
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-    const cart = {};
-
-    const cartFab = document.getElementById('cartFab');
-    const cartOverlay = document.getElementById('cartOverlay');
-    const cartClose = document.getElementById('cartClose');
-    const cartBadge = document.getElementById('cartBadge');
-    const cartItemsEl = document.getElementById('cartItems');
-    const cartEmpty = document.getElementById('cartEmpty');
-    const cartSubtotalEl = document.getElementById('cartSubtotal');
-    const cartTotalEl = document.getElementById('cartTotal');
-    const cartWhatsapp = document.getElementById('cartWhatsapp');
-    const cartClear = document.getElementById('cartClear');
-
-    cartFab.addEventListener('click', () => cartOverlay.classList.add('active'));
-    cartClose.addEventListener('click', () => cartOverlay.classList.remove('active'));
-    cartOverlay.addEventListener('click', (e) => { if (e.target === cartOverlay) cartOverlay.classList.remove('active'); });
-
-    cartClear.addEventListener('click', () => {
-        Object.keys(cart).forEach(k => delete cart[k]);
-        updateCart();
-    });
-
-    document.querySelectorAll('.product-add').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const name = btn.dataset.name;
-            const price = parseFloat(btn.dataset.price);
-            cart[name] = cart[name] ? { price, qty: cart[name].qty + 1 } : { price, qty: 1 };
-            updateCart();
-            cartOverlay.classList.add('active');
-        });
-    });
-
-    function updateCart() {
-        let total = 0, count = 0;
-        let msg = '🍧 *MI PEDIDO — Isho\'s Factory*\n━━━━━━━━━━━━━━━\n\n';
-
-        cartItemsEl.innerHTML = '';
-        cartItemsEl.appendChild(cartEmpty);
-
-        const entries = Object.entries(cart).filter(([, v]) => v.qty > 0);
-        cartEmpty.style.display = entries.length === 0 ? 'flex' : 'none';
-
-        entries.forEach(([name, item]) => {
-            total += item.price * item.qty;
-            count += item.qty;
-            msg += `• ${name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
-
-            const div = document.createElement('div');
-            div.className = 'cart-item';
-            div.innerHTML = `
-            <div class="cart-item-info">
-                <div class="cart-item-name">${name}</div>
-                <div class="cart-item-price-unit">$${item.price.toFixed(2)} c/u</div>
-            </div>
-            <div class="cart-item-controls">
-                <button onclick="changeQty('${name}', -1)">−</button>
-                <span>${item.qty}</span>
-                <button onclick="changeQty('${name}', 1)">+</button>
-            </div>
-            <div class="cart-item-subtotal">$${(item.price * item.qty).toFixed(2)}</div>
-        `;
-            cartItemsEl.appendChild(div);
-        });
-
-        msg += `\n━━━━━━━━━━━━━━━\n💰 *Total: $${total.toFixed(2)}*\n\n¡Gracias! 🙌`;
-        cartSubtotalEl.textContent = `$${total.toFixed(2)}`;
-        cartTotalEl.textContent = `$${total.toFixed(2)}`;
-        cartBadge.textContent = count;
-        cartBadge.style.display = count > 0 ? 'flex' : 'none';
-        if (cartWhatsapp) {
-            cartWhatsapp.href = `https://wa.me/50376454347?text=${encodeURIComponent(msg)}`;
-        }
-    }
-
-    function changeQty(name, delta) {
-        cart[name].qty += delta;
-        if (cart[name].qty <= 0) delete cart[name];
-        updateCart();
-    }
-
-    const checkoutOverlay = document.getElementById('checkoutOverlay');
-    const checkoutCancel = document.getElementById('checkoutCancel');
-    const checkoutConfirm = document.getElementById('checkoutConfirm');
-    const checkoutError = document.getElementById('checkoutError');
-
-    document.getElementById('cartCheckout').addEventListener('click', () => {
-        if (Object.keys(cart).length === 0) return;
-        cartOverlay.classList.remove('active');
-        checkoutOverlay.classList.add('active');
-    });
-
-    checkoutCancel.addEventListener('click', () => {
-        checkoutOverlay.classList.remove('active');
-        cartOverlay.classList.add('active');
-    });
-
-    checkoutConfirm.addEventListener('click', async () => {
-        const nombre = document.getElementById('checkoutNombre').value.trim();
-        const tel = document.getElementById('checkoutTel').value.trim();
-
-        if (!nombre || !tel) {
-            checkoutError.textContent = 'Por favor completa ambos campos.';
-            checkoutError.classList.add('visible');
-            return;
-        }
-
-        checkoutError.classList.remove('visible');
-        checkoutConfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
-        checkoutConfirm.disabled = true;
-
-        const orderNum = Math.floor(Math.random() * 9000) + 1000;
-        const items = Object.entries(cart).filter(([, v]) => v.qty > 0);
-        const total = items.reduce((acc, [, v]) => acc + v.price * v.qty, 0);
-
-        let listaItems = '';
-        items.forEach(([name, item]) => {
-            listaItems += `• ${name} x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
-        });
-
-        try {
-            const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
-            const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-
-            const firebaseConfig = {
-                apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
-                authDomain: "ishos-factory-web.firebaseapp.com",
-                projectId: "ishos-factory-web",
-                storageBucket: "ishos-factory-web.firebasestorage.app",
-                messagingSenderId: "948193083003",
-                appId: "1:948193083003:web:e141a769a9434ff0522cde"
-            };
-
-            const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-
-            await addDoc(collection(db, "pedidos"), {
-                numero_pedido: orderNum,
-                nombre,
-                whatsapp: tel,
-                sabores: items.map(([name]) => name),
-                base: 'Pedido directo',
-                toppings: [],
-                total: total.toFixed(2),
-                estado: 'pendiente',
-                fecha: serverTimestamp()
-            });
-
-            // 1. Notificación a administración vía CallMeBot (Se mantiene)
-            const adminMsgCarrito = `🚨 *NUEVO PEDIDO DE CARRITO* 🚨\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${tel}\n🔢 *Orden:* #${orderNum}\n💰 *Total:* $${total.toFixed(2)}\n\nRevisa la base de datos para ver el detalle de los sorbetes.`;
-            const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B50363067067&apikey=6666426&text=${encodeURIComponent(adminMsgCarrito)}&_t=${Date.now()}`;
-            fetch(callMeBotUrl, { mode: 'no-cors', cache: 'no-store' }).catch(err => console.error("Error CallMeBot:", err));
-
-            // 2. ENVÍO AUTOMÁTICO AL CLIENTE vía API Privada en Python
-            const tuApiKeyPrivada = "ISHOS_CLAVE_SECRETA_2026";
-            let telClienteLimpio = tel.replace(/\D/g, '');
-            let telConCodigo = telClienteLimpio.startsWith('503') ? telClienteLimpio : `503${telClienteLimpio}`;
-
-            const ticketCarritoCliente =
-                `🍧 *ISHOS FACTORY — TICKET DE PEDIDO* 🍧\n` +
-                `━━━━━━━━━━━━━━━━━━\n\n` +
-                `¡Hola *${nombre}*! Hemos registrado tu pedido con éxito:\n\n` +
-                `🎫 *PEDIDO:* #${orderNum}\n\n` +
-                `*Detalle:*\n${listaItems}\n` +
-                `━━━━━━━━━━━━━━━━━━\n` +
-                `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n` +
-                `📍 Presenta el número *#${orderNum}* en caja para retirar tu pedido. ¡Gracias por tu preferencia! 🙌`;
-
-            const urlMiApiCarrito = `http://localhost:8000/enviar?telefono=${telConCodigo}&apikey=${tuApiKeyPrivada}&texto=${encodeURIComponent(ticketCarritoCliente)}`;
-            fetch(urlMiApiCarrito)
-                .then(res => res.json())
-                .then(data => console.log("✅ Respuesta de mi API en Python:", data))
-                .catch(err => console.error("❌ Error comunicando con la API en Python:", err));
-
-            // Mostrar notificación de éxito
-            checkoutOverlay.classList.remove('active');
-            document.getElementById('checkoutNombre').value = '';
-            document.getElementById('checkoutTel').value = '';
-
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-                background: #1e3a34; color: white; padding: 1.2rem 2rem;
-                border-radius: 50px; font-weight: 600; z-index: 9999;
-                box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 0.95rem; text-align: center;
-            `;
-            toast.innerHTML = `✅ ¡Pedido #${orderNum} registrado! Te hemos enviado el ticket oficial a tu WhatsApp.`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 6000);
-
-            // Limpiar carrito
-            Object.keys(cart).forEach(k => delete cart[k]);
-            updateCart();
-
-        } catch (err) {
-            console.error(err);
-            checkoutError.textContent = 'Error al guardar el pedido. Intenta de nuevo.';
-            checkoutError.classList.add('visible');
-        } finally {
-            checkoutConfirm.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar y Recibir Ticket';
-            checkoutConfirm.disabled = false;
-        }
-    });
-</script>
