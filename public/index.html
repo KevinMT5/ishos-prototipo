@@ -292,6 +292,54 @@
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
 
+    <div class="branch-selector-overlay" id="branchSelectorOverlay" aria-hidden="true">
+        <div class="branch-selector" role="dialog" aria-modal="true" aria-labelledby="branchSelectorTitle">
+            <span class="branch-orb branch-orb-one" aria-hidden="true"></span>
+            <span class="branch-orb branch-orb-two" aria-hidden="true"></span>
+            <button class="branch-selector-close" id="branchSelectorClose" type="button" aria-label="Cerrar y explorar la página">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            <div class="branch-selector-header">
+                <div class="branch-selector-mark"><img src="logo.png" alt=""></div>
+                <span class="branch-selector-eyebrow">Elige tu punto de retiro</span>
+                <h2 id="branchSelectorTitle">¿Dónde quieres disfrutar tu <em>Isho's</em>?</h2>
+                <p>Selecciona tu sucursal favorita. La recordaremos para que preordenar sea mucho más rápido.</p>
+            </div>
+
+            <div class="branch-selector-grid">
+                <button class="branch-choice" type="button" data-branch="Parque Los Pinitos">
+                    <span class="branch-choice-accent branch-choice-accent-turquoise"></span>
+                    <span class="branch-choice-top">
+                        <span class="branch-choice-icon"><i class="fa-solid fa-tree" aria-hidden="true"></i></span>
+                        <span class="branch-choice-tag">Parque</span>
+                    </span>
+                    <span class="branch-choice-name">Parque Los Pinitos</span>
+                    <span class="branch-choice-address"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> 4a Calle Poniente, Ahuachapán</span>
+                    <span class="branch-choice-hours"><i class="fa-regular fa-clock" aria-hidden="true"></i> Lun–Vie 10 AM–8 PM · Fin de semana 9 AM–9 PM</span>
+                    <span class="branch-choice-action">Elegir esta sucursal <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                    <span class="branch-choice-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                </button>
+
+                <button class="branch-choice" type="button" data-branch="2da Avenida Norte">
+                    <span class="branch-choice-accent branch-choice-accent-mango"></span>
+                    <span class="branch-choice-top">
+                        <span class="branch-choice-icon branch-choice-icon-mango"><i class="fa-solid fa-store" aria-hidden="true"></i></span>
+                        <span class="branch-choice-tag branch-choice-tag-mango">Centro</span>
+                    </span>
+                    <span class="branch-choice-name">2da Avenida Norte</span>
+                    <span class="branch-choice-address"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> 2da Avenida Norte, Ahuachapán</span>
+                    <span class="branch-choice-hours"><i class="fa-regular fa-clock" aria-hidden="true"></i> Lun–Vie 10 AM–8 PM · Fin de semana 9 AM–9 PM</span>
+                    <span class="branch-choice-action">Elegir esta sucursal <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                    <span class="branch-choice-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+                </button>
+            </div>
+
+            <button class="branch-selector-skip" id="branchSelectorSkip" type="button">Solo quiero explorar por ahora</button>
+            <p class="branch-selector-note"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Podrás cambiarla en cualquier momento desde el menú.</p>
+        </div>
+    </div>
+
     <nav class="nav" id="nav">
         <a href="#" class="nav-logo">
             <img src="logo.png" alt="Logo Isho's Factory" class="nav-logo-img">
@@ -300,7 +348,7 @@
             <li><a href="#productos" class="nav-link">Productos</a></li>
             <li><a href="#historia" class="nav-link">Nuestra Historia</a></li>
             <li><a href="#configurador" class="nav-link">Configurador</a></li>
-            <li><a href="#ubicaciones" class="nav-link">Sucursales</a></li>
+            <li><button class="nav-link nav-branch" id="changeBranchBtn" type="button"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span id="selectedBranchLabel">Elegir sucursal</span></button></li>
             <li><a href="#oferta" class="nav-link">Oferta</a></li>
         </ul>
         <a href="#oferta" class="btn-primary">
@@ -320,7 +368,7 @@
         </div>
         <div class="hero-content">
             <div class="hero-badge">
-                <span class="hero-badge-dot">🇸🇻</span>
+                <span class="hero-badge-dot" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span>
                 <span class="hero-badge-text"><strong>Ahuachapán</strong> · Desde 1967</span>
             </div>
             <h1 class="hero-title">
@@ -364,9 +412,9 @@
                 <div class="hero-tag hero-tag-3">Tamarindo</div>
                 <div class="hero-tag hero-tag-4">Fresa</div>
             </div>
-            <span class="hero-deco hero-deco-1">🥭</span>
-            <span class="hero-deco hero-deco-2">🍓</span>
-            <span class="hero-deco hero-deco-3">🫐</span>
+            <span class="hero-deco hero-deco-1" aria-hidden="true"><i class="fa-solid fa-lemon"></i></span>
+            <span class="hero-deco hero-deco-2" aria-hidden="true"><i class="fa-solid fa-seedling"></i></span>
+            <span class="hero-deco hero-deco-3" aria-hidden="true"><i class="fa-solid fa-apple-whole"></i></span>
         </div>
     </section>
 
@@ -671,7 +719,7 @@
                     feliz.</p>
                 <p>En 2020, su nieta Julissa decidió que ese legado no podía perderse. Con 21 años, amor por la
                     tradición y un espíritu emprendedor, transformó la receta familiar en Isho's Factory: un espacio
-                    where el sorbete artesanal se convierte en experiencia.</p>
+                    donde el sorbete artesanal se convierte en experiencia.</p>
             </div>
             <blockquote class="story-quote reveal">
                 "Venimos de orígenes indígenas, por eso nuestro nombre refleja nuestras raíces como salvadoreños."
@@ -713,7 +761,7 @@
                 </div>
             </div>
             <button class="btn-primary" id="openConfigurator">
-                <span class="btn-primary-icon">🍧</span>
+                <span class="btn-primary-icon"><i class="fa-solid fa-ice-cream"></i></span>
                 Arma tu sorbete
             </button>
         </div>
@@ -726,13 +774,13 @@
         </div>
         <div class="testimonials-grid">
             <div class="testimonial-card reveal reveal-delay-1">
-                <div class="testimonial-stars"><span class="testimonial-star">★</span><span
-                        class="testimonial-star">★</span><span class="testimonial-star">★</span><span
-                        class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+                <div class="testimonial-stars" aria-label="5 de 5 estrellas"><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="testimonial-text">"El sorbete de pitahaya es lo mejor que he probado en mi vida. Se nota que
                     está hecho con ingredientes frescos y mucho amor. ¡Ya soy cliente fiel!"</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar">👩🏽</div>
+                    <div class="testimonial-avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
                     <div>
                         <div class="testimonial-name">Sofía Ramírez</div>
                         <div class="testimonial-location">Ahuachapán</div>
@@ -740,13 +788,13 @@
                 </div>
             </div>
             <div class="testimonial-card reveal reveal-delay-2">
-                <div class="testimonial-stars"><span class="testimonial-star">★</span><span
-                        class="testimonial-star">★</span><span class="testimonial-star">★</span><span
-                        class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+                <div class="testimonial-stars" aria-label="5 de 5 estrellas"><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="testimonial-text">"Fui de visita desde San Salvador y no me arrepiento. El sabor de taro me
                     sorprendió. La chica que atiende es súper amable y se nota el orgullo por su marca."</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar">👨🏽</div>
+                    <div class="testimonial-avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
                     <div>
                         <div class="testimonial-name">Carlos Mendoza</div>
                         <div class="testimonial-location">San Salvador</div>
@@ -754,13 +802,13 @@
                 </div>
             </div>
             <div class="testimonial-card reveal reveal-delay-3">
-                <div class="testimonial-stars"><span class="testimonial-star">★</span><span
-                        class="testimonial-star">★</span><span class="testimonial-star">★</span><span
-                        class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+                <div class="testimonial-stars" aria-label="5 de 5 estrellas"><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="testimonial-text">"La historia detrás de Isho's lo hace todavía más especial. Cada sorbete
                     tiene alma. El de mango con chile es un recuerdo de infancia en cada cucharada."</p>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar">👩🏼</div>
+                    <div class="testimonial-avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
                     <div>
                         <div class="testimonial-name">María Fernanda</div>
                         <div class="testimonial-location">Santa Ana</div>
@@ -773,7 +821,7 @@
     <section class="leads-section" id="oferta">
         <div class="leads-inner">
             <div class="leads-header reveal">
-                <div class="leads-promo">🎉 Oferta exclusiva para nuevos clientes</div>
+                <div class="leads-promo"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Oferta exclusiva para nuevos clientes</div>
                 <span class="section-eyebrow">Únete a la familia Isho's</span>
                 <h2 class="section-title">Regístrate y obtén<br><em>10% de descuento</em></h2>
                 <p class="section-subtitle">Déjanos tus datos y te mandamos tu código por WhatsApp. También te
@@ -782,7 +830,7 @@
 
             <div class="leads-form-card reveal">
                 <div id="lead-form-wrapper">
-                    <h3 class="leads-form-title">🍧 ¡Quiero mi descuento!</h3>
+                    <h3 class="leads-form-title"><i class="fa-solid fa-ticket" aria-hidden="true"></i> ¡Quiero mi descuento!</h3>
                     <p class="leads-form-subtitle">Solo toma 30 segundos. Canjea en cualquier sucursal.</p>
 
                     <form id="lead-form" novalidate>
@@ -814,13 +862,13 @@
                             <div class="form-select-wrapper">
                                 <select id="sabor" class="form-select form-input" required>
                                     <option value="">Selecciona un sabor...</option>
-                                    <option value="Pitahaya Rosa">🫐 Pitahaya Rosa</option>
-                                    <option value="Taro Mágico">🍈 Taro Mágico</option>
-                                    <option value="Mango con Chile">🥭 Mango con Chile</option>
-                                    <option value="Jabuticaba">🫒 Jabuticaba</option>
-                                    <option value="Durazno con Mermelada">🍑 Durazno con Mermelada</option>
-                                    <option value="Fresa Natural">🍓 Fresa Natural</option>
-                                    <option value="Todos me gustan">🍧 ¡Todos me gustan!</option>
+                                    <option value="Pitahaya Rosa">Pitahaya Rosa</option>
+                                    <option value="Taro Mágico">Taro Mágico</option>
+                                    <option value="Mango con Chile">Mango con Chile</option>
+                                    <option value="Jabuticaba">Jabuticaba</option>
+                                    <option value="Durazno con Mermelada">Durazno con Mermelada</option>
+                                    <option value="Fresa Natural">Fresa Natural</option>
+                                    <option value="Todos me gustan">¡Todos me gustan!</option>
                                 </select>
                             </div>
                             <span class="form-error" id="error-sabor">Por favor selecciona un sabor.</span>
@@ -842,7 +890,7 @@
                 </div>
 
                 <div class="form-success" id="form-success">
-                    <div class="success-icon">🎉</div>
+                    <div class="success-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></div>
                     <h3 class="success-title">¡Ya eres de la familia!</h3>
                     <p class="success-text">Hola <strong id="success-name"></strong>, tu regalo está listo.</p>
 
@@ -865,7 +913,7 @@
                     </div>
 
                     <p class="success-text" style="margin-top: 2rem; margin-bottom: 1rem;">O guárdalo directamente en tu
-                        celular 👇</p>
+                        celular <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></p>
 
                     <a href="#" class="btn-whatsapp-send" id="whatsapp-link" target="_blank" rel="noopener">
                         <i class="fa-brands fa-whatsapp"></i> Guardar cupón en mi WhatsApp
@@ -926,18 +974,18 @@
     <div class="modal-overlay" id="configuratorModal">
         <div class="modal-container">
             <div class="modal-preview">
-                <button class="modal-close" id="closeModal" aria-label="Cerrar configurador">✕</button>
+                <button class="modal-close" id="closeModal" aria-label="Cerrar configurador"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
 
                 <div class="preview-header">
-                    <div class="preview-badge">✨ Configurador</div>
+                    <div class="preview-badge"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Configurador</div>
                     <h2 class="preview-title">Tu sorbete <em>perfecto</em></h2>
                 </div>
 
                 <div class="preview-model"
                     style="display: flex; justify-content: center; align-items: center; height: 220px; background: radial-gradient(circle, rgba(43, 191, 170, 0.1) 0%, transparent 70%); border-radius: 20px; margin-bottom: 1.5rem;">
-                    <div id="previewEmoji"
+                    <div id="previewIcon"
                         style="font-size: 7rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-                        🍦</div>
+                        <i class="fa-solid fa-ice-cream" aria-hidden="true"></i></div>
                 </div>
 
                 <div class="preview-scoops" id="previewScoops">
@@ -982,26 +1030,26 @@
                     </div>
 
                     <div class="options-grid" id="baseOptions">
-                        <div class="option-card" data-base="cono" data-price="0.25" data-emoji="🍦">
-                            <div class="option-icon">🍦</div>
+                        <div class="option-card" data-base="cono" data-price="0.25" data-icon="fa-ice-cream">
+                            <div class="option-icon"><i class="fa-solid fa-ice-cream" aria-hidden="true"></i></div>
                             <div class="option-name">Cono Clásico</div>
                             <div class="option-price">+$0.25</div>
                             <div class="option-desc">Crujiente y tradicional</div>
                         </div>
-                        <div class="option-card" data-base="vaso-p" data-price="0" data-emoji="🥤">
-                            <div class="option-icon">🥤</div>
+                        <div class="option-card" data-base="vaso-p" data-price="0" data-icon="fa-glass-water">
+                            <div class="option-icon"><i class="fa-solid fa-glass-water" aria-hidden="true"></i></div>
                             <div class="option-name">Vaso Pequeño</div>
                             <div class="option-price">Incluido</div>
                             <div class="option-desc">Perfecto para probar</div>
                         </div>
-                        <div class="option-card" data-base="vaso-g" data-price="0.50" data-emoji="🍨">
-                            <div class="option-icon">🍨</div>
+                        <div class="option-card" data-base="vaso-g" data-price="0.50" data-icon="fa-bowl-food">
+                            <div class="option-icon"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i></div>
                             <div class="option-name">Vaso Grande</div>
                             <div class="option-price">+$0.50</div>
                             <div class="option-desc">Para los que quieren más</div>
                         </div>
-                        <div class="option-card" data-base="barquillo" data-price="0.35" data-emoji="🧇">
-                            <div class="option-icon">🧇</div>
+                        <div class="option-card" data-base="barquillo" data-price="0.35" data-icon="fa-stroopwafel">
+                            <div class="option-icon"><i class="fa-solid fa-stroopwafel" aria-hidden="true"></i></div>
                             <div class="option-name">Barquillo</div>
                             <div class="option-price">+$0.35</div>
                             <div class="option-desc">Artesanal y delicioso</div>
@@ -1024,54 +1072,54 @@
                     </div>
 
                     <div class="flavor-selection-info">
-                        <span>💡</span>
+                        <span><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
                         <span>Seleccionados: <strong id="flavorCount">0</strong>/3</span>
                     </div>
 
                     <div class="flavors-grid" id="flavorOptions">
-                        <div class="flavor-card" data-flavor="pitahaya" data-price="1.50" data-emoji="🫐"
+                        <div class="flavor-card" data-flavor="pitahaya" data-price="1.50" data-icon="fa-seedling"
                             data-color="#E91E8C">
-                            <div class="option-icon">🫐</div>
+                            <div class="option-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
                             <div class="option-name">Pitahaya Rosa</div>
                         </div>
-                        <div class="flavor-card" data-flavor="taro" data-price="1.75" data-emoji="🍈"
+                        <div class="flavor-card" data-flavor="taro" data-price="1.75" data-icon="fa-circle"
                             data-color="#9B7BB8">
-                            <div class="option-icon">🍈</div>
+                            <div class="option-icon"><i class="fa-solid fa-circle" aria-hidden="true"></i></div>
                             <div class="option-name">Taro Mágico</div>
                         </div>
-                        <div class="flavor-card" data-flavor="mango" data-price="1.25" data-emoji="🥭"
+                        <div class="flavor-card" data-flavor="mango" data-price="1.25" data-icon="fa-lemon"
                             data-color="#FF8C42">
-                            <div class="option-icon">🥭</div>
+                            <div class="option-icon"><i class="fa-solid fa-lemon" aria-hidden="true"></i></div>
                             <div class="option-name">Mango con Chile</div>
                         </div>
-                        <div class="flavor-card" data-flavor="jabuticaba" data-price="2.00" data-emoji="🫒"
+                        <div class="flavor-card" data-flavor="jabuticaba" data-price="2.00" data-icon="fa-circle-nodes"
                             data-color="#5D3A7A">
-                            <div class="option-icon">🫒</div>
+                            <div class="option-icon"><i class="fa-solid fa-circle-nodes" aria-hidden="true"></i></div>
                             <div class="option-name">Jabuticaba</div>
                         </div>
-                        <div class="flavor-card" data-flavor="durazno" data-price="1.50" data-emoji="🍑"
+                        <div class="flavor-card" data-flavor="durazno" data-price="1.50" data-icon="fa-apple-whole"
                             data-color="#FFAB76">
-                            <div class="option-icon">🍑</div>
+                            <div class="option-icon"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i></div>
                             <div class="option-name">Durazno</div>
                         </div>
-                        <div class="flavor-card" data-flavor="fresa" data-price="1.50" data-emoji="🍓"
+                        <div class="flavor-card" data-flavor="fresa" data-price="1.50" data-icon="fa-seedling"
                             data-color="#E53935">
-                            <div class="option-icon">🍓</div>
+                            <div class="option-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
                             <div class="option-name">Fresa Natural</div>
                         </div>
-                        <div class="flavor-card" data-flavor="coco" data-price="1.25" data-emoji="🥥"
+                        <div class="flavor-card" data-flavor="coco" data-price="1.25" data-icon="fa-circle-half-stroke"
                             data-color="#F5F5DC">
-                            <div class="option-icon">🥥</div>
+                            <div class="option-icon"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i></div>
                             <div class="option-name">Coco</div>
                         </div>
-                        <div class="flavor-card" data-flavor="chocolate" data-price="1.50" data-emoji="🍫"
+                        <div class="flavor-card" data-flavor="chocolate" data-price="1.50" data-icon="fa-cubes-stacked"
                             data-color="#5D4037">
-                            <div class="option-icon">🍫</div>
+                            <div class="option-icon"><i class="fa-solid fa-cubes-stacked" aria-hidden="true"></i></div>
                             <div class="option-name">Chocolate</div>
                         </div>
-                        <div class="flavor-card" data-flavor="vainilla" data-price="1.25" data-emoji="🍦"
+                        <div class="flavor-card" data-flavor="vainilla" data-price="1.25" data-icon="fa-ice-cream"
                             data-color="#FFF8E1">
-                            <div class="option-icon">🍦</div>
+                            <div class="option-icon"><i class="fa-solid fa-ice-cream" aria-hidden="true"></i></div>
                             <div class="option-name">Vainilla</div>
                         </div>
                     </div>
@@ -1093,33 +1141,33 @@
                     </div>
 
                     <div class="toppings-grid" id="toppingOptions">
-                        <div class="topping-card" data-topping="frutas" data-price="0.50" data-emoji="🍇">
-                            <div class="option-icon">🍇</div>
+                        <div class="topping-card" data-topping="frutas" data-price="0.50" data-icon="fa-apple-whole">
+                            <div class="option-icon"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i></div>
                             <div class="option-name">Frutas Frescas</div>
                             <div class="option-price">+$0.50</div>
                         </div>
-                        <div class="topping-card" data-topping="mermelada" data-price="0.35" data-emoji="🍯">
-                            <div class="option-icon">🍯</div>
+                        <div class="topping-card" data-topping="mermelada" data-price="0.35" data-icon="fa-jar">
+                            <div class="option-icon"><i class="fa-solid fa-jar" aria-hidden="true"></i></div>
                             <div class="option-name">Mermelada</div>
                             <div class="option-price">+$0.35</div>
                         </div>
-                        <div class="topping-card" data-topping="granola" data-price="0.40" data-emoji="🥣">
-                            <div class="option-icon">🥣</div>
+                        <div class="topping-card" data-topping="granola" data-price="0.40" data-icon="fa-bowl-food">
+                            <div class="option-icon"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i></div>
                             <div class="option-name">Granola</div>
                             <div class="option-price">+$0.40</div>
                         </div>
-                        <div class="topping-card" data-topping="chispas" data-price="0.30" data-emoji="🍪">
-                            <div class="option-icon">🍪</div>
+                        <div class="topping-card" data-topping="chispas" data-price="0.30" data-icon="fa-cookie-bite">
+                            <div class="option-icon"><i class="fa-solid fa-cookie-bite" aria-hidden="true"></i></div>
                             <div class="option-name">Chispas de Chocolate</div>
                             <div class="option-price">+$0.30</div>
                         </div>
-                        <div class="topping-card" data-topping="nueces" data-price="0.50" data-emoji="🥜">
-                            <div class="option-icon">🥜</div>
+                        <div class="topping-card" data-topping="nueces" data-price="0.50" data-icon="fa-seedling">
+                            <div class="option-icon"><i class="fa-solid fa-seedling" aria-hidden="true"></i></div>
                             <div class="option-name">Nueces</div>
                             <div class="option-price">+$0.50</div>
                         </div>
-                        <div class="topping-card" data-topping="chamoy" data-price="0.25" data-emoji="🌶️">
-                            <div class="option-icon">🌶️</div>
+                        <div class="topping-card" data-topping="chamoy" data-price="0.25" data-icon="fa-pepper-hot">
+                            <div class="option-icon"><i class="fa-solid fa-pepper-hot" aria-hidden="true"></i></div>
                             <div class="option-name">Chamoy</div>
                             <div class="option-price">+$0.25</div>
                         </div>
@@ -1128,7 +1176,7 @@
                     <div class="form-nav">
                         <button class="btn-back" id="backToStep2">← Atrás</button>
                         <button class="btn-next" id="toStep4">
-                            Ver mi pedido
+                            Ver mi preorden
                             <span>→</span>
                         </button>
                     </div>
@@ -1137,15 +1185,15 @@
                 <div class="step-content" id="step4">
                     <div class="step-header">
                         <div class="step-number">4</div>
-                        <h3 class="step-title">Tu pedido está listo</h3>
-                        <p class="step-desc">Revisa tu sorbete y completa tus datos para recibir tu ticket</p>
+                        <h3 class="step-title">Tu preorden está lista</h3>
+                        <p class="step-desc">Revisa tu sorbete y completa tus datos para recibir tu comprobante</p>
                     </div>
 
                     <div class="ticket-preview">
                         <div class="ticket-header">
                             <img src="logo.svg" alt="100px" height="100px">
                             <div class="ticket-subtitle">Sorbetería Artesanal</div>
-                            <div class="ticket-order-number" id="ticketOrderNumber">PEDIDO #0001</div>
+                            <div class="ticket-order-number" id="ticketOrderNumber">PREORDEN #0001</div>
                         </div>
 
                         <div class="ticket-items" id="ticketItems">
@@ -1157,12 +1205,13 @@
                         </div>
 
                         <div class="ticket-footer">
-                            <p>Presenta este ticket en tienda</p>
+                            <p>Presenta este comprobante y paga en tienda</p>
                             <p class="ticket-date" id="ticketDate"></p>
                         </div>
                     </div>
 
                     <div class="configurator-customer-fields" style="margin-top: 1.5rem; text-align: left;">
+                        <div class="payment-note"><i class="fa-solid fa-store" aria-hidden="true"></i><span><strong>No pagarás en línea.</strong> Paga al retirar en sucursal.</span></div>
                         <div class="form-group" style="margin-bottom: 1rem;">
                             <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
                                 <i class="fa-solid fa-user"></i> Tu Nombre completo
@@ -1177,21 +1226,44 @@
                             <input type="tel" id="configTel" class="form-input" placeholder="Ej: 7645-4347"
                                 style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box;">
                         </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label" for="configSucursal"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Sucursal de retiro</label>
+                            <div class="form-select-wrapper">
+                                <select id="configSucursal" class="form-select" required>
+                                    <option value="">Selecciona una sucursal...</option>
+                                    <option value="Parque Los Pinitos">Parque Los Pinitos</option>
+                                    <option value="2da Avenida Norte">2da Avenida Norte</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label class="form-label" for="configRetiro"><i class="fa-regular fa-clock" aria-hidden="true"></i> Hora aproximada</label>
+                            <div class="form-select-wrapper">
+                                <select id="configRetiro" class="form-select" required>
+                                    <option value="">Selecciona cuándo retirar...</option>
+                                    <option value="Lo antes posible (15–20 min)">Lo antes posible (15–20 min)</option>
+                                    <option value="En 30 minutos">En 30 minutos</option>
+                                    <option value="En 45 minutos">En 45 minutos</option>
+                                    <option value="En 1 hora">En 1 hora</option>
+                                </select>
+                            </div>
+                        </div>
                         <span class="form-error" id="configError"
                             style="color: #e53935; font-size: 0.85rem; display: none; margin-bottom: 1rem;">Por favor
-                            completa ambos campos para continuar.</span>
+                            completa todos los campos para continuar.</span>
                     </div>
 
                     <button class="btn-primary" id="confirmOrderBtn" style="width: 100%; margin-top: 1rem;">
                         <span class="btn-primary-icon"><i class="fa-solid fa-bell"></i></span>
-                        Confirmar y Recibir Ticket por WhatsApp
+                        Confirmar preorden
                     </button>
 
                     <div id="orderFeedback"
                         style="display: none; text-align: center; margin-top: 15px; padding: 15px; background: #e8f5e9; border-radius: 8px; color: #2e7d32;">
                         <div style="font-size: 2rem; margin-bottom: 10px;"><i class="fa-solid fa-circle-check"></i>
                         </div>
-                        <strong>¡Pedido #<span id="feedbackOrderNum"></span> enviado con éxito!</strong><br>
+                        <strong>¡Preorden #<span id="feedbackOrderNum"></span> registrada!</strong><br>
+                        <p id="feedbackPickup" style="margin-top: 5px; font-size: 0.9rem; font-weight: 600;"></p>
                         <p style="margin-top: 5px; font-size: 0.9rem;">Hemos enviado tu comprobante oficial
                             automáticamente a tu celular. Presenta este número en caja para pagar y retirar.</p>
                     </div>
@@ -1221,15 +1293,15 @@
         <div class="modal-container" style="max-width: 450px; padding: 2rem; display: block; height: auto;">
             <div
                 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin: 0;">Tu Pedido</h3>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin: 0;">Tu preorden</h3>
                 <button id="cartClose" aria-label="Cerrar carrito"
-                    style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #666;">✕</button>
+                    style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #666;"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
             </div>
 
             <div class="cart-items" id="cartItems" style="max-height: 40vh; overflow-y: auto; margin-bottom: 1rem;">
                 <div class="cart-empty" id="cartEmpty"
                     style="display: flex; justify-content: center; padding: 2rem; color: #999;">
-                    Tu carrito está vacío 🍧
+                    <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i> Tu carrito está vacío
                 </div>
             </div>
 
@@ -1241,7 +1313,7 @@
                     <span id="cartSubtotal" style="display: none;"></span>
                 </div>
                 <button class="btn-primary" id="cartCheckout" style="width: 100%; justify-content: center;">
-                    Proceder al pago →
+                    Preordenar →
                 </button>
                 <button class="btn-back" id="cartClear"
                     style="width: 100%; margin-top: 10px; background: transparent; border: none; color: #d32f2f; cursor: pointer; padding: 0.8rem; justify-content: center;">
@@ -1257,9 +1329,10 @@
         <div class="modal-container" style="max-width: 400px; padding: 2rem; display: block; height: auto;">
             <div style="text-align: center; margin-bottom: 1.5rem;">
                 <h3 style="margin-bottom: 0.5rem; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;">Completa
-                    tu orden</h3>
-                <p style="color: #666; font-size: 0.95rem; line-height: 1.4;">Ingresa tus datos para enviarte el ticket
+                    tu preorden</h3>
+                <p style="color: #666; font-size: 0.95rem; line-height: 1.4;">Ingresa tus datos para enviarte el comprobante
                     de retiro por WhatsApp.</p>
+                <div class="payment-note"><i class="fa-solid fa-store" aria-hidden="true"></i><span><strong>No pagarás en línea.</strong> Paga al retirar en sucursal.</span></div>
             </div>
 
             <div class="form-group" style="margin-bottom: 1rem; text-align: left;">
@@ -1274,14 +1347,36 @@
                 <input type="tel" id="checkoutTel" class="form-input" placeholder="Ej: 7645-4347"
                     style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-family: 'Outfit', sans-serif;">
             </div>
+            <div class="form-group" style="margin-bottom: 1rem; text-align: left;">
+                <label class="form-label" for="checkoutSucursal"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Sucursal de retiro</label>
+                <div class="form-select-wrapper">
+                    <select id="checkoutSucursal" class="form-select" required>
+                        <option value="">Selecciona una sucursal...</option>
+                        <option value="Parque Los Pinitos">Parque Los Pinitos</option>
+                        <option value="2da Avenida Norte">2da Avenida Norte</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1.5rem; text-align: left;">
+                <label class="form-label" for="checkoutRetiro"><i class="fa-regular fa-clock" aria-hidden="true"></i> Hora aproximada</label>
+                <div class="form-select-wrapper">
+                    <select id="checkoutRetiro" class="form-select" required>
+                        <option value="">Selecciona cuándo retirar...</option>
+                        <option value="Lo antes posible (15–20 min)">Lo antes posible (15–20 min)</option>
+                        <option value="En 30 minutos">En 30 minutos</option>
+                        <option value="En 45 minutos">En 45 minutos</option>
+                        <option value="En 1 hora">En 1 hora</option>
+                    </select>
+                </div>
+            </div>
 
             <span class="form-error" id="checkoutError"
                 style="color: #e53935; font-size: 0.85rem; display: none; margin-bottom: 1rem; text-align: center;">Por
-                favor completa ambos campos.</span>
+                favor completa todos los campos.</span>
 
             <button class="btn-primary" id="checkoutConfirm"
                 style="width: 100%; margin-bottom: 10px; justify-content: center;">
-                <i class="fa-brands fa-whatsapp"></i> Recibir Ticket Oficial
+                <i class="fa-brands fa-whatsapp"></i> Confirmar preorden
             </button>
             <button class="btn-back" id="checkoutCancel"
                 style="width: 100%; background: transparent; border: none; color: #666; cursor: pointer; padding: 0.8rem; justify-content: center;">
@@ -1318,7 +1413,7 @@
                     <li><a href="#historia">Nuestra historia</a></li>
                     <li><a href="#configurador">Arma tu sorbete</a></li>
                     <li><a href="#ubicaciones">Sucursales</a></li>
-                    <li><a href="#oferta">🎁 Tu descuento</a></li>
+                    <li><a href="#oferta"><i class="fa-solid fa-gift" aria-hidden="true"></i> Tu descuento</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -1332,7 +1427,7 @@
         </div>
         <div class="footer-bottom">
             <span>© 2026 Isho's Factory — Todos los derechos reservados</span>
-            <span class="footer-bottom-made">Hecho con <span>❤️</span> en El Salvador</span>
+            <span class="footer-bottom-made">Hecho con <span><i class="fa-solid fa-heart" aria-hidden="true"></i></span> en El Salvador</span>
         </div>
     </footer>
 
@@ -1584,10 +1679,10 @@
                 currentStep: 1,
                 base: null,
                 basePrice: 0,
-                baseEmoji: '🍦',
+                baseIcon: 'fa-ice-cream',
                 flavors: [],
                 flavorPrices: {},
-                flavorEmojis: {},
+                flavorIcons: {},
                 toppings: [],
                 toppingPrices: {},
                 orderNum: null,
@@ -1619,7 +1714,7 @@
             const summaryFlavors = document.getElementById('summaryFlavors');
             const summaryToppings = document.getElementById('summaryToppings');
             const summaryTotal = document.getElementById('summaryTotal');
-            const previewEmoji = document.getElementById('previewEmoji');
+            const previewIcon = document.getElementById('previewIcon');
             const previewScoops = document.getElementById('previewScoops');
             const flavorCount = document.getElementById('flavorCount');
 
@@ -1661,11 +1756,11 @@
             backToStep2Btn.addEventListener('click', () => goToStep(2));
             backToStep3Btn.addEventListener('click', () => goToStep(3));
 
-            function popEmoji() {
-                if (previewEmoji) {
-                    previewEmoji.style.transform = 'scale(1.2) rotate(-5deg)';
+            function popIcon() {
+                if (previewIcon) {
+                    previewIcon.style.transform = 'scale(1.2) rotate(-5deg)';
                     setTimeout(() => {
-                        previewEmoji.style.transform = 'scale(1) rotate(0deg)';
+                        previewIcon.style.transform = 'scale(1) rotate(0deg)';
                     }, 250);
                 }
             }
@@ -1676,10 +1771,10 @@
                     option.classList.add('selected');
                     state.base = option.dataset.base;
                     state.basePrice = parseFloat(option.dataset.price);
-                    state.baseEmoji = option.dataset.emoji;
+                    state.baseIcon = option.dataset.icon;
 
-                    previewEmoji.textContent = state.baseEmoji;
-                    popEmoji();
+                    previewIcon.innerHTML = `<i class="fa-solid ${state.baseIcon}" aria-hidden="true"></i>`;
+                    popIcon();
 
                     summaryBase.textContent = BASE_NAMES[state.base];
                     toStep2Btn.disabled = false;
@@ -1695,13 +1790,13 @@
                         option.classList.remove('selected');
                         state.flavors = state.flavors.filter(f => f !== flavor);
                         delete state.flavorPrices[flavor];
-                        delete state.flavorEmojis[flavor];
+                        delete state.flavorIcons[flavor];
                     } else {
                         if (state.flavors.length >= 3) return;
                         option.classList.add('selected');
                         state.flavors.push(flavor);
                         state.flavorPrices[flavor] = parseFloat(option.dataset.price);
-                        state.flavorEmojis[flavor] = option.dataset.emoji;
+                        state.flavorIcons[flavor] = option.dataset.icon;
                     }
 
                     flavorCount.textContent = state.flavors.length;
@@ -1720,7 +1815,7 @@
             function updatePreviewScoops() {
                 previewScoops.querySelectorAll('.preview-scoop').forEach((scoop, index) => {
                     if (state.flavors[index]) {
-                        scoop.textContent = state.flavorEmojis[state.flavors[index]];
+                        scoop.innerHTML = `<i class="fa-solid ${state.flavorIcons[state.flavors[index]]}" aria-hidden="true"></i>`;
                         scoop.classList.add('active');
                         scoop.classList.remove('empty');
                     } else {
@@ -1763,7 +1858,7 @@
                 const ticketItems = document.getElementById('ticketItems');
 
                 state.orderNum = Math.floor(Math.random() * 9000) + 1000;
-                document.getElementById('ticketOrderNumber').textContent = `PEDIDO #${state.orderNum}`;
+                document.getElementById('ticketOrderNumber').textContent = `PREORDEN #${state.orderNum}`;
                 ticketItems.innerHTML = '';
 
                 ticketItems.innerHTML += `<div class="ticket-item"><div><div class="ticket-item-name">${BASE_NAMES[state.base]}</div><div class="ticket-item-details">Base</div></div><div class="ticket-item-price">${state.basePrice > 0 ? '+$' + state.basePrice.toFixed(2) : 'Incluido'}</div></div>`;
@@ -1786,16 +1881,18 @@
                 confirmOrderBtn.addEventListener('click', async () => {
                     const nombre = document.getElementById('configNombre').value.trim();
                     const telefono = document.getElementById('configTel').value.trim();
+                    const sucursal = document.getElementById('configSucursal').value;
+                    const retiro = document.getElementById('configRetiro').value;
                     const errorEl = document.getElementById('configError');
 
-                    if (!nombre || !telefono) {
+                    if (!nombre || !telefono || !sucursal || !retiro) {
                         errorEl.style.display = 'block';
                         return;
                     }
                     errorEl.style.display = 'none';
 
                     confirmOrderBtn.disabled = true;
-                    confirmOrderBtn.innerHTML = '<span class="btn-primary-icon"><i class="fa-solid fa-spinner fa-spin"></i></span> Enviando...';
+                    confirmOrderBtn.innerHTML = '<span class="btn-primary-icon"><i class="fa-solid fa-spinner fa-spin"></i></span> Registrando...';
 
                     try {
                         await window.addDoc(window.collection(window.db, "pedidos"), {
@@ -1805,28 +1902,32 @@
                             base: BASE_NAMES[state.base],
                             sabores: state.flavors.map(f => FLAVOR_NAMES[f]),
                             toppings: state.toppings.map(t => TOPPING_NAMES[t]),
+                            sucursal,
+                            retiro,
                             total: state.total,
                             estado: "pendiente",
                             origen: "configurador",
                             fecha: window.serverTimestamp()
                         });
 
-                        const adminMsgConfig = `🍧 *NUEVO SORBETE ARMADO* 🍧\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${telefono}\n🔢 *Ticket:* #${state.orderNum}\n🍦 *Base:* ${BASE_NAMES[state.base]}\n💰 *Total:* $${state.total.toFixed(2)}`;
+                        const adminMsgConfig = `🍧 *NUEVO SORBETE ARMADO* 🍧\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${telefono}\n🔢 *Ticket:* #${state.orderNum}\n🍦 *Base:* ${BASE_NAMES[state.base]}\n📍 *Sucursal:* ${sucursal}\n🕐 *Retiro:* ${retiro}\n💰 *Total:* $${state.total.toFixed(2)}`;
 
                         let saboresTexto = state.flavors.map(f => `• ${FLAVOR_NAMES[f]}`).join('\n');
                         let toppingsTexto = state.toppings.length > 0 ? `\n*Toppings:*\n` + state.toppings.map(t => `• ${TOPPING_NAMES[t]}`).join('\n') : '';
 
                         const ticketParaCliente =
-                            `🍧 *ISHOS FACTORY — TICKET DE PEDIDO* 🍧\n` +
+                            `🍧 *ISHOS FACTORY — COMPROBANTE DE PREORDEN* 🍧\n` +
                             `━━━━━━━━━━━━━━━━━━\n\n` +
-                            `¡Hola *${nombre}*! Hemos recibido tu orden en cocina. Aquí está el resumen de tu sorbete:\n\n` +
-                            `🎫 *PEDIDO:* #${state.orderNum}\n` +
+                            `¡Hola *${nombre}*! Hemos registrado tu preorden. Aquí está el resumen de tu sorbete:\n\n` +
+                            `🎫 *PREORDEN:* #${state.orderNum}\n` +
+                            `📍 *Sucursal:* ${sucursal}\n` +
+                            `🕐 *Retiro:* ${retiro}\n` +
                             `🍨 *Base:* ${BASE_NAMES[state.base]}\n` +
                             `*Sabores:*\n${saboresTexto}` +
                             `${toppingsTexto}\n\n` +
                             `━━━━━━━━━━━━━━━━━━\n` +
                             `💰 *TOTAL A PAGAR: $${state.total.toFixed(2)}*\n\n` +
-                            `📍 Presenta este número (*#${state.orderNum}*) en caja para pagar y retirar tu pedido. ¡Te esperamos! 🙌`;
+                            `📍 No se realizó ningún cobro en línea. Presenta este número (*#${state.orderNum}*) en caja para pagar y retirar. ¡Te esperamos! 🙌`;
 
                         notificarPedido({
                             mensajeAdmin: adminMsgConfig,
@@ -1840,11 +1941,12 @@
 
                         const feedback = document.getElementById('orderFeedback');
                         document.getElementById('feedbackOrderNum').textContent = state.orderNum;
+                        document.getElementById('feedbackPickup').textContent = `${sucursal} · ${retiro}`;
                         feedback.style.display = 'block';
 
                     } catch (error) {
                         console.error("Error al guardar el pedido:", error);
-                        alert("Hubo un error de conexión al enviar tu orden. Por favor, intenta de nuevo.");
+                        alert("Hubo un error de conexión al registrar tu preorden. Por favor, intenta de nuevo.");
                         confirmOrderBtn.disabled = false;
                         confirmOrderBtn.innerHTML = '<span class="btn-primary-icon"><i class="fa-solid fa-bell"></i></span> Intentar de nuevo';
                     }
@@ -1883,13 +1985,39 @@
             });
         }
 
+        let cartToastTimer;
+        function showCartConfirmation(productName) {
+            let toast = document.getElementById('cartAddToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'cartAddToast';
+                toast.className = 'cart-add-toast';
+                toast.setAttribute('role', 'status');
+                toast.setAttribute('aria-live', 'polite');
+                toast.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i><span></span>';
+                document.body.appendChild(toast);
+            }
+
+            toast.querySelector('span').textContent = `${productName} agregado a tu preorden`;
+            toast.classList.add('visible');
+
+            if (cartFab) {
+                cartFab.classList.remove('item-added');
+                void cartFab.offsetWidth;
+                cartFab.classList.add('item-added');
+            }
+
+            clearTimeout(cartToastTimer);
+            cartToastTimer = setTimeout(() => toast.classList.remove('visible'), 2600);
+        }
+
         document.querySelectorAll('.product-add').forEach(btn => {
             btn.addEventListener('click', () => {
                 const name = btn.dataset.name;
                 const price = parseFloat(btn.dataset.price);
                 cart[name] = cart[name] ? { price, qty: cart[name].qty + 1 } : { price, qty: 1 };
                 updateCart();
-                if (cartOverlay) cartOverlay.classList.add('active');
+                showCartConfirmation(name);
             });
         });
 
@@ -1968,15 +2096,17 @@
             checkoutConfirm.addEventListener('click', async () => {
                 const nombre = document.getElementById('checkoutNombre').value.trim();
                 const tel = document.getElementById('checkoutTel').value.trim();
+                const sucursal = document.getElementById('checkoutSucursal').value;
+                const retiro = document.getElementById('checkoutRetiro').value;
 
-                if (!nombre || !tel) {
-                    checkoutError.textContent = 'Por favor completa ambos campos.';
+                if (!nombre || !tel || !sucursal || !retiro) {
+                    checkoutError.textContent = 'Por favor completa todos los campos.';
                     checkoutError.classList.add('visible');
                     return;
                 }
 
                 checkoutError.classList.remove('visible');
-                checkoutConfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+                checkoutConfirm.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Registrando...';
                 checkoutConfirm.disabled = true;
 
                 const orderNum = Math.floor(Math.random() * 9000) + 1000;
@@ -1999,22 +2129,26 @@
                         sabores: items.map(([name]) => name),
                         base: 'Pedido directo',
                         toppings: [],
+                        sucursal,
+                        retiro,
                         total: total.toFixed(2),
                         estado: 'pendiente',
                         fecha: window.serverTimestamp()
                     });
 
-                    const adminMsgCarrito = `🚨 *NUEVO PEDIDO DE CARRITO* 🚨\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${tel}\n🔢 *Orden:* #${orderNum}\n💰 *Total:* $${total.toFixed(2)}\n\nRevisa la base de datos para ver el detalle de los sorbetes.`;
+                    const adminMsgCarrito = `🚨 *NUEVA PREORDEN DE CARRITO* 🚨\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${tel}\n🔢 *Preorden:* #${orderNum}\n📍 *Sucursal:* ${sucursal}\n🕐 *Retiro:* ${retiro}\n💰 *Total:* $${total.toFixed(2)}\n\nRevisa la base de datos para ver el detalle de los sorbetes.`;
 
                     const ticketCarritoCliente =
-                        `🍧 *ISHOS FACTORY — TICKET DE PEDIDO* 🍧\n` +
+                        `🍧 *ISHOS FACTORY — COMPROBANTE DE PREORDEN* 🍧\n` +
                         `━━━━━━━━━━━━━━━━━━\n\n` +
-                        `¡Hola *${nombre}*! Hemos registrado tu pedido con éxito:\n\n` +
-                        `🎫 *PEDIDO:* #${orderNum}\n\n` +
+                        `¡Hola *${nombre}*! Hemos registrado tu preorden con éxito:\n\n` +
+                        `🎫 *PREORDEN:* #${orderNum}\n\n` +
+                        `📍 *Sucursal:* ${sucursal}\n` +
+                        `🕐 *Retiro:* ${retiro}\n\n` +
                         `*Detalle:*\n${listaItems}\n` +
                         `━━━━━━━━━━━━━━━━━━\n` +
                         `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n` +
-                        `📍 Presenta el número *#${orderNum}* en caja para retirar tu pedido. ¡Gracias por tu preferencia! 🙌`;
+                        `📍 No se realizó ningún cobro en línea. Presenta el número *#${orderNum}* en caja para pagar y retirar. ¡Gracias por tu preferencia! 🙌`;
 
                     notificarPedido({
                         mensajeAdmin: adminMsgCarrito,
@@ -2025,6 +2159,7 @@
                     checkoutOverlay.classList.remove('active');
                     document.getElementById('checkoutNombre').value = '';
                     document.getElementById('checkoutTel').value = '';
+                    document.getElementById('checkoutRetiro').value = '';
 
                     const toast = document.createElement('div');
                     toast.style.cssText = `
@@ -2033,7 +2168,7 @@
                         border-radius: 50px; font-weight: 600; z-index: 9999;
                         box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 0.95rem; text-align: center;
                     `;
-                    toast.innerHTML = `✅ ¡Pedido #${orderNum} registrado! Te hemos enviado el ticket oficial a tu WhatsApp.`;
+                    toast.innerHTML = `<i class="fa-solid fa-circle-check" aria-hidden="true"></i> ¡Preorden #${orderNum} registrada! Te enviamos el comprobante a tu WhatsApp.`;
                     document.body.appendChild(toast);
                     setTimeout(() => toast.remove(), 6000);
 
@@ -2042,14 +2177,117 @@
 
                 } catch (err) {
                     console.error(err);
-                    checkoutError.textContent = 'Error al guardar el pedido. Intenta de nuevo.';
+                    checkoutError.textContent = 'Error al registrar la preorden. Intenta de nuevo.';
                     checkoutError.classList.add('visible');
                 } finally {
-                    checkoutConfirm.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar y Recibir Ticket';
+                    checkoutConfirm.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar preorden';
                     checkoutConfirm.disabled = false;
                 }
             });
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const BRANCH_KEY = 'ishos_sucursal';
+            const BRANCH_DISMISSED_KEY = 'ishos_sucursal_omitida';
+            const validBranches = new Set(['Parque Los Pinitos', '2da Avenida Norte']);
+            const branchOverlay = document.getElementById('branchSelectorOverlay');
+            const changeBranchBtn = document.getElementById('changeBranchBtn');
+            const selectedBranchLabel = document.getElementById('selectedBranchLabel');
+            const closeBranchBtn = document.getElementById('branchSelectorClose');
+            const skipBranchBtn = document.getElementById('branchSelectorSkip');
+            const branchChoices = document.querySelectorAll('.branch-choice');
+            const branchSelects = ['configSucursal', 'checkoutSucursal']
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+            let lastFocusedElement = null;
+
+            const readStorage = (storage, key) => {
+                try { return storage.getItem(key); } catch (_) { return null; }
+            };
+
+            const writeStorage = (storage, key, value) => {
+                try { storage.setItem(key, value); } catch (_) { /* almacenamiento no disponible */ }
+            };
+
+            function shortBranchName(branch) {
+                if (branch === 'Parque Los Pinitos') return 'Los Pinitos';
+                if (branch === '2da Avenida Norte') return '2da Avenida';
+                return 'Elegir sucursal';
+            }
+
+            function syncBranch(branch, persist = true) {
+                if (!validBranches.has(branch)) return;
+
+                branchSelects.forEach(select => {
+                    select.value = branch;
+                });
+                branchChoices.forEach(choice => {
+                    choice.classList.toggle('selected', choice.dataset.branch === branch);
+                });
+                selectedBranchLabel.textContent = shortBranchName(branch);
+                changeBranchBtn.title = `Sucursal actual: ${branch}. Haz clic para cambiarla.`;
+
+                if (persist) {
+                    writeStorage(localStorage, BRANCH_KEY, branch);
+                    try { sessionStorage.removeItem(BRANCH_DISMISSED_KEY); } catch (_) { /* sin sesión */ }
+                }
+            }
+
+            function openBranchSelector() {
+                lastFocusedElement = document.activeElement;
+                branchOverlay.classList.add('active');
+                branchOverlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('branch-modal-open');
+                const selectedChoice = branchOverlay.querySelector('.branch-choice.selected');
+                (selectedChoice || branchChoices[0]).focus();
+            }
+
+            function closeBranchSelector(dismissForSession = false) {
+                branchOverlay.classList.remove('active');
+                branchOverlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('branch-modal-open');
+                if (dismissForSession) writeStorage(sessionStorage, BRANCH_DISMISSED_KEY, '1');
+                if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                    lastFocusedElement.focus();
+                }
+            }
+
+            branchChoices.forEach(choice => {
+                choice.addEventListener('click', () => {
+                    syncBranch(choice.dataset.branch);
+                    closeBranchSelector(false);
+                });
+            });
+
+            branchSelects.forEach(select => {
+                select.addEventListener('change', () => {
+                    if (validBranches.has(select.value)) syncBranch(select.value);
+                });
+            });
+
+            changeBranchBtn.addEventListener('click', openBranchSelector);
+            closeBranchBtn.addEventListener('click', () => closeBranchSelector(true));
+            skipBranchBtn.addEventListener('click', () => closeBranchSelector(true));
+            branchOverlay.addEventListener('click', event => {
+                if (event.target === branchOverlay) closeBranchSelector(true);
+            });
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && branchOverlay.classList.contains('active')) {
+                    closeBranchSelector(true);
+                }
+            });
+
+            const savedBranch = readStorage(localStorage, BRANCH_KEY);
+            const dismissedThisSession = readStorage(sessionStorage, BRANCH_DISMISSED_KEY) === '1';
+
+            if (validBranches.has(savedBranch)) {
+                syncBranch(savedBranch, false);
+            } else if (!dismissedThisSession) {
+                setTimeout(openBranchSelector, 650);
+            }
+        });
     </script>
 </body>
 
