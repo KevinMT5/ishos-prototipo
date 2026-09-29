@@ -349,6 +349,7 @@
             <li><a href="#historia" class="nav-link">Nuestra Historia</a></li>
             <li><a href="#configurador" class="nav-link">Configurador</a></li>
             <li><button class="nav-link nav-branch" id="changeBranchBtn" type="button"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span id="selectedBranchLabel">Elegir sucursal</span></button></li>
+            <li><a href="#rewards" class="nav-link">Rewards</a></li>
             <li><a href="#oferta" class="nav-link">Oferta</a></li>
         </ul>
         <a href="#oferta" class="btn-primary">
@@ -767,6 +768,77 @@
         </div>
     </section>
 
+    <section class="rewards-section" id="rewards">
+        <div class="rewards-orbit rewards-orbit-one" aria-hidden="true"></div>
+        <div class="rewards-orbit rewards-orbit-two" aria-hidden="true"></div>
+        <div class="rewards-inner">
+            <div class="rewards-copy reveal">
+                <span class="rewards-kicker"><i class="fa-solid fa-sparkles" aria-hidden="true"></i> Nuevo · Isho's Rewards</span>
+                <h2 class="rewards-title">Tus visitas ahora saben a <em>recompensa</em></h2>
+                <p class="rewards-description">Estamos estrenando una nueva forma de agradecerte. Crea tu perfil,
+                    muestra tu código en caja y acumula puntos cada vez que disfrutes Isho's.</p>
+
+                <div class="rewards-steps" aria-label="Cómo funciona Isho's Rewards">
+                    <article class="rewards-step">
+                        <span class="rewards-step-number">01</span>
+                        <div>
+                            <h3>Crea tu perfil</h3>
+                            <p>Solicita acceso a Rewards y recibe tu código personal.</p>
+                        </div>
+                    </article>
+                    <article class="rewards-step">
+                        <span class="rewards-step-number">02</span>
+                        <div>
+                            <h3>Muestra tu QR</h3>
+                            <p>Preséntalo al equipo al momento de realizar tu compra.</p>
+                        </div>
+                    </article>
+                    <article class="rewards-step">
+                        <span class="rewards-step-number">03</span>
+                        <div>
+                            <h3>Acumula puntos</h3>
+                            <p>Sigue tu progreso y prepárate para nuevas recompensas.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="rewards-actions">
+                    <a class="rewards-primary" href="https://app-movil-ishos.web.app/" target="_blank" rel="noopener">
+                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Probar Isho's Rewards
+                    </a>
+                    <a class="rewards-secondary" href="#ubicaciones">Ver sucursales <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <p class="rewards-note"><i class="fa-solid fa-flask" aria-hidden="true"></i> Funcionalidad en etapa de prueba. Tu experiencia nos ayudará a mejorarla.</p>
+            </div>
+
+            <div class="rewards-visual reveal reveal-delay-2" aria-label="Vista previa de Isho's Rewards">
+                <div class="rewards-phone">
+                    <div class="rewards-phone-top"><span></span><strong>Isho's Rewards</strong><i class="fa-regular fa-bell" aria-hidden="true"></i></div>
+                    <div class="rewards-pass">
+                        <div class="rewards-pass-head">
+                            <span>MI PERFIL REWARDS</span>
+                            <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        </div>
+                        <h3>Cada visita cuenta</h3>
+                        <p>Presenta tu código personal en caja.</p>
+                        <div class="rewards-code" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <small>ISHOS · REWARDS</small>
+                    </div>
+                    <div class="rewards-mini-grid">
+                        <div><i class="fa-solid fa-qrcode" aria-hidden="true"></i><span>Tu código</span></div>
+                        <div><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i><span>Movimientos</span></div>
+                    </div>
+                </div>
+                <div class="rewards-float rewards-float-points"><i class="fa-solid fa-circle-plus" aria-hidden="true"></i><span><strong>Puntos sumados</strong>Compra registrada</span></div>
+                <div class="rewards-float rewards-float-star"><i class="fa-solid fa-star" aria-hidden="true"></i></div>
+            </div>
+        </div>
+    </section>
+
     <section class="testimonials">
         <div class="section-header reveal">
             <span class="section-eyebrow">Lo Que Dicen</span>
@@ -981,17 +1053,27 @@
                     <h2 class="preview-title">Tu sorbete <em>perfecto</em></h2>
                 </div>
 
-                <div class="preview-model"
-                    style="display: flex; justify-content: center; align-items: center; height: 220px; background: radial-gradient(circle, rgba(43, 191, 170, 0.1) 0%, transparent 70%); border-radius: 20px; margin-bottom: 1.5rem;">
-                    <div id="previewIcon"
-                        style="font-size: 7rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-                        <i class="fa-solid fa-ice-cream" aria-hidden="true"></i></div>
+                <div class="preview-model">
+                    <div class="sorbet-stage" id="sorbetPreview" data-base="none" data-count="0"
+                        role="img" aria-live="polite" aria-label="Vista previa de tu sorbete. Elige una base para comenzar.">
+                        <div class="sorbet-dessert" id="previewIcon" aria-hidden="true">
+                            <div class="sorbet-toppings" id="previewToppings"></div>
+                            <div class="sorbet-scoops">
+                                <span class="sorbet-scoop" data-slot="1"></span>
+                                <span class="sorbet-scoop" data-slot="2"></span>
+                                <span class="sorbet-scoop" data-slot="3"></span>
+                            </div>
+                            <div class="sorbet-base">
+                                <span class="base-rim"></span>
+                                <span class="base-body"></span>
+                            </div>
+                        </div>
+                        <p class="preview-empty-message" id="previewEmptyMessage">Elige una base para comenzar</p>
+                    </div>
                 </div>
 
-                <div class="preview-scoops" id="previewScoops">
-                    <div class="preview-scoop empty" data-slot="1">?</div>
-                    <div class="preview-scoop empty" data-slot="2">?</div>
-                    <div class="preview-scoop empty" data-slot="3">?</div>
+                <div class="preview-scoops" id="previewScoops" aria-live="polite">
+                    <span class="preview-selection-empty">Tus sabores aparecerán aquí</span>
                 </div>
 
                 <div class="preview-summary">
@@ -1264,7 +1346,7 @@
                         </div>
                         <strong>¡Preorden #<span id="feedbackOrderNum"></span> registrada!</strong><br>
                         <p id="feedbackPickup" style="margin-top: 5px; font-size: 0.9rem; font-weight: 600;"></p>
-                        <p style="margin-top: 5px; font-size: 0.9rem;">Hemos enviado tu comprobante oficial
+                        <p id="feedbackMessage" style="margin-top: 5px; font-size: 0.9rem;">Hemos enviado tu comprobante oficial
                             automáticamente a tu celular. Presenta este número en caja para pagar y retirar.</p>
                     </div>
 
@@ -1412,6 +1494,7 @@
                     <li><a href="#productos">Productos</a></li>
                     <li><a href="#historia">Nuestra historia</a></li>
                     <li><a href="#configurador">Arma tu sorbete</a></li>
+                    <li><a href="#rewards">Isho's Rewards</a></li>
                     <li><a href="#ubicaciones">Sucursales</a></li>
                     <li><a href="#oferta"><i class="fa-solid fa-gift" aria-hidden="true"></i> Tu descuento</a></li>
                 </ul>
@@ -1576,31 +1659,57 @@
          ========================================== -->
     <script>
         const ISHOS_WHATSAPP = "50363067067";
+        const TEXTMEBOT_API_URL = "https://api.textmebot.com/send.php";
+        const TEXTMEBOT_API_KEY = "F8Paa2Ec6hMU";
 
         /**
-         * Envía la notificación interna (CallMeBot) y el ticket al cliente
-         * (API propia). Centralizado aquí para no repetir esta lógica en
-         * cada flujo de compra.
+         * Envía la notificación interna por CallMeBot y el comprobante del
+         * cliente por TextMeBot. Ambos envíos son independientes: si uno
+         * falla, la preorden permanece guardada en Firebase.
          *
          * ⚠️ Ver nota de seguridad más arriba: estas claves están expuestas
          * en el cliente. Ideal: mover esto a una Cloud Function.
          */
-        function notificarPedido({ mensajeAdmin, telefonoCliente, mensajeCliente }) {
-            const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B50363067067&apikey=6666426&text=${encodeURIComponent(mensajeAdmin)}&_t=${Date.now()}`;
-            fetch(callMeBotUrl, { mode: 'no-cors', cache: 'no-store' }).catch(err => console.error("Error CallMeBot:", err));
+        function fetchConTiempoLimite(url, options = {}, timeoutMs = 12000) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), timeoutMs);
+            return fetch(url, { ...options, signal: controller.signal })
+                .finally(() => clearTimeout(timer));
+        }
 
-            const tuApiKeyPrivada = "ISHOS_CLAVE_SECRETA_2026";
-            let telClienteLimpio = telefonoCliente.replace(/\D/g, '');
-            let telConCodigo = telClienteLimpio.startsWith('503') ? telClienteLimpio : `503${telClienteLimpio}`;
+        function normalizarTelefonoWhatsApp(telefono) {
+            let digits = String(telefono || '').replace(/\D/g, '');
+            if (digits.startsWith('00')) digits = digits.slice(2);
+            if (!digits.startsWith('503')) digits = `503${digits}`;
+            return `+${digits}`;
+        }
 
-            // Nota: este endpoint es HTTP (no HTTPS). Si el sitio se sirve
-            // por HTTPS, el navegador bloqueará esta petición por
-            // "contenido mixto". Hay que exponer la API propia por HTTPS.
-            const urlMiApi = `http://18.222.202.24:8000/enviar?telefono=${telConCodigo}&apikey=${tuApiKeyPrivada}&texto=${encodeURIComponent(mensajeCliente)}`;
-            fetch(urlMiApi)
-                .then(res => res.json())
-                .then(data => console.log("✅ Respuesta de la API en Python:", data))
-                .catch(err => console.error("❌ Error comunicando con la API en Python:", err));
+        async function notificarPedido({ mensajeAdmin, telefonoCliente, mensajeCliente }) {
+            const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B${ISHOS_WHATSAPP}&apikey=6666426&text=${encodeURIComponent(mensajeAdmin)}&_t=${Date.now()}`;
+            const textMeBotParams = new URLSearchParams({
+                recipient: normalizarTelefonoWhatsApp(telefonoCliente),
+                apikey: TEXTMEBOT_API_KEY,
+                text: mensajeCliente,
+                json: 'yes'
+            });
+            const textMeBotUrl = `${TEXTMEBOT_API_URL}?${textMeBotParams.toString()}`;
+
+            const [adminResult, ticketResult] = await Promise.allSettled([
+                fetchConTiempoLimite(callMeBotUrl, { mode: 'no-cors', cache: 'no-store', referrerPolicy: 'no-referrer' }),
+                fetchConTiempoLimite(textMeBotUrl, { mode: 'no-cors', cache: 'no-store', referrerPolicy: 'no-referrer' })
+            ]);
+
+            if (adminResult.status === 'rejected') {
+                console.error('No se pudo enviar la notificación interna:', adminResult.reason);
+            }
+            if (ticketResult.status === 'rejected') {
+                console.error('No se pudo solicitar el envío del comprobante por TextMeBot:', ticketResult.reason);
+            }
+
+            return {
+                adminSolicitado: adminResult.status === 'fulfilled',
+                ticketSolicitado: ticketResult.status === 'fulfilled'
+            };
         }
     </script>
 
@@ -1905,7 +2014,7 @@
                             sucursal,
                             retiro,
                             total: state.total,
-                            estado: "pendiente",
+                            estado: "nueva",
                             origen: "configurador",
                             fecha: window.serverTimestamp()
                         });
@@ -1916,20 +2025,25 @@
                         let toppingsTexto = state.toppings.length > 0 ? `\n*Toppings:*\n` + state.toppings.map(t => `• ${TOPPING_NAMES[t]}`).join('\n') : '';
 
                         const ticketParaCliente =
-                            `🍧 *ISHOS FACTORY — COMPROBANTE DE PREORDEN* 🍧\n` +
-                            `━━━━━━━━━━━━━━━━━━\n\n` +
-                            `¡Hola *${nombre}*! Hemos registrado tu preorden. Aquí está el resumen de tu sorbete:\n\n` +
-                            `🎫 *PREORDEN:* #${state.orderNum}\n` +
-                            `📍 *Sucursal:* ${sucursal}\n` +
-                            `🕐 *Retiro:* ${retiro}\n` +
-                            `🍨 *Base:* ${BASE_NAMES[state.base]}\n` +
-                            `*Sabores:*\n${saboresTexto}` +
-                            `${toppingsTexto}\n\n` +
+                            `🍧 *ISHO'S FACTORY*\n` +
+                            `*COMPROBANTE DE PREORDEN*\n` +
                             `━━━━━━━━━━━━━━━━━━\n` +
-                            `💰 *TOTAL A PAGAR: $${state.total.toFixed(2)}*\n\n` +
-                            `📍 No se realizó ningún cobro en línea. Presenta este número (*#${state.orderNum}*) en caja para pagar y retirar. ¡Te esperamos! 🙌`;
+                            `🎫 *N.º ${state.orderNum}*\n` +
+                            `👤 ${nombre}\n` +
+                            `📍 ${sucursal}\n` +
+                            `🕐 ${retiro}\n` +
+                            `──────────────────\n` +
+                            `*🍨 TU SORBETE*\n` +
+                            `*Base:* ${BASE_NAMES[state.base]}\n` +
+                            `*Sabores:*\n${saboresTexto}` +
+                            `${toppingsTexto}\n` +
+                            `──────────────────\n` +
+                            `💰 *TOTAL: $${state.total.toFixed(2)}*\n` +
+                            `🏪 _Pago al retirar en sucursal_\n\n` +
+                            `Presenta la preorden *#${state.orderNum}* en caja.\n` +
+                            `¡Gracias por elegir Isho's! 🩵`;
 
-                        notificarPedido({
+                        const notificationResult = await notificarPedido({
                             mensajeAdmin: adminMsgConfig,
                             telefonoCliente: telefono,
                             mensajeCliente: ticketParaCliente
@@ -1942,6 +2056,9 @@
                         const feedback = document.getElementById('orderFeedback');
                         document.getElementById('feedbackOrderNum').textContent = state.orderNum;
                         document.getElementById('feedbackPickup').textContent = `${sucursal} · ${retiro}`;
+                        document.getElementById('feedbackMessage').textContent = notificationResult.ticketSolicitado
+                            ? 'Solicitamos el envío de tu comprobante por WhatsApp. Presenta este número en caja para pagar y retirar.'
+                            : 'Tu preorden quedó guardada, pero no pudimos solicitar el envío por WhatsApp. Guarda este número para presentarlo en caja.';
                         feedback.style.display = 'block';
 
                     } catch (error) {
@@ -2132,25 +2249,30 @@
                         sucursal,
                         retiro,
                         total: total.toFixed(2),
-                        estado: 'pendiente',
+                        estado: 'nueva',
                         fecha: window.serverTimestamp()
                     });
 
                     const adminMsgCarrito = `🚨 *NUEVA PREORDEN DE CARRITO* 🚨\n\n👤 *Cliente:* ${nombre}\n📱 *Tel:* ${tel}\n🔢 *Preorden:* #${orderNum}\n📍 *Sucursal:* ${sucursal}\n🕐 *Retiro:* ${retiro}\n💰 *Total:* $${total.toFixed(2)}\n\nRevisa la base de datos para ver el detalle de los sorbetes.`;
 
                     const ticketCarritoCliente =
-                        `🍧 *ISHOS FACTORY — COMPROBANTE DE PREORDEN* 🍧\n` +
-                        `━━━━━━━━━━━━━━━━━━\n\n` +
-                        `¡Hola *${nombre}*! Hemos registrado tu preorden con éxito:\n\n` +
-                        `🎫 *PREORDEN:* #${orderNum}\n\n` +
-                        `📍 *Sucursal:* ${sucursal}\n` +
-                        `🕐 *Retiro:* ${retiro}\n\n` +
-                        `*Detalle:*\n${listaItems}\n` +
+                        `🍧 *ISHO'S FACTORY*\n` +
+                        `*COMPROBANTE DE PREORDEN*\n` +
                         `━━━━━━━━━━━━━━━━━━\n` +
-                        `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n` +
-                        `📍 No se realizó ningún cobro en línea. Presenta el número *#${orderNum}* en caja para pagar y retirar. ¡Gracias por tu preferencia! 🙌`;
+                        `🎫 *N.º ${orderNum}*\n` +
+                        `👤 ${nombre}\n` +
+                        `📍 ${sucursal}\n` +
+                        `🕐 ${retiro}\n` +
+                        `──────────────────\n` +
+                        `*🛒 TU PREORDEN*\n` +
+                        `${listaItems}` +
+                        `──────────────────\n` +
+                        `💰 *TOTAL: $${total.toFixed(2)}*\n` +
+                        `🏪 _Pago al retirar en sucursal_\n\n` +
+                        `Presenta la preorden *#${orderNum}* en caja.\n` +
+                        `¡Gracias por elegir Isho's! 🩵`;
 
-                    notificarPedido({
+                    const notificationResult = await notificarPedido({
                         mensajeAdmin: adminMsgCarrito,
                         telefonoCliente: tel,
                         mensajeCliente: ticketCarritoCliente
@@ -2168,7 +2290,9 @@
                         border-radius: 50px; font-weight: 600; z-index: 9999;
                         box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 0.95rem; text-align: center;
                     `;
-                    toast.innerHTML = `<i class="fa-solid fa-circle-check" aria-hidden="true"></i> ¡Preorden #${orderNum} registrada! Te enviamos el comprobante a tu WhatsApp.`;
+                    toast.innerHTML = notificationResult.ticketSolicitado
+                        ? `<i class="fa-solid fa-circle-check" aria-hidden="true"></i> ¡Preorden #${orderNum} registrada! Solicitamos el envío del comprobante a tu WhatsApp.`
+                        : `<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Preorden #${orderNum} guardada. No pudimos solicitar el comprobante por WhatsApp.`;
                     document.body.appendChild(toast);
                     setTimeout(() => toast.remove(), 6000);
 

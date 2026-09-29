@@ -1,0 +1,116 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function owns(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function isStaff() {
+      return signedIn() && (
+        request.auth.token.email == 'caja@ishos.com' ||
+        request.auth.token.admin == true ||
+        request.auth.token.staff == true
+      );
+    }
+
+    function levelFor(points) {
+      return points >= 600 ? 'Diamante'
+        : points >= 300 ? 'Oro'
+        : points >= 100 ? 'Plata'
+        : 'Bronce';
+    }
+
+    // Landing page y panel de cupones existente.
+    match /leads/{leadId} {
+      allow create: if true;
+      allow read, update: if true;
+      allow delete: if false;
+    }
+
+    // Perfiles de Rewards.
+    match /users/{userId} {
+      allow read: if owns(userId) || isStaff();
+
+      allow create: if owns(userId)
+        && request.resource.data.points == 0
+        && request.resource.data.level == 'Bronce'
+        && request.resource.data.visits == 0;
+
+      // El cajero solo puede acreditar puntos, registrar una visita y
+      // recalcular el nivel. No puede editar identidad ni otros datos.
+      allow update: if isStaff()
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['points', 'level', 'visits', 'updatedAt'])
+        && request.resource.data.points > resource.data.points
+        && request.resource.data.points <= resource.data.points + 10000
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.level == levelFor(request.resource.data.points);
+
+      // El cliente puede registrar su código corto o descontar puntos
+      // mediante un canje, pero nunca aumentarlos desde la app.
+      allow update: if owns(userId) && (
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['rewardCode'])
+        || (
+          request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['points', 'level', 'updatedAt'])
+          && request.resource.data.points >= 0
+          && request.resource.data.points < resource.data.points
+          && request.resource.data.level == levelFor(request.resource.data.points)
+        )
+      );
+
+      allow delete: if false;
+    }
+
+    // Historial de puntos.
+    match /transactions/{transactionId} {
+      allow read: if isStaff() || (
+        signedIn() && resource.data.userId == request.auth.uid
+      );
+
+      allow create: if (
+        isStaff()
+        && request.resource.data.userId is string
+        && request.resource.data.type == 'earn'
+        && request.resource.data.points > 0
+        && request.resource.data.points <= 10000
+        && request.resource.data.source == 'staff-panel'
+        && request.resource.data.awardedBy == request.auth.uid
+      ) || (
+        signedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.type == 'redeem'
+        && request.resource.data.points < 0
+      );
+
+      allow update, delete: if false;
+    }
+
+    match /redemptions/{redemptionId} {
+      allow read: if isStaff() || (
+        signedIn() && resource.data.userId == request.auth.uid
+      );
+      allow create: if signedIn()
+        && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // Configurador y panel de preórdenes existente.
+    match /pedidos/{pedidoId} {
+      allow create: if true;
+      allow read: if true;
+      allow update: if signedIn();
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

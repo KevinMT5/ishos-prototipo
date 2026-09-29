@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isho's Factory — Cocina</title>
+    <title>Isho's Factory — Panel de preórdenes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -322,6 +322,30 @@
             align-items: center;
         }
 
+        .branch-filter {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 0.9rem;
+            border: 1px solid rgba(43, 191, 170, 0.25);
+            border-radius: 100px;
+            background: var(--turq-light);
+            color: var(--turq-deep);
+        }
+
+        .branch-filter select {
+            max-width: 190px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: var(--turq-deep);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         .topbar-btn {
             height: 38px;
             padding: 0 1.125rem;
@@ -475,6 +499,10 @@
             background: var(--pebble);
         }
 
+        .ticket-accent.ready {
+            background: var(--success);
+        }
+
         @keyframes pulse-accent {
 
             0%,
@@ -541,6 +569,11 @@
             color: var(--pebble);
         }
 
+        .ticket-timer.ready {
+            background: #ecfdf5;
+            color: var(--success);
+        }
+
         .ticket-price {
             font-family: var(--font-display);
             font-size: 1.25rem;
@@ -572,6 +605,63 @@
         .ticket-client span {
             color: var(--stone);
         }
+
+        .ticket-operation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+            margin: 0 1.5rem 0.875rem;
+        }
+
+        .ticket-operation-item {
+            min-width: 0;
+            padding: 0.7rem 0.8rem;
+            border-radius: 12px;
+            background: var(--turq-light);
+        }
+
+        .ticket-operation-item.pickup {
+            background: var(--mango-light);
+        }
+
+        .ticket-operation-label {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-bottom: 0.2rem;
+            color: var(--pebble);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .ticket-operation-value {
+            display: block;
+            overflow: hidden;
+            color: var(--ink);
+            font-size: 0.78rem;
+            font-weight: 600;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+        }
+
+        .ticket-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .ticket-status.nueva { background: #eff6ff; color: #2563eb; }
+        .ticket-status.preparando { background: #fff7ed; color: #ea580c; }
+        .ticket-status.listo { background: #ecfdf5; color: #059669; }
+        .ticket-status.entregado { background: var(--sand); color: var(--stone); }
 
         .ticket-dash {
             height: 1px;
@@ -689,6 +779,39 @@
             box-shadow: 0 8px 24px var(--turq-glow);
         }
 
+        .btn-start {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-ready {
+            background: var(--mango);
+            color: white;
+        }
+
+        .btn-ready:hover {
+            background: #e67332;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--mango-glow);
+        }
+
+        .btn-deliver {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-deliver:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.18);
+        }
+
         .btn-restore {
             background: var(--sand);
             color: var(--stone);
@@ -734,6 +857,35 @@
             font-size: 0.9375rem;
             color: var(--stone);
         }
+
+        @media (max-width: 980px) {
+            .topbar {
+                height: auto;
+                min-height: 68px;
+                padding: 0.75rem 1.25rem;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .topbar-center { order: 3; width: 100%; justify-content: center; }
+            .topbar-actions { margin-left: auto; }
+            .branch-filter select { max-width: 150px; }
+            .tabs-bar { padding: 0 1rem; overflow-x: auto; }
+            .tab-btn { flex: 0 0 auto; }
+            .main-content { padding: 1.25rem; }
+        }
+
+        @media (max-width: 640px) {
+            .topbar-brand { font-size: 1.4rem; }
+            .topbar-badge { display: none; }
+            .topbar-actions { width: 100%; justify-content: space-between; }
+            .branch-filter { flex: 1; }
+            .branch-filter select { width: 100%; max-width: none; }
+            .topbar-btn { padding: 0 0.8rem; }
+            .topbar-center { gap: 1rem; }
+            .orders-grid { grid-template-columns: 1fr; }
+            .ticket-operation { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 
@@ -747,7 +899,7 @@
         <div class="login-wrap">
             <div>
                 <div class="login-brand-title"><em>Isho's</em> Factory</div>
-                <div class="login-brand-sub">Kitchen Display System</div>
+                <div class="login-brand-sub">Panel operativo de preórdenes</div>
             </div>
             <div class="login-card">
                 <h3>Acceso empleados</h3>
@@ -761,7 +913,7 @@
                         <i class="fa-solid fa-lock"></i>
                         <input type="password" id="passwordInput" class="login-input" placeholder="Contraseña" required>
                     </div>
-                    <button type="submit" class="login-btn" id="loginBtn">Entrar a cocina</button>
+                    <button type="submit" class="login-btn" id="loginBtn">Entrar al panel</button>
                     <div id="loginError"><i class="fa-solid fa-circle-exclamation"></i> Credenciales incorrectas</div>
                 </form>
             </div>
@@ -773,7 +925,7 @@
         <header class="topbar">
             <div class="topbar-brand">
                 <em>Isho's</em> Factory
-                <span class="topbar-badge">Cocina</span>
+                <span class="topbar-badge">Preparación</span>
             </div>
             <div class="topbar-center">
                 <div class="topbar-stat">
@@ -782,11 +934,20 @@
                 </div>
                 <div class="topbar-divider"></div>
                 <div class="topbar-stat">
-                    <span class="topbar-stat-label">Completados</span>
+                    <span class="topbar-stat-label">Entregadas hoy</span>
                     <span class="topbar-stat-value white" id="dailyOrdersCount">0</span>
                 </div>
             </div>
             <div class="topbar-actions">
+                <label class="branch-filter" for="branchFilter">
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <select id="branchFilter" aria-label="Filtrar preórdenes por sucursal">
+                        <option value="all">Todas las sucursales</option>
+                        <option value="Parque Los Pinitos">Parque Los Pinitos</option>
+                        <option value="2da Avenida Norte">2da Avenida Norte</option>
+                        <option value="unassigned">Sin sucursal asignada</option>
+                    </select>
+                </label>
                 <button class="topbar-btn" id="toggleSoundBtn">
                     <i class="fa-solid fa-volume-xmark"></i> Sonido
                 </button>
@@ -797,11 +958,17 @@
         </header>
 
         <div class="tabs-bar">
-            <button class="tab-btn active" data-tab="pendientes">
-                Pendientes <span class="tab-count" id="badgePending">0</span>
+            <button class="tab-btn active" data-tab="nueva">
+                Nuevas <span class="tab-count" id="badgeNew">0</span>
             </button>
-            <button class="tab-btn" data-tab="completados">
-                Completados hoy <span class="tab-count" id="badgeCompleted">0</span>
+            <button class="tab-btn" data-tab="preparando">
+                En preparación <span class="tab-count" id="badgePreparing">0</span>
+            </button>
+            <button class="tab-btn" data-tab="listo">
+                Listas <span class="tab-count" id="badgeReady">0</span>
+            </button>
+            <button class="tab-btn" data-tab="entregado">
+                Entregadas hoy <span class="tab-count" id="badgeDelivered">0</span>
             </button>
         </div>
 
@@ -817,7 +984,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -834,15 +1001,102 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        let allOrders = [], currentTab = 'pendientes', soundEnabled = false, lastOrderCount = 0, unsubscribeSnapshot = null;
+        let allOrders = [];
+        let currentTab = 'nueva';
+        let soundEnabled = false;
+        let unsubscribeSnapshot = null;
+        let snapshotReady = false;
+        let knownNewOrderIds = new Set();
+
+        const STATUS_META = {
+            nueva: { label: 'Nueva', icon: 'fa-bell', next: 'preparando', action: 'Comenzar preparación', actionIcon: 'fa-fire-burner', buttonClass: 'btn-start' },
+            preparando: { label: 'En preparación', icon: 'fa-fire-burner', next: 'listo', action: 'Marcar como lista', actionIcon: 'fa-check', buttonClass: 'btn-ready' },
+            listo: { label: 'Lista para retirar', icon: 'fa-bag-shopping', next: 'entregado', action: 'Marcar entregada', actionIcon: 'fa-hand-holding-heart', buttonClass: 'btn-deliver' },
+            entregado: { label: 'Entregada', icon: 'fa-check-double', next: 'nueva', action: 'Reactivar', actionIcon: 'fa-rotate-left', buttonClass: 'btn-restore' }
+        };
+
+        const EMPTY_STATES = {
+            nueva: { icon: 'fa-bell', title: 'Sin preórdenes nuevas', text: 'Las nuevas preórdenes aparecerán aquí.' },
+            preparando: { icon: 'fa-fire-burner', title: 'Nada en preparación', text: 'Comienza una preorden nueva para verla aquí.' },
+            listo: { icon: 'fa-bag-shopping', title: 'Sin preórdenes listas', text: 'Las preórdenes terminadas esperarán aquí su retiro.' },
+            entregado: { icon: 'fa-check-double', title: 'Sin entregas hoy', text: 'Las preórdenes entregadas hoy aparecerán aquí.' }
+        };
 
         const loginScreen = document.getElementById('loginScreen');
         const appContainer = document.getElementById('appContainer');
         const ordersContainer = document.getElementById('ordersContainer');
-        const badgePending = document.getElementById('badgePending');
-        const badgeCompleted = document.getElementById('badgeCompleted');
+        const branchFilter = document.getElementById('branchFilter');
+        const badgeNew = document.getElementById('badgeNew');
+        const badgePreparing = document.getElementById('badgePreparing');
+        const badgeReady = document.getElementById('badgeReady');
+        const badgeDelivered = document.getElementById('badgeDelivered');
         const dailyTotalSales = document.getElementById('dailyTotalSales');
         const dailyOrdersCount = document.getElementById('dailyOrdersCount');
+
+        function normalizeStatus(status) {
+            if (status === 'completado' || status === 'entregado') return 'entregado';
+            if (status === 'preparando' || status === 'en_preparacion') return 'preparando';
+            if (status === 'listo') return 'listo';
+            return 'nueva';
+        }
+
+        function timestampMillis(timestamp) {
+            if (!timestamp) return 0;
+            if (typeof timestamp.toMillis === 'function') return timestamp.toMillis();
+            if (timestamp instanceof Date) return timestamp.getTime();
+            return 0;
+        }
+
+        function isToday(timestamp) {
+            const millis = timestampMillis(timestamp);
+            if (!millis) return false;
+            const date = new Date(millis);
+            const today = new Date();
+            return date.getFullYear() === today.getFullYear()
+                && date.getMonth() === today.getMonth()
+                && date.getDate() === today.getDate();
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? '').replace(/[&<>'"]/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+            })[char]);
+        }
+
+        function ordersForSelectedBranch() {
+            const selected = branchFilter.value;
+            if (selected === 'all') return allOrders;
+            if (selected === 'unassigned') return allOrders.filter(order => !order.sucursal);
+            return allOrders.filter(order => order.sucursal === selected);
+        }
+
+        function deliveredToday(order) {
+            return normalizeStatus(order.estado) === 'entregado'
+                && isToday(order.actualizado_en || order.fecha);
+        }
+
+        function resetSoundBaseline() {
+            knownNewOrderIds = new Set(
+                ordersForSelectedBranch()
+                    .filter(order => normalizeStatus(order.estado) === 'nueva')
+                    .map(order => order.id)
+            );
+        }
+
+        function readSavedBranch() {
+            try {
+                return localStorage.getItem('ishos_panel_sucursal')
+                    || localStorage.getItem('ishos_sucursal')
+                    || 'all';
+            } catch {
+                return 'all';
+            }
+        }
+
+        const savedBranch = readSavedBranch();
+        if ([...branchFilter.options].some(option => option.value === savedBranch)) {
+            branchFilter.value = savedBranch;
+        }
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -853,11 +1107,13 @@
                 loginScreen.style.display = 'flex';
                 appContainer.style.display = 'none';
                 if (unsubscribeSnapshot) unsubscribeSnapshot();
+                unsubscribeSnapshot = null;
+                snapshotReady = false;
             }
         });
 
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
             const btn = document.getElementById('loginBtn');
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...';
             document.getElementById('loginError').style.display = 'none';
@@ -867,186 +1123,239 @@
             } catch {
                 document.getElementById('loginError').style.display = 'block';
             } finally {
-                btn.textContent = 'Entrar a cocina';
+                btn.textContent = 'Entrar al panel';
             }
         });
 
         document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
-        document.getElementById('toggleSoundBtn').addEventListener('click', (e) => {
+        document.getElementById('toggleSoundBtn').addEventListener('click', (event) => {
             soundEnabled = !soundEnabled;
-            const btn = e.currentTarget;
+            const btn = event.currentTarget;
             btn.classList.toggle('active', soundEnabled);
             btn.innerHTML = soundEnabled
                 ? '<i class="fa-solid fa-volume-high"></i> Sonido ON'
                 : '<i class="fa-solid fa-volume-xmark"></i> Sonido';
+            resetSoundBaseline();
             if (soundEnabled) document.getElementById('bellSound').play().catch(() => { });
         });
 
+        branchFilter.addEventListener('change', () => {
+            try { localStorage.setItem('ishos_panel_sucursal', branchFilter.value); } catch { /* almacenamiento no disponible */ }
+            resetSoundBaseline();
+            renderOrders();
+            actualizarResumen();
+        });
+
         document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                currentTab = e.currentTarget.dataset.tab;
+            btn.addEventListener('click', (event) => {
+                document.querySelectorAll('.tab-btn').forEach(tab => tab.classList.remove('active'));
+                event.currentTarget.classList.add('active');
+                currentTab = event.currentTarget.dataset.tab;
                 renderOrders();
             });
         });
 
         function iniciarDB() {
-            const q = query(collection(db, "pedidos"), orderBy("fecha", "asc"));
-            unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
-                allOrders = [];
-                let pendingCount = 0;
-                snapshot.forEach(d => {
-                    const data = { ...d.data(), id: d.id };
-                    allOrders.push(data);
-                    if (data.estado !== 'completado') pendingCount++;
-                });
-                if (soundEnabled && pendingCount > lastOrderCount) {
+            if (unsubscribeSnapshot) unsubscribeSnapshot();
+            const ordersQuery = query(collection(db, 'pedidos'), orderBy('fecha', 'asc'));
+            unsubscribeSnapshot = onSnapshot(ordersQuery, (snapshot) => {
+                allOrders = snapshot.docs.map(orderDoc => ({ ...orderDoc.data(), id: orderDoc.id }));
+
+                const currentNewIds = new Set(
+                    ordersForSelectedBranch()
+                        .filter(order => normalizeStatus(order.estado) === 'nueva')
+                        .map(order => order.id)
+                );
+                const hasNewOrder = [...currentNewIds].some(id => !knownNewOrderIds.has(id));
+
+                if (snapshotReady && soundEnabled && hasNewOrder) {
                     document.getElementById('bellSound').play().catch(() => { });
                 }
-                lastOrderCount = pendingCount;
+
+                knownNewOrderIds = currentNewIds;
+                snapshotReady = true;
                 renderOrders();
                 actualizarResumen();
             });
         }
 
         function actualizarResumen() {
-            const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-            let ventas = 0, completados = 0;
-            allOrders.forEach(o => {
-                if (o.estado === 'completado' && o.fecha && o.fecha.toDate() >= hoy) {
-                    ventas += parseFloat(o.total || 0);
-                    completados++;
-                }
-            });
-            dailyTotalSales.textContent = `$${ventas.toFixed(2)}`;
-            dailyOrdersCount.textContent = completados;
+            const delivered = ordersForSelectedBranch().filter(deliveredToday);
+            const sales = delivered.reduce((total, order) => total + parseFloat(order.total || 0), 0);
+            dailyTotalSales.textContent = `$${sales.toFixed(2)}`;
+            dailyOrdersCount.textContent = delivered.length;
         }
 
-        function timerInfo(fecha, done) {
-            if (done) return { text: 'Despachado', cls: 'done' };
-            const mins = Math.floor((Date.now() - (fecha ? fecha.toMillis() : Date.now())) / 60000);
+        function pickupMinutes(value) {
+            const text = String(value || '').toLowerCase();
+            if (!text) return null;
+            if (text.includes('antes posible')) return 20;
+            if (text.includes('1 hora')) return 60;
+            const match = text.match(/(\d+)/);
+            return match ? parseInt(match[1], 10) : null;
+        }
+
+        function timerInfo(order, status) {
+            if (status === 'entregado') return { text: 'Entregada', cls: 'done' };
+            if (status === 'listo') return { text: 'Lista para retirar', cls: 'ready' };
+
+            const createdAt = timestampMillis(order.fecha) || Date.now();
+            const elapsedMinutes = Math.max(0, Math.floor((Date.now() - createdAt) / 60000));
+            const targetMinutes = pickupMinutes(order.retiro);
+
+            if (targetMinutes !== null) {
+                const remaining = targetMinutes - elapsedMinutes;
+                if (remaining <= 0) return { text: 'Retiro ahora', cls: 'danger' };
+                if (remaining <= 10) return { text: `Retiro en ${remaining} min`, cls: 'warning' };
+                return { text: `Retiro en ~${remaining} min`, cls: '' };
+            }
+
             return {
-                text: mins < 1 ? 'Recién llegado' : `Hace ${mins} min`,
-                cls: mins >= 10 ? 'danger' : mins >= 5 ? 'warning' : ''
+                text: elapsedMinutes < 1 ? 'Recién llegada' : `Hace ${elapsedMinutes} min`,
+                cls: elapsedMinutes >= 10 ? 'danger' : elapsedMinutes >= 5 ? 'warning' : ''
             };
         }
 
         function renderOrders() {
             ordersContainer.innerHTML = '';
-            const isPending = currentTab === 'pendientes';
-            const filtered = allOrders.filter(o => isPending ? o.estado !== 'completado' : o.estado === 'completado');
+            const branchOrders = ordersForSelectedBranch();
+            const counts = { nueva: 0, preparando: 0, listo: 0, entregado: 0 };
 
-            badgePending.textContent = allOrders.filter(o => o.estado !== 'completado').length;
-            badgeCompleted.textContent = allOrders.filter(o => o.estado === 'completado').length;
+            branchOrders.forEach(order => {
+                const status = normalizeStatus(order.estado);
+                if (status === 'entregado') {
+                    if (deliveredToday(order)) counts.entregado++;
+                } else {
+                    counts[status]++;
+                }
+            });
+
+            badgeNew.textContent = counts.nueva;
+            badgePreparing.textContent = counts.preparando;
+            badgeReady.textContent = counts.listo;
+            badgeDelivered.textContent = counts.entregado;
+
+            const filtered = branchOrders.filter(order => {
+                const status = normalizeStatus(order.estado);
+                return currentTab === 'entregado'
+                    ? status === 'entregado' && deliveredToday(order)
+                    : status === currentTab;
+            });
+
+            filtered.sort((a, b) => {
+                const difference = timestampMillis(a.fecha) - timestampMillis(b.fecha);
+                return currentTab === 'entregado' ? -difference : difference;
+            });
 
             if (filtered.length === 0) {
+                const empty = EMPTY_STATES[currentTab];
                 ordersContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon"><i class="fa-solid ${isPending ? 'fa-mug-hot' : 'fa-check-double'}"></i></div>
-                    <h3>${isPending ? 'Cocina despejada' : 'Sin historial'}</h3>
-                    <p>${isPending ? 'Esperando nuevos pedidos...' : 'No hay pedidos completados hoy'}</p>
-                </div>`;
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fa-solid ${empty.icon}"></i></div>
+                        <h3>${empty.title}</h3>
+                        <p>${empty.text}</p>
+                    </div>`;
                 return;
             }
 
-            if (!isPending) filtered.reverse();
-
             filtered.forEach(data => {
-                const t = timerInfo(data.fecha, !isPending);
-                const esDirecto = data.base === 'Pedido directo';
+                const status = normalizeStatus(data.estado);
+                const meta = STATUS_META[status];
+                const timing = timerInfo(data, status);
+                const directOrder = data.base === 'Pedido directo';
+                const branch = data.sucursal || 'Sin asignar';
+                const pickup = data.retiro || 'Sin horario';
 
-                const saboresHTML = (data.sabores || []).length > 0
-                    ? data.sabores.map(s => `<li><i class="fa-solid fa-circle"></i>${s}</li>`).join('')
+                const flavorsHTML = (data.sabores || []).length > 0
+                    ? data.sabores.map(flavor => `<li><i class="fa-solid fa-circle"></i>${escapeHTML(flavor)}</li>`).join('')
                     : '<li class="muted"><i class="fa-solid fa-minus"></i>Sin especificar</li>';
 
                 const toppingsHTML = (data.toppings || []).length > 0
-                    ? data.toppings.map(t => `<li><i class="fa-solid fa-plus"></i>${t}</li>`).join('')
+                    ? data.toppings.map(topping => `<li><i class="fa-solid fa-plus"></i>${escapeHTML(topping)}</li>`).join('')
                     : '<li class="muted"><i class="fa-solid fa-minus"></i>Sin toppings</li>';
 
-                const clienteHTML = (data.nombre || data.whatsapp) ? `
-                <div class="ticket-client">
-                    <i class="fa-solid fa-user"></i>
-                    <strong>${data.nombre || '—'}</strong>
-                    ${data.whatsapp ? `<span>· ${data.whatsapp}</span>` : ''}
-                </div>` : '';
+                const clientHTML = (data.nombre || data.whatsapp) ? `
+                    <div class="ticket-client">
+                        <i class="fa-solid fa-user"></i>
+                        <strong>${escapeHTML(data.nombre || '—')}</strong>
+                        ${data.whatsapp ? `<span>· ${escapeHTML(data.whatsapp)}</span>` : ''}
+                    </div>` : '';
 
-                const card = document.createElement('div');
-                card.className = 'ticket';
+                const card = document.createElement('article');
+                card.className = `ticket ticket-${status}`;
                 card.innerHTML = `
-                <div class="ticket-accent ${t.cls}"></div>
-                <div class="ticket-top">
-                    <div class="ticket-num"><span>#</span>${data.numero_pedido}</div>
-                    <div class="ticket-right">
-                        <span class="ticket-timer ${t.cls}" data-time="${data.fecha ? data.fecha.toMillis() : 0}" data-done="${!isPending}">${t.text}</span>
-                        <span class="ticket-price">$${parseFloat(data.total || 0).toFixed(2)}</span>
+                    <div class="ticket-accent ${timing.cls}"></div>
+                    <div class="ticket-top">
+                        <div>
+                            <div class="ticket-num"><span>#</span>${escapeHTML(data.numero_pedido || '—')}</div>
+                            <span class="ticket-status ${status}"><i class="fa-solid ${meta.icon}"></i>${meta.label}</span>
+                        </div>
+                        <div class="ticket-right">
+                            <span class="ticket-timer ${timing.cls}">${timing.text}</span>
+                            <span class="ticket-price">$${parseFloat(data.total || 0).toFixed(2)}</span>
+                        </div>
                     </div>
-                </div>
-                ${clienteHTML}
-                <div class="ticket-dash"></div>
-                <div class="ticket-body">
-                    <div class="ticket-section">
-                        <span class="ticket-label">Tipo</span>
-                        <span class="ticket-source ${esDirecto ? 'directo' : 'configurador'}">
-                            <i class="fa-solid ${esDirecto ? 'fa-bag-shopping' : 'fa-sliders'}"></i>
-                            ${esDirecto ? 'Producto directo' : 'Configurador'}
-                        </span>
+                    ${clientHTML}
+                    <div class="ticket-operation">
+                        <div class="ticket-operation-item">
+                            <span class="ticket-operation-label"><i class="fa-solid fa-location-dot"></i>Sucursal</span>
+                            <span class="ticket-operation-value">${escapeHTML(branch)}</span>
+                        </div>
+                        <div class="ticket-operation-item pickup">
+                            <span class="ticket-operation-label"><i class="fa-regular fa-clock"></i>Retiro</span>
+                            <span class="ticket-operation-value">${escapeHTML(pickup)}</span>
+                        </div>
                     </div>
-                    ${!esDirecto ? `<div class="ticket-section">
-                        <span class="ticket-label">Base</span>
-                        <span class="ticket-value">${data.base}</span>
-                    </div>` : ''}
-                    <div class="ticket-section">
-                        <span class="ticket-label">${esDirecto ? 'Productos' : 'Sabores'}</span>
-                        <ul class="ticket-list">${saboresHTML}</ul>
+                    <div class="ticket-dash"></div>
+                    <div class="ticket-body">
+                        <div class="ticket-section">
+                            <span class="ticket-label">Tipo</span>
+                            <span class="ticket-source ${directOrder ? 'directo' : 'configurador'}">
+                                <i class="fa-solid ${directOrder ? 'fa-bag-shopping' : 'fa-sliders'}"></i>
+                                ${directOrder ? 'Producto directo' : 'Configurador'}
+                            </span>
+                        </div>
+                        ${!directOrder ? `<div class="ticket-section">
+                            <span class="ticket-label">Base</span>
+                            <span class="ticket-value">${escapeHTML(data.base)}</span>
+                        </div>` : ''}
+                        <div class="ticket-section">
+                            <span class="ticket-label">${directOrder ? 'Productos' : 'Sabores'}</span>
+                            <ul class="ticket-list">${flavorsHTML}</ul>
+                        </div>
+                        ${!directOrder ? `<div class="ticket-section">
+                            <span class="ticket-label">Toppings</span>
+                            <ul class="ticket-list">${toppingsHTML}</ul>
+                        </div>` : ''}
                     </div>
-                    ${!esDirecto ? `<div class="ticket-section">
-                        <span class="ticket-label">Toppings</span>
-                        <ul class="ticket-list">${toppingsHTML}</ul>
-                    </div>` : ''}
-                </div>
-                <div class="ticket-foot">
-                    ${isPending
-                        ? `<button class="btn-action btn-complete" data-action="completar" data-id="${data.id}">
-                            <i class="fa-solid fa-check"></i> Marcar como listo
-                           </button>`
-                        : `<button class="btn-action btn-restore" data-action="restaurar" data-id="${data.id}">
-                            <i class="fa-solid fa-rotate-left"></i> Reactivar
-                           </button>`
-                    }
-                </div>
-            `;
+                    <div class="ticket-foot">
+                        <button class="btn-action ${meta.buttonClass}" data-next="${meta.next}" data-id="${escapeHTML(data.id)}">
+                            <i class="fa-solid ${meta.actionIcon}"></i>${meta.action}
+                        </button>
+                    </div>`;
                 ordersContainer.appendChild(card);
             });
         }
 
         setInterval(() => {
-            if (currentTab !== 'pendientes') return;
-            document.querySelectorAll('.ticket-timer[data-done="false"]').forEach(el => {
-                const ts = parseInt(el.dataset.time);
-                if (!ts) return;
-                const mins = Math.floor((Date.now() - ts) / 60000);
-                el.textContent = mins < 1 ? 'Recién llegado' : `Hace ${mins} min`;
-                const cls = mins >= 10 ? 'danger' : mins >= 5 ? 'warning' : '';
-                el.className = `ticket-timer ${cls}`;
-                const accent = el.closest('.ticket')?.querySelector('.ticket-accent');
-                if (accent) accent.className = `ticket-accent ${cls}`;
-            });
+            if (allOrders.length > 0) renderOrders();
         }, 60000);
 
-        ordersContainer.addEventListener('click', async (e) => {
-            const btn = e.target.closest('.btn-action');
+        ordersContainer.addEventListener('click', async (event) => {
+            const btn = event.target.closest('.btn-action');
             if (!btn) return;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Actualizando...';
             btn.disabled = true;
             try {
-                await updateDoc(doc(db, "pedidos", btn.dataset.id), {
-                    estado: btn.dataset.action === 'completar' ? 'completado' : 'pendiente'
+                await updateDoc(doc(db, 'pedidos', btn.dataset.id), {
+                    estado: btn.dataset.next,
+                    actualizado_en: serverTimestamp()
                 });
             } catch {
-                alert('Error al actualizar el pedido.');
+                alert('Error al actualizar la preorden. Intenta de nuevo.');
                 btn.disabled = false;
+                renderOrders();
             }
         });
     </script>
