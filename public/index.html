@@ -1792,6 +1792,7 @@
                 flavors: [],
                 flavorPrices: {},
                 flavorIcons: {},
+                flavorColors: {},
                 toppings: [],
                 toppingPrices: {},
                 orderNum: null,
@@ -1825,6 +1826,8 @@
             const summaryTotal = document.getElementById('summaryTotal');
             const previewIcon = document.getElementById('previewIcon');
             const previewScoops = document.getElementById('previewScoops');
+            const sorbetPreview = document.getElementById('sorbetPreview');
+            const previewToppings = document.getElementById('previewToppings');
             const flavorCount = document.getElementById('flavorCount');
 
             openBtns.forEach(btn => {
@@ -1867,11 +1870,25 @@
 
             function popIcon() {
                 if (previewIcon) {
-                    previewIcon.style.transform = 'scale(1.2) rotate(-5deg)';
+                    previewIcon.style.transform = 'scale(1.06) rotate(-2deg)';
                     setTimeout(() => {
                         previewIcon.style.transform = 'scale(1) rotate(0deg)';
                     }, 250);
                 }
+            }
+
+            function updatePreviewAccessibility() {
+                if (!sorbetPreview) return;
+
+                const base = state.base ? BASE_NAMES[state.base] : 'sin base';
+                const flavors = state.flavors.length
+                    ? state.flavors.map(flavor => FLAVOR_NAMES[flavor]).join(', ')
+                    : 'sin sabores';
+                const toppings = state.toppings.length
+                    ? state.toppings.map(topping => TOPPING_NAMES[topping]).join(', ')
+                    : 'sin toppings';
+
+                sorbetPreview.setAttribute('aria-label', `Vista previa: ${base}, ${flavors}, ${toppings}.`);
             }
 
             document.querySelectorAll('#baseOptions .option-card').forEach(option => {
@@ -1882,12 +1899,13 @@
                     state.basePrice = parseFloat(option.dataset.price);
                     state.baseIcon = option.dataset.icon;
 
-                    previewIcon.innerHTML = `<i class="fa-solid ${state.baseIcon}" aria-hidden="true"></i>`;
+                    sorbetPreview.dataset.base = state.base;
                     popIcon();
 
                     summaryBase.textContent = BASE_NAMES[state.base];
                     toStep2Btn.disabled = false;
                     updateTotal();
+                    updatePreviewAccessibility();
                 });
             });
 
@@ -1900,12 +1918,14 @@
                         state.flavors = state.flavors.filter(f => f !== flavor);
                         delete state.flavorPrices[flavor];
                         delete state.flavorIcons[flavor];
+                        delete state.flavorColors[flavor];
                     } else {
                         if (state.flavors.length >= 3) return;
                         option.classList.add('selected');
                         state.flavors.push(flavor);
                         state.flavorPrices[flavor] = parseFloat(option.dataset.price);
                         state.flavorIcons[flavor] = option.dataset.icon;
+                        state.flavorColors[flavor] = option.dataset.color;
                     }
 
                     flavorCount.textContent = state.flavors.length;
@@ -1918,21 +1938,39 @@
                     summaryFlavors.textContent = state.flavors.length > 0 ? state.flavors.map(f => FLAVOR_NAMES[f]).join(', ') : '—';
                     toStep3Btn.disabled = state.flavors.length === 0;
                     updateTotal();
+                    updatePreviewAccessibility();
                 });
             });
 
             function updatePreviewScoops() {
-                previewScoops.querySelectorAll('.preview-scoop').forEach((scoop, index) => {
+                sorbetPreview.dataset.count = state.flavors.length;
+                sorbetPreview.querySelectorAll('.sorbet-scoop').forEach((scoop, index) => {
                     if (state.flavors[index]) {
-                        scoop.innerHTML = `<i class="fa-solid ${state.flavorIcons[state.flavors[index]]}" aria-hidden="true"></i>`;
+                        const flavor = state.flavors[index];
+                        scoop.style.setProperty('--scoop-color', state.flavorColors[flavor]);
                         scoop.classList.add('active');
-                        scoop.classList.remove('empty');
                     } else {
-                        scoop.textContent = '?';
+                        scoop.style.removeProperty('--scoop-color');
                         scoop.classList.remove('active');
-                        scoop.classList.add('empty');
                     }
                 });
+
+                previewScoops.innerHTML = state.flavors.length
+                    ? state.flavors.map(flavor => `
+                        <span class="preview-scoop">
+                            <span class="preview-scoop-dot" style="--scoop-color: ${state.flavorColors[flavor]}"></span>
+                            ${FLAVOR_NAMES[flavor]}
+                        </span>`).join('')
+                    : '<span class="preview-selection-empty">Tus sabores aparecerán aquí</span>';
+
+                popIcon();
+            }
+
+            function updatePreviewToppings() {
+                previewToppings.innerHTML = state.toppings
+                    .map(topping => `<span class="topping-decoration ${topping}"></span>`)
+                    .join('');
+                popIcon();
             }
 
             document.querySelectorAll('#toppingOptions .topping-card').forEach(option => {
@@ -1948,7 +1986,9 @@
                         state.toppingPrices[topping] = parseFloat(option.dataset.price);
                     }
                     summaryToppings.textContent = state.toppings.length > 0 ? state.toppings.map(t => TOPPING_NAMES[t]).join(', ') : '—';
+                    updatePreviewToppings();
                     updateTotal();
+                    updatePreviewAccessibility();
                 });
             });
 

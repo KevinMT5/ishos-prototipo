@@ -3190,86 +3190,328 @@
             color: var(--turquoise);
         }
 
-        /* 3D Model Viewer Area */
+        /* Live sorbet preview */
         .preview-model {
-            flex: 1;
+            min-height: 260px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             z-index: 2;
+            margin-bottom: 0.75rem;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 50% 58%, rgba(255, 255, 255, 0.14), transparent 34%),
+                radial-gradient(circle, rgba(43, 191, 170, 0.14) 0%, transparent 70%);
+            overflow: hidden;
         }
 
-        .model-viewer-container {
-            width: 100%;
-            height: 300px;
+        .preview-model::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 24px;
+            width: 190px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.28);
+            filter: blur(8px);
+            transform: translateX(-50%);
+        }
+
+        .sorbet-stage {
+            width: 260px;
+            height: 250px;
             position: relative;
-        }
-
-        /* Placeholder when no .glb */
-        .model-placeholder {
-            width: 100%;
-            height: 100%;
+            z-index: 1;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
         }
 
-        .model-placeholder-visual {
-            font-size: 6rem;
-            margin-bottom: 1rem;
-            animation: bowl-wobble 3s ease-in-out infinite;
-            filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.3));
+        .sorbet-dessert {
+            width: 220px;
+            height: 230px;
+            position: relative;
+            transform-origin: 50% 90%;
+            transition: transform 0.35s var(--ease-out-expo), opacity 0.3s ease;
         }
 
-        .model-placeholder-text {
-            font-size: 0.8125rem;
-            color: rgba(255, 255, 255, 0.4);
+        .sorbet-stage[data-base="none"] .sorbet-dessert {
+            opacity: 0.25;
+        }
+
+        .preview-empty-message {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+            z-index: 4;
+            width: max-content;
+            max-width: 220px;
+            padding: 0.5rem 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 100px;
+            color: rgba(255, 255, 255, 0.72);
+            background: rgba(28, 25, 23, 0.68);
+            backdrop-filter: blur(8px);
+            font-size: 0.75rem;
             text-align: center;
+            transform: translateX(-50%);
         }
 
-        /* Live model-viewer (hidden by default, shown when .glb loaded) */
-        model-viewer {
-            width: 100%;
-            height: 100%;
-            border-radius: 24px;
-            background: transparent;
-            --poster-color: transparent;
+        .sorbet-stage:not([data-base="none"]) .preview-empty-message {
+            display: none;
         }
 
-        /* Scoops visualization */
+        .sorbet-base,
+        .sorbet-scoops,
+        .sorbet-toppings {
+            position: absolute;
+            inset: 0;
+        }
+
+        .base-body,
+        .base-rim {
+            position: absolute;
+            left: 50%;
+            display: block;
+            transform: translateX(-50%);
+            transition: all 0.35s var(--ease-out-expo);
+        }
+
+        .base-rim {
+            z-index: 4;
+            bottom: 86px;
+            width: 130px;
+            height: 24px;
+            border: 5px solid rgba(255, 255, 255, 0.78);
+            border-radius: 50%;
+            background: rgba(218, 243, 239, 0.55);
+            box-shadow: inset 0 -5px 10px rgba(20, 87, 76, 0.2);
+        }
+
+        .base-body {
+            z-index: 2;
+            bottom: 12px;
+            width: 112px;
+            height: 88px;
+            border: 3px solid rgba(255, 255, 255, 0.72);
+            border-radius: 12px 12px 34px 34px;
+            background: linear-gradient(105deg, rgba(255, 255, 255, 0.72), rgba(106, 211, 195, 0.35));
+            box-shadow: inset 12px 0 18px rgba(255, 255, 255, 0.22), 0 18px 22px rgba(0, 0, 0, 0.24);
+        }
+
+        .sorbet-stage[data-base="vaso-g"] .base-rim {
+            bottom: 82px;
+            width: 154px;
+        }
+
+        .sorbet-stage[data-base="vaso-g"] .base-body {
+            width: 136px;
+            height: 96px;
+        }
+
+        .sorbet-stage[data-base="cono"] .base-rim,
+        .sorbet-stage[data-base="barquillo"] .base-rim {
+            bottom: 96px;
+            width: 134px;
+            height: 17px;
+            border: 0;
+            background: #edb96e;
+            box-shadow: inset 0 -5px 7px rgba(112, 63, 22, 0.22), 0 3px 5px rgba(0, 0, 0, 0.18);
+        }
+
+        .sorbet-stage[data-base="cono"] .base-body {
+            bottom: 8px;
+            width: 124px;
+            height: 100px;
+            border: 0;
+            border-radius: 4px;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            background-color: #d99445;
+            background-image:
+                repeating-linear-gradient(58deg, transparent 0 14px, rgba(105, 58, 20, 0.35) 15px 17px),
+                repeating-linear-gradient(-58deg, transparent 0 14px, rgba(255, 235, 188, 0.35) 15px 17px);
+        }
+
+        .sorbet-stage[data-base="barquillo"] .base-rim {
+            bottom: 70px;
+            width: 170px;
+            height: 23px;
+        }
+
+        .sorbet-stage[data-base="barquillo"] .base-body {
+            bottom: 22px;
+            width: 154px;
+            height: 62px;
+            border: 0;
+            border-radius: 8px 8px 62px 62px;
+            background-color: #d99445;
+            background-image:
+                repeating-linear-gradient(58deg, transparent 0 14px, rgba(105, 58, 20, 0.3) 15px 17px),
+                repeating-linear-gradient(-58deg, transparent 0 14px, rgba(255, 235, 188, 0.34) 15px 17px);
+        }
+
+        .sorbet-scoop {
+            --scoop-color: #eee6da;
+            position: absolute;
+            z-index: 3;
+            left: 50%;
+            bottom: 78px;
+            width: 104px;
+            height: 100px;
+            display: none;
+            border: 3px solid rgba(255, 255, 255, 0.24);
+            border-radius: 52% 48% 45% 55% / 50% 55% 45% 50%;
+            background:
+                radial-gradient(circle at 29% 24%, rgba(255, 255, 255, 0.72) 0 7%, transparent 18%),
+                radial-gradient(circle at 68% 72%, rgba(40, 25, 20, 0.16) 0 6%, transparent 17%),
+                var(--scoop-color);
+            box-shadow: inset -12px -14px 22px rgba(52, 28, 18, 0.19), 0 10px 15px rgba(0, 0, 0, 0.23);
+            transform: translateX(-50%);
+            transition: all 0.35s var(--ease-out-expo);
+        }
+
+        .sorbet-scoop.active {
+            display: block;
+            animation: scoop-in 0.38s var(--ease-out-expo) both;
+        }
+
+        .sorbet-stage[data-count="1"] .sorbet-scoop[data-slot="1"] {
+            left: 50%;
+            bottom: 86px;
+        }
+
+        .sorbet-stage[data-count="2"] .sorbet-scoop[data-slot="1"] {
+            left: 38%;
+            bottom: 84px;
+        }
+
+        .sorbet-stage[data-count="2"] .sorbet-scoop[data-slot="2"] {
+            left: 62%;
+            bottom: 84px;
+        }
+
+        .sorbet-stage[data-count="3"] .sorbet-scoop[data-slot="1"] {
+            left: 50%;
+            bottom: 126px;
+            z-index: 5;
+        }
+
+        .sorbet-stage[data-count="3"] .sorbet-scoop[data-slot="2"] {
+            left: 34%;
+            bottom: 77px;
+        }
+
+        .sorbet-stage[data-count="3"] .sorbet-scoop[data-slot="3"] {
+            left: 66%;
+            bottom: 77px;
+        }
+
+        @keyframes scoop-in {
+            from { opacity: 0; transform: translate(-50%, -18px) scale(0.72) rotate(-8deg); }
+            to { opacity: 1; transform: translateX(-50%) scale(1) rotate(0); }
+        }
+
+        .topping-decoration {
+            position: absolute;
+            z-index: 7;
+            left: 50%;
+            top: 44px;
+            width: 118px;
+            height: 88px;
+            pointer-events: none;
+            transform: translateX(-50%);
+        }
+
+        .topping-decoration::before,
+        .topping-decoration::after {
+            content: '';
+            position: absolute;
+        }
+
+        .topping-decoration.chispas {
+            background-image: radial-gradient(#4a2b22 0 3px, transparent 4px);
+            background-size: 21px 17px;
+            transform: translateX(-50%) rotate(-8deg);
+        }
+
+        .topping-decoration.granola,
+        .topping-decoration.nueces {
+            background-image: radial-gradient(#d6a15c 0 4px, transparent 5px);
+            background-size: 24px 19px;
+        }
+
+        .topping-decoration.nueces {
+            background-image: radial-gradient(#e5c58e 0 5px, transparent 6px);
+            background-size: 30px 22px;
+            transform: translateX(-50%) rotate(11deg);
+        }
+
+        .topping-decoration.frutas::before,
+        .topping-decoration.frutas::after {
+            top: 10px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50% 50% 45% 55%;
+            box-shadow: 44px 18px 0 #ffc83d, 72px -2px 0 #7fc96e;
+        }
+
+        .topping-decoration.frutas::before { left: 5px; background: #ef4f62; }
+        .topping-decoration.frutas::after { display: none; }
+
+        .topping-decoration.mermelada::before,
+        .topping-decoration.chamoy::before {
+            left: 6px;
+            top: 18px;
+            width: 106px;
+            height: 38px;
+            border-top: 8px solid #d92575;
+            border-radius: 50%;
+            box-shadow: 0 -4px 0 rgba(255, 255, 255, 0.18);
+            transform: rotate(-8deg);
+        }
+
+        .topping-decoration.chamoy::before {
+            border-color: #e6542d;
+            transform: rotate(9deg);
+        }
+
         .preview-scoops {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            min-height: 30px;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .preview-scoop {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s var(--ease-out-expo);
+            gap: 0.35rem;
+            padding: 0.35rem 0.65rem;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 100px;
+            color: rgba(255, 255, 255, 0.86);
+            background: rgba(255, 255, 255, 0.08);
+            font-size: 0.68rem;
+            font-weight: 600;
         }
 
-        .preview-scoop.active {
-            border-color: var(--turquoise);
-            background: rgba(43, 191, 170, 0.2);
-            transform: scale(1.1);
+        .preview-scoop-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--scoop-color);
+            box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.18);
         }
 
-        .preview-scoop.empty {
-            opacity: 0.3;
+        .preview-selection-empty {
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 0.75rem;
         }
 
         /* Preview Summary */
@@ -3822,11 +4064,45 @@
         @media (max-width: 900px) {
             .modal-container {
                 grid-template-columns: 1fr;
+                grid-template-rows: 205px minmax(0, 1fr);
                 max-height: 95vh;
             }
 
             .modal-preview {
+                display: flex;
+                min-height: 0;
+                padding: 0.75rem 1rem;
+                overflow: visible;
+            }
+
+            .modal-preview::before,
+            .modal-preview::after,
+            .preview-header,
+            .preview-summary,
+            .preview-scoops {
                 display: none;
+            }
+
+            .preview-model {
+                min-height: 0;
+                height: 100%;
+                margin: 0;
+                overflow: visible;
+            }
+
+            .sorbet-stage {
+                height: 190px;
+                transform: scale(0.76);
+            }
+
+            .modal-close {
+                top: 0.75rem;
+                right: 0.75rem;
+            }
+
+            .modal-form {
+                min-height: 0;
+                height: auto;
             }
 
             .modal-form {
