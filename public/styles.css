@@ -96,9 +96,36 @@
             }
         }
 
+        .development-notice {
+            position: fixed;
+            inset: 0 0 auto;
+            z-index: 1100;
+            min-height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.025em;
+            text-align: center;
+        }
+
+        .development-notice i {
+            color: var(--mango);
+        }
+
+        .development-notice strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
         .nav {
             position: fixed;
-            top: 0;
+            top: 34px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -2841,7 +2868,14 @@
             }
 
             .nav {
+                top: 39px;
                 padding: 1rem 1.5rem;
+            }
+
+            .development-notice {
+                min-height: 39px;
+                font-size: 0.65rem;
+                padding: 0.4rem 0.75rem;
             }
 
             /* Forzar ocultamiento del botón negro */

@@ -17,9 +17,9 @@ El flujo de preórdenes tiene dos entradas:
 Ambos flujos crean un documento en `pedidos` y luego intentan enviar dos mensajes independientes:
 
 - Una alerta interna al negocio mediante **CallMeBot**.
-- Un comprobante tipo ticket al cliente mediante **TextMeBot**.
+- Un comprobante tipo ticket al cliente mediante una **API privada de WhatsApp alojada en AWS**.
 
-Actualmente esas llamadas se realizan desde el navegador. Esto funciona como prototipo, pero expone credenciales y no permite conocer con certeza si el proveedor aceptó o entregó el mensaje. La evolución recomendada es trasladar la creación del pedido y las notificaciones a una Cloud Function.
+La API privada recibe solamente el teléfono y el contenido del ticket; las credenciales de administración permanecen en el servidor. El pedido se persiste antes de notificar, de modo que una caída temporal de mensajería no elimina la preorden. El sitio sigue en desarrollo y pruebas; muestra un aviso persistente para comunicarlo a las personas visitantes.
 
 ## 2. Vista general
 
@@ -37,9 +37,12 @@ flowchart LR
     LEAD -->|addDoc| F
 
     CFG --> WA1[CallMeBot]
-    CFG --> WA2[TextMeBot]
+    CFG --> T[API privada de tickets]
     CART --> WA1
-    CART --> WA2
+    CART --> T
+    T --> CF[Túnel HTTPS Cloudflare]
+    CF --> AWS[FastAPI en AWS EC2]
+    AWS --> WAWEB[Sesión WhatsApp Web]
 
     STAFF[Personal autenticado] --> AUTH[Firebase Authentication]
     AUTH --> OPS[Panel de preórdenes]
@@ -61,7 +64,8 @@ flowchart LR
 | Identidad | Firebase Authentication | Acceso del personal a paneles internos |
 | Hosting | Firebase Hosting | Publicación de archivos dentro de `public/` |
 | Mensajería interna | CallMeBot | Aviso de nueva preorden al negocio |
-| Mensajería al cliente | TextMeBot | Ticket de preorden por WhatsApp |
+| API de tickets | FastAPI + Playwright | Envío del ticket mediante una sesión de WhatsApp Web |
+| Infraestructura de tickets | AWS EC2 + Cloudflare Tunnel | Ejecución persistente y acceso HTTPS a la API |
 | Escaneo | html5-qrcode | Lectura del QR de Rewards en caja |
 
 No hay `package.json`, bundler, framework ni backend propio dentro de este repositorio.
@@ -110,6 +114,7 @@ Firebase Hosting sirve `public/` como raíz. Por tanto:
 - Formulario de descuento.
 - Promoción y acceso a Isho's Rewards.
 - Integración con Firestore y proveedores de WhatsApp.
+- Aviso global de sitio en desarrollo y pruebas.
 
 La selección de sucursal usa las claves locales:
 
@@ -212,7 +217,8 @@ flowchart TD
 - Se exige al menos un sabor.
 - Se permiten como máximo tres.
 - Al alcanzar el límite, las opciones restantes reciben la clase `disabled`.
-- La previsualización se actualiza con iconos de Font Awesome.
+- La previsualización se actualiza en tiempo real con un sorbete construido en CSS: cambia la base, muestra de una a tres bolas con colores asociados a los sabores y representa los toppings elegidos.
+- La previsualización también se adapta a pantallas móviles.
 
 #### Paso 3: toppings
 
@@ -315,7 +321,7 @@ Luego realiza dos solicitudes en paralelo mediante `Promise.allSettled()`:
 | Destino | Proveedor | Objetivo |
 |---|---|---|
 | Negocio | CallMeBot | Avisar que entró una preorden |
-| Cliente | TextMeBot | Enviar el comprobante tipo ticket |
+| Cliente | API privada en AWS mediante túnel HTTPS | Enviar el comprobante tipo ticket |
 
 Los envíos son independientes: si uno falla, el otro puede continuar.
 
@@ -333,19 +339,32 @@ https://api.callmebot.com/whatsapp.php
 
 El mensaje administrativo incluye cliente, teléfono, número de ticket, sucursal, retiro y total.
 
-### 8.3 Ticket al cliente con TextMeBot
+### 8.3 Ticket al cliente mediante la API privada
 
-El navegador construye una solicitud GET equivalente a:
+El navegador envía un `POST` JSON al endpoint HTTPS `/ticket` de la API:
 
 ```text
-https://api.textmebot.com/send.php
-  ?recipient=<TELEFONO_CLIENTE>
-  &apikey=<API_KEY>
-  &text=<TICKET_CODIFICADO>
-  &json=yes
+POST https://<TUNEL_HTTPS>/ticket
+Content-Type: application/json
+
+{
+  "telefono": "+50370000000",
+  "texto": "<TICKET>"
+}
 ```
 
-`URLSearchParams` se encarga de codificar los parámetros.
+El túnel termina HTTPS y reenvía la solicitud a FastAPI en `127.0.0.1:8000` dentro de una instancia EC2. La aplicación y el túnel se ejecutan como servicios administrados por `systemd`, configurados para reiniciarse ante una caída. FastAPI valida teléfono y tamaño del mensaje, limita cada dirección a cinco solicitudes por minuto y serializa los envíos para evitar que dos pedidos controlen la misma sesión de WhatsApp simultáneamente.
+
+El servidor conserva además rutas operativas:
+
+| Ruta | Acceso | Finalidad |
+|---|---|---|
+| `POST /ticket` | Público con CORS limitado | Solicitar el ticket del cliente |
+| `GET /health` | Público | Comprobar disponibilidad del servicio |
+| `GET /enviar` | Clave administrativa | Prueba y envío manual controlado |
+| `GET /captura` | Clave administrativa | Consultar la captura operativa de WhatsApp |
+
+La aplicación solo escucha en `127.0.0.1:8000`; no expone el puerto de FastAPI directamente a internet. El túnel HTTPS es la única entrada pública prevista.
 
 El teléfono se normaliza con `normalizarTelefonoWhatsApp()`:
 
@@ -380,36 +399,42 @@ El carrito utiliza un formato equivalente, sustituyendo la personalización por 
 
 ### 8.5 Tolerancia a fallos actual
 
-- Cada `fetch` tiene un timeout de 12 segundos mediante `AbortController`.
-- Se usan `cache: 'no-store'` y `referrerPolicy: 'no-referrer'`.
-- Las solicitudes se ejecutan con `mode: 'no-cors'`.
-- Los rechazos se escriben en la consola.
+- La notificación interna conserva un timeout de 12 segundos y `mode: 'no-cors'`.
+- El ticket al cliente usa un timeout de 30 segundos en el navegador.
+- La respuesta de la API privada se valida; un HTTP no exitoso se trata como fallo.
+- Los rechazos se escriben en la consola sin registrar la clave privada.
 - El pedido permanece guardado aunque el proveedor falle.
 
-`mode: 'no-cors'` produce una respuesta opaca: el navegador puede confirmar que inició la solicitud, pero no leer el código HTTP ni el JSON del proveedor. En consecuencia, `ticketSolicitado: true` **no significa que WhatsApp entregó el mensaje**; solamente significa que `fetch` no lanzó una excepción local.
+Para el ticket, `ticketSolicitado: true` indica que la función obtuvo una respuesta HTTP exitosa
+del servicio de AWS. No garantiza por sí solo que WhatsApp haya entregado el mensaje; esa garantía
+depende de lo que reporte la API privada.
 
 ### 8.6 Restricción operativa detectada
 
-Durante la revisión, la cuenta asociada a TextMeBot reportó una suscripción **Lite**, limitada a enviar mensajes al mismo número emisor. Con ese plan, no se pueden enviar automáticamente tickets a teléfonos distintos de clientes, aunque el código sea correcto.
+La API de AWS se publica temporalmente mediante un túnel rápido de Cloudflare. Si el servicio del
+túnel se recrea, la URL puede cambiar; para producción conviene sustituirlo por un túnel con nombre
+y dominio estable.
 
-Para producción se necesita:
-
-- Un plan/proveedor que permita destinatarios externos, o
-- La API oficial de WhatsApp Business.
-
-TextMeBot también indica que su API está orientada a uso personal y advierte sobre el riesgo de bloqueo de la cuenta de WhatsApp. Esta limitación debe considerarse antes de usarla para pedidos comerciales.
+Esta es la principal dependencia operativa actual: una URL nueva exige actualizar `ISHOS_TICKET_API_URL` en `public/index.html` y volver a desplegar Firebase Hosting. Un dominio propio con un túnel nombrado elimina ese paso manual.
 
 ### 8.7 Seguridad de las credenciales
 
-Las claves actuales están declaradas dentro de `public/index.html`. Todo archivo bajo `public/` se entrega a cualquier visitante, de modo que esas claves deben considerarse públicas.
+El endpoint público `/ticket` no recibe la clave administrativa. La clave solo protege los endpoints
+manuales del servidor. La credencial restante de CallMeBot continúa en el frontend y debe considerarse pública.
 
 Acciones prioritarias:
 
 1. Rotar las claves actuales.
 2. No guardar nuevas claves en HTML, JavaScript público ni Git.
-3. Almacenarlas como secretos del entorno backend.
-4. Crear una función HTTPS o un trigger de Firestore que realice los envíos.
+3. Mover también la notificación interna de CallMeBot al backend.
+4. Añadir una validación del identificador de pedido además del límite por dirección IP.
 5. Registrar el resultado del proveedor sin guardar secretos ni el mensaje completo en logs.
+
+### 8.8 CORS y respuesta al cliente
+
+El backend permite solicitudes únicamente desde los dominios de Firebase Hosting y desde los orígenes locales de desarrollo autorizados. El navegador aplica un timeout de 30 segundos al ticket; si la API devuelve un estado no exitoso o un JSON con `ok: false`, se registra el fallo en consola y la preorden se conserva en Firestore.
+
+Una respuesta `ok: true` confirma que la API aceptó y procesó la solicitud de envío; no equivale a una confirmación final de entrega de WhatsApp.
 
 ## 9. Modelo de datos de Firestore
 
@@ -498,9 +523,9 @@ Firebase recomienda utilizar Authentication, reglas específicas y validación d
 ```mermaid
 sequenceDiagram
     participant U as Navegador
-    participant API as Cloud Function HTTPS
+    participant API as Backend HTTPS
     participant DB as Firestore
-    participant S as Secret Manager
+    participant S as Almacén de secretos
     participant WA as Proveedor WhatsApp
 
     U->>API: POST /orders + App Check
@@ -593,6 +618,18 @@ firebase deploy --only firestore:rules
 
 La segunda orden reemplaza las reglas activas por las definidas en `firestore.rules`; deben probarse antes de publicarlas.
 
+### Operación de la API de tickets
+
+La API no se despliega con Firebase. Vive en AWS EC2 y su código operativo está fuera de este repositorio, en el directorio del servicio de WhatsApp. Para una revisión operativa se debe comprobar, sin revelar secretos:
+
+```bash
+sudo systemctl status ishos-whatsapp
+sudo systemctl status ishos-tunnel
+curl -fsS https://<TUNEL_HTTPS>/health
+```
+
+Si el túnel rápido cambia de URL, hay que actualizar la constante pública de la landing y desplegar Hosting. No se deben abrir ni publicar las rutas administrativas sin su clave.
+
 ## 14. Estrategia mínima de pruebas
 
 ### Configurador
@@ -622,6 +659,9 @@ La segunda orden reemplaza las reglas activas por las definidas en `firestore.ru
 - Registro de error sin exponer credenciales.
 - Reintentos limitados y sin duplicar mensajes.
 - Confirmación basada en respuesta real del proveedor.
+- `POST /ticket` acepta el origen público autorizado y rechaza un origen ajeno.
+- `/health` informa que la API está disponible sin revelar información de la sesión.
+- El servidor reinicia correctamente la aplicación y el túnel.
 
 ## 15. Prioridades técnicas
 
@@ -631,6 +671,7 @@ La segunda orden reemplaza las reglas activas por las definidas en `firestore.ru
 2. Cerrar lectura pública de `pedidos` y `leads`.
 3. Restringir actualizaciones de pedidos a staff.
 4. Validar el esquema de creación de pedidos.
+5. Reemplazar el túnel rápido por un túnel nombrado y dominio estable.
 
 ### P1 — Fiabilidad
 
@@ -654,7 +695,7 @@ La segunda orden reemplaza las reglas activas por las definidas en `firestore.ru
 - [Cloud Firestore](https://firebase.google.com/docs/firestore)
 - [Firebase Security Rules](https://firebase.google.com/docs/rules)
 - [Condiciones en reglas de Firestore](https://firebase.google.com/docs/firestore/security/rules-conditions)
-- [TextMeBot: envío de mensajes](https://api.textmebot.com/web_send.php)
+- API privada de WhatsApp de Isho's Factory: `https://receptors-telling-knew-florists.trycloudflare.com/docs`
 - [CallMeBot: API de WhatsApp](https://www.callmebot.com/blog/free-api-whatsapp-messages/)
 
 ---

@@ -289,6 +289,11 @@
 
 <body>
 
+    <aside class="development-notice" role="status" aria-label="Estado del sitio">
+        <i class="fa-solid fa-flask" aria-hidden="true"></i>
+        <span><strong>Sitio en desarrollo</strong> · Estamos realizando pruebas y mejoras.</span>
+    </aside>
+
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
 
@@ -1659,16 +1664,12 @@
          ========================================== -->
     <script>
         const ISHOS_WHATSAPP = "50363067067";
-        const TEXTMEBOT_API_URL = "https://api.textmebot.com/send.php";
-        const TEXTMEBOT_API_KEY = "F8Paa2Ec6hMU";
+        const ISHOS_TICKET_API_URL = "https://receptors-telling-knew-florists.trycloudflare.com/ticket";
 
         /**
          * Envía la notificación interna por CallMeBot y el comprobante del
-         * cliente por TextMeBot. Ambos envíos son independientes: si uno
+         * cliente por la API privada de Isho's. Ambos envíos son independientes: si uno
          * falla, la preorden permanece guardada en Firebase.
-         *
-         * ⚠️ Ver nota de seguridad más arriba: estas claves están expuestas
-         * en el cliente. Ideal: mover esto a una Cloud Function.
          */
         function fetchConTiempoLimite(url, options = {}, timeoutMs = 12000) {
             const controller = new AbortController();
@@ -1684,26 +1685,46 @@
             return `+${digits}`;
         }
 
+        async function solicitarTicketCliente(telefonoCliente, mensajeCliente) {
+            const response = await fetchConTiempoLimite(ISHOS_TICKET_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    telefono: normalizarTelefonoWhatsApp(telefonoCliente),
+                    texto: mensajeCliente
+                }),
+                cache: 'no-store',
+                mode: 'cors',
+                referrerPolicy: 'no-referrer'
+            }, 30000);
+
+            let payload = null;
+            try {
+                payload = await response.json();
+            } catch (_) {
+                payload = null;
+            }
+
+            if (!response.ok || payload?.ok !== true) {
+                throw new Error(payload?.error || `La API de tickets respondió ${response.status}.`);
+            }
+
+            return payload;
+        }
+
         async function notificarPedido({ mensajeAdmin, telefonoCliente, mensajeCliente }) {
             const callMeBotUrl = `https://api.callmebot.com/whatsapp.php?source=web&phone=%2B${ISHOS_WHATSAPP}&apikey=6666426&text=${encodeURIComponent(mensajeAdmin)}&_t=${Date.now()}`;
-            const textMeBotParams = new URLSearchParams({
-                recipient: normalizarTelefonoWhatsApp(telefonoCliente),
-                apikey: TEXTMEBOT_API_KEY,
-                text: mensajeCliente,
-                json: 'yes'
-            });
-            const textMeBotUrl = `${TEXTMEBOT_API_URL}?${textMeBotParams.toString()}`;
 
             const [adminResult, ticketResult] = await Promise.allSettled([
                 fetchConTiempoLimite(callMeBotUrl, { mode: 'no-cors', cache: 'no-store', referrerPolicy: 'no-referrer' }),
-                fetchConTiempoLimite(textMeBotUrl, { mode: 'no-cors', cache: 'no-store', referrerPolicy: 'no-referrer' })
+                solicitarTicketCliente(telefonoCliente, mensajeCliente)
             ]);
 
             if (adminResult.status === 'rejected') {
                 console.error('No se pudo enviar la notificación interna:', adminResult.reason);
             }
             if (ticketResult.status === 'rejected') {
-                console.error('No se pudo solicitar el envío del comprobante por TextMeBot:', ticketResult.reason);
+                console.error('No se pudo enviar el comprobante por la API privada:', ticketResult.reason);
             }
 
             return {
