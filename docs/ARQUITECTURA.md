@@ -701,3 +701,37 @@ Si el túnel rápido cambia de URL, hay que actualizar la constante pública de 
 ---
 
 Este documento describe el código existente; no implica que las credenciales, reglas o proveedores actuales sean adecuados para producción.
+
+## 17. Medición digital y tablero GA4
+
+La propiedad GA4 `ishos-factory-web` (`G-9CF5Q1LE3B`) alimenta el tablero de Looker Studio. La fuente mide únicamente el comportamiento en el sitio web; no sustituye los datos nativos de Instagram, TikTok, Meta Business Suite, Google Business Profile ni la entrega confirmada por el proveedor de WhatsApp.
+
+### Eventos implementados
+
+| Evento | Momento | Propósito |
+| --- | --- | --- |
+| `generate_lead` | Se guarda el formulario del cupón | Medir captación del 10%. |
+| `whatsapp_coupon_click` | El visitante abre el enlace para guardar el cupón | Medir intención de conversación desde la promoción. |
+| `select_branch` | Se elige una sucursal | Identificar preferencia de punto de venta. |
+| `configurator_start` | Se abre el configurador | Medir inicio de personalización. |
+| `configurator_step` | Se avanza a un paso del configurador | Detectar abandono entre base, sabores y toppings. |
+| `add_to_cart` | Se agrega un producto directo | Medir interés por el catálogo. |
+| `begin_checkout` | Se abre el formulario de preorden del carrito | Medir intención de preorden. |
+| `preorder_submit` | La preorden se guarda en Firestore | Conversión principal de la web. |
+
+Los eventos no incluyen nombre, teléfono, código de cupón ni número de pedido. `preorder_submit` no se registra como `purchase`: la operación es una preorden y el pago se realiza posteriormente en sucursal.
+
+### KPI y fuentes
+
+| KPI del plan | Fuente recomendada | Cadencia |
+| --- | --- | --- |
+| Vistas, usuarios, sesiones y adquisición | GA4 / Looker Studio | Semanal |
+| Inicio y avance del configurador | Evento GA4 | Semanal |
+| Leads del cupón y clic a WhatsApp | Eventos GA4 + colección `leads` | Semanal |
+| Preórdenes web | Evento `preorder_submit` + colección `pedidos` | Diario/Semanal |
+| Sucursal preferida | Parámetro `branch` de eventos y pedidos | Mensual |
+| Alcance, engagement, seguidores y video views | Instagram Insights, TikTok Analytics, Meta Business Suite | Semanal |
+| Reseñas positivas | Google Business Profile | Mensual |
+| Ventas cobradas | Sistema de caja / conciliación de pedidos | Semanal |
+
+El tablero está disponible en [Looker Studio](https://datastudio.google.com/reporting/811e074e-e08e-43e4-9cf6-8e11c634ac89/page/R3IAG/edit). Los eventos nuevos aparecen en GA4 tras recibir tráfico publicado y, normalmente, requieren hasta 24 horas para estar disponibles con estabilidad en los informes.

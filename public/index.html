@@ -1522,7 +1522,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmzswJ9O93JJ6FIeKrmzTX9vo7fj4B1pg",
@@ -1544,6 +1544,15 @@
         window.addDoc = addDoc;
         window.collection = collection;
         window.serverTimestamp = serverTimestamp;
+        // Eventos de analítica: nunca se envían nombre, teléfono, cupón ni
+        // número de preorden. Así podemos medir el embudo sin exponer PII.
+        window.trackIshosEvent = (eventName, parameters = {}) => {
+            try {
+                logEvent(analytics, eventName, parameters);
+            } catch (error) {
+                console.warn('No se pudo registrar el evento de analítica:', eventName, error);
+            }
+        };
 
         // ---------------------------------------------------------------
         // ⚠️ NOTA DE SEGURIDAD IMPORTANTE
@@ -1601,6 +1610,10 @@
                     fuente: "landing_ishos",
                     convertido: false
                 });
+                window.trackIshosEvent('generate_lead', {
+                    lead_source: 'welcome_offer',
+                    favorite_flavor: sabor
+                });
 
                 const wrapper = document.getElementById('lead-form-wrapper');
                 if (wrapper) wrapper.style.display = 'none';
@@ -1623,6 +1636,7 @@
                 const waLink = document.getElementById('whatsapp-link');
                 waLink.href = `https://wa.me/${whatsappLimpio}?text=${mensajeAuto}`;
                 waLink.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Guardar cupón en mi WhatsApp';
+                waLink.onclick = () => window.trackIshosEvent('whatsapp_coupon_click', { source: 'welcome_offer' });
 
                 successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
@@ -1856,6 +1870,9 @@
                     e.preventDefault();
                     modal.classList.add('active');
                     document.body.classList.add('modal-open');
+                    window.trackIshosEvent?.('configurator_start', {
+                        entry_point: btn.id || 'site_navigation'
+                    });
                 });
             });
 
@@ -1880,6 +1897,9 @@
                 });
 
                 if (stepNum === 4) generateTicket();
+                if (stepNum > 1) {
+                    window.trackIshosEvent?.('configurator_step', { step: stepNum });
+                }
             }
 
             toStep2Btn.addEventListener('click', () => goToStep(2));
@@ -2109,6 +2129,15 @@
                             telefonoCliente: telefono,
                             mensajeCliente: ticketParaCliente
                         });
+                        window.trackIshosEvent?.('preorder_submit', {
+                            order_origin: 'configurator',
+                            branch: sucursal,
+                            pickup_window: retiro,
+                            value: state.total,
+                            currency: 'USD',
+                            items_count: 1,
+                            ticket_requested: notificationResult.ticketSolicitado
+                        });
 
                         confirmOrderBtn.style.display = 'none';
                         document.querySelector('.configurator-customer-fields').style.display = 'none';
@@ -2196,6 +2225,11 @@
                 cart[name] = cart[name] ? { price, qty: cart[name].qty + 1 } : { price, qty: 1 };
                 updateCart();
                 showCartConfirmation(name);
+                window.trackIshosEvent?.('add_to_cart', {
+                    currency: 'USD',
+                    value: price,
+                    items: [{ item_name: name, price, quantity: 1 }]
+                });
             });
         });
 
@@ -2258,6 +2292,13 @@
         if (cartCheckoutBtn) {
             cartCheckoutBtn.addEventListener('click', () => {
                 if (Object.keys(cart).length === 0) return;
+                const checkoutItems = Object.entries(cart).filter(([, item]) => item.qty > 0);
+                const checkoutValue = checkoutItems.reduce((total, [, item]) => total + item.price * item.qty, 0);
+                window.trackIshosEvent?.('begin_checkout', {
+                    currency: 'USD',
+                    value: checkoutValue,
+                    items: checkoutItems.map(([item_name, item]) => ({ item_name, price: item.price, quantity: item.qty }))
+                });
                 cartOverlay.classList.remove('active');
                 checkoutOverlay.classList.add('active');
             });
@@ -2337,6 +2378,15 @@
                         mensajeAdmin: adminMsgCarrito,
                         telefonoCliente: tel,
                         mensajeCliente: ticketCarritoCliente
+                    });
+                    window.trackIshosEvent?.('preorder_submit', {
+                        order_origin: 'cart',
+                        branch: sucursal,
+                        pickup_window: retiro,
+                        value: total,
+                        currency: 'USD',
+                        items_count: items.reduce((count, [, item]) => count + item.qty, 0),
+                        ticket_requested: notificationResult.ticketSolicitado
                     });
 
                     checkoutOverlay.classList.remove('active');
@@ -2442,13 +2492,17 @@
             branchChoices.forEach(choice => {
                 choice.addEventListener('click', () => {
                     syncBranch(choice.dataset.branch);
+                    window.trackIshosEvent?.('select_branch', { branch: choice.dataset.branch });
                     closeBranchSelector(false);
                 });
             });
 
             branchSelects.forEach(select => {
                 select.addEventListener('change', () => {
-                    if (validBranches.has(select.value)) syncBranch(select.value);
+                    if (validBranches.has(select.value)) {
+                        syncBranch(select.value);
+                        window.trackIshosEvent?.('select_branch', { branch: select.value });
+                    }
                 });
             });
 
